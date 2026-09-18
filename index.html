@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="description" content="LA PIANOLA · Salteñas tradicionales desde 1994. Catálogo online, promociones y atención por WhatsApp en Yacuiba, Bolivia.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>LA PIANOLA | Salteñas – Tradición y sabor desde 1994 en Yacuiba</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+--primary: #b30000;
+--primary-dark: #8b0000;
+--accent: #ffc107;
+--accent-light: #ffe082;
+--bg: #1a1a1a;
+--surface: #2a2a2a;
+--text: #ffffff;
+--dim: #cccccc;
+--muted: #888888;
+--border: #333333;
+--dark: #000000;
+--dark-2: #111111;
+--wa: #25D366;
+--safe-b: env(safe-area-inset-bottom, 0px);
+--header-h: 108px;
+--tab-h: 60px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+font-family: 'Inter', sans-serif;
+background: var(--bg);
+color: var(--text);
+padding-top: var(--header-h);
+padding-bottom: calc(var(--tab-h) + var(--safe-b));
+}
+body.product-open { padding-top: 56px; }
+body.desktop { padding-bottom: 0; padding-top: 0; }
+/* ═══ TIPOGRAFÍA INDUSTRIAL ═══ */
+h1,h2,h3 {
+font-family: 'Oswald', sans-serif;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-weight: 600;
+}
+h1 { font-weight: 700; }
+/* —— Header fijo con buscador —— */
+.app-header {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 2000;
+background: rgba(26,26,26,0.98);
+backdrop-filter: blur(16px);
+border-bottom: 1px solid var(--border);
+}
+.announcement {
+background: var(--primary);
+color: #fff;
+text-align: center;
+padding: 8px 12px;
+font-size: 0.6rem;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-family: 'Oswald', sans-serif;
+}
+.header-inner { width: 100%; }
+.header-row {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 10px 16px;
+}
+.header-row .logo-btn { flex-shrink: 0; }
+.header-row .search-sticky { flex: 1; min-width: 0; }
+.icon-btn {
+width: 42px; height: 42px;
+border: none;
+background: var(--surface);
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1rem;
+flex-shrink: 0;
+color: var(--text);
+}
+.logo-btn {
+background: none;
+border: none;
+font-family: 'Oswald', sans-serif;
+font-size: 1.5rem;
+font-weight: 700;
+letter-spacing: 4px;
+cursor: pointer;
+flex-shrink: 0;
+color: var(--accent);
+}
+.search-sticky {
+flex: 1;
+display: flex;
+align-items: center;
+gap: 10px;
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 100px;
+padding: 10px 16px;
+min-width: 0;
+}
+.search-sticky i { color: var(--muted); font-size: 0.85rem; }
+.search-sticky input {
+border: none;
+background: transparent;
+outline: none;
+width: 100%;
+font-size: 0.85rem;
+color: var(--text);
+}
+.search-sticky input::placeholder { color: var(--muted); }
+.cart-btn { position: relative; }
+.cart-badge {
+position: absolute;
+top: 0; right: 0;
+background: var(--accent);
+color: #1a1a1a;
+font-size: 0.55rem;
+font-weight: 700;
+min-width: 17px;
+height: 17px;
+border-radius: 9px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 2px solid var(--surface);
+}
+/* —— Vistas —— */
+.view { display: none; min-height: calc(100vh - var(--header-h) - var(--tab-h)); }
+.view.active { display: block; }
+body.product-open .view:not(#view-product) { display: none !important; }
+body.product-open #view-product { display: block !important; }
+/* —— Menú lateral —— */
+.overlay {
+position: fixed; inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 2500;
+opacity: 0;
+visibility: hidden;
+transition: 0.3s;
+}
+.overlay.show { opacity: 1; visibility: visible; }
+.menu-sidebar {
+position: fixed;
+top: 0; left: -100%;
+width: min(320px, 88vw);
+height: 100%;
+height: 100dvh;
+background: var(--surface);
+z-index: 2600;
+transition: left 0.35s cubic-bezier(0.32,0.72,0,1);
+display: flex;
+flex-direction: column;
+box-shadow: 8px 0 32px rgba(0,0,0,0.5);
+}
+.menu-sidebar.open { left: 0; }
+.menu-head {
+padding: 20px;
+border-bottom: 1px solid var(--border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.menu-head h2 { font-size: 1.2rem; color: var(--accent); }
+.menu-body { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
+.menu-footer {
+flex-shrink: 0;
+padding: 16px 20px calc(16px + var(--safe-b));
+border-top: 1px solid var(--border);
+text-align: center;
+background: var(--dark);
+}
+.menu-footer a {
+font-size: 0.72rem;
+color: var(--muted);
+text-decoration: none;
+letter-spacing: 0.5px;
+transition: color 0.2s;
+}
+.menu-footer a:hover { color: var(--accent); }
+.menu-footer strong {
+color: var(--accent);
+font-weight: 700;
+letter-spacing: 1.5px;
+}
+.mobile-only { display: block; }
+.desktop-only { display: none; }
+.menu-label {
+padding: 16px 20px 8px;
+font-size: 0.65rem;
+font-weight: 700;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(--muted);
+font-family: 'Oswald', sans-serif;
+}
+.menu-link {
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 14px 20px;
+border: none;
+background: none;
+width: 100%;
+text-align: left;
+font-size: 0.9rem;
+cursor: pointer;
+color: var(--text);
+transition: background 0.15s;
+}
+.menu-link:hover, .menu-link:active { background: var(--border); }
+.menu-link i { width: 20px; color: var(--primary); }
+.menu-promo {
+margin: 8px 16px;
+padding: 14px;
+background: linear-gradient(135deg, var(--dark), var(--primary-dark) 60%, var(--primary));
+border-radius: 12px;
+color: #fff;
+cursor: pointer;
+}
+.menu-promo strong { display: block; font-size: 0.85rem; margin-bottom: 4px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+.menu-promo span { font-size: 0.72rem; opacity: 0.85; }
+/* —— Home: carrusel de portada —— */
+.hero-carousel {
+position: relative;
+overflow: hidden;
+aspect-ratio: 4/3;
+background: var(--surface);
+}
+.hero-slide {
+position: absolute;
+inset: 0;
+opacity: 0;
+transition: opacity 1s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+body.desktop .hero-slide {
+background-size: cover;
+background-position: center;
+}
+body.desktop .hero-slide::before {
+content: '';
+position: absolute;
+inset: 0;
+background-image: inherit;
+background-size: cover;
+background-position: center;
+filter: blur(50px) brightness(0.3) saturate(1.2);
+transform: scale(1.4);
+z-index: 0;
+}
+body.desktop .hero-slide::after {
+content: '';
+position: absolute;
+inset: 0;
+background: linear-gradient(165deg, rgba(179,0,0,0.55) 0%, rgba(0,0,0,0.7) 100%);
+z-index: 0;
+}
+body.desktop .hero-slide img {
+position: relative;
+z-index: 1;
+object-fit: contain;
+box-sizing: border-box;
+padding: 26px;
+filter: drop-shadow(0 22px 34px rgba(0,0,0,0.6));
+opacity: 0;
+transform: scale(0.94);
+transition: opacity 0.8s ease 0.15s, transform 0.9s cubic-bezier(0.22,0.85,0.3,1) 0.15s;
+}
+body.desktop .hero-slide.active img { opacity: 1; transform: scale(1); }
+.hero-dots {
+position: absolute;
+bottom: 12px;
+left: 0; right: 0;
+display: flex;
+justify-content: center;
+gap: 6px;
+z-index: 2;
+}
+.hero-dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: rgba(255,255,255,0.5);
+border: none;
+padding: 0;
+cursor: pointer;
+transition: background 0.2s, width 0.2s;
+}
+.hero-dot.active { background: var(--accent); width: 20px; border-radius: 4px; }
+.section-title {
+padding: 24px 16px 12px;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+.section-title h2 { font-size: 1.4rem; letter-spacing: 1.5px; color: #fff; }
+.section-title span { font-size: 0.75rem; color: var(--dim); }
+.link-btn {
+background: none; border: none;
+color: var(--accent);
+font-size: 0.72rem;
+font-weight: 700;
+text-transform: uppercase;
+cursor: pointer;
+font-family: 'Oswald', sans-serif;
+letter-spacing: 1px;
+display: flex;
+align-items: center;
+gap: 5px;
+white-space: nowrap;
+}
+.link-btn i { font-size: 0.65rem; }
+.cat-section { border-top: 1px solid var(--border); }
+.cat-section:first-child { border-top: none; }
+.cat-section-title { padding: 22px 16px 12px; align-items: center; }
+.cat-section-title h2 { font-size: 1.15rem; }
+.cat-eyebrow {
+display: block;
+font-family: 'Oswald', sans-serif;
+font-size: 0.62rem;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(--accent);
+margin-bottom: 3px;
+}
+.promo-scroll, .cat-scroll {
+display: flex;
+gap: 12px;
+overflow-x: auto;
+padding: 0 16px 16px;
+scroll-snap-type: x mandatory;
+scrollbar-width: none;
+}
+.promo-scroll::-webkit-scrollbar, .cat-scroll::-webkit-scrollbar { display: none; }
+.promo-card {
+flex: 0 0 88%;
+scroll-snap-align: start;
+border-radius: 14px;
+overflow: hidden;
+aspect-ratio: 4/3;
+position: relative;
+cursor: pointer;
+background: var(--surface);
+}
+.promo-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.promo-body {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 40px 20px 18px;
+background: linear-gradient(to top, rgba(179,0,0,0.95) 0%, rgba(179,0,0,0.6) 45%, transparent 100%);
+color: #fff;
+z-index: 1;
+}
+.promo-body .badge {
+font-size: 0.62rem;
+font-weight: 700;
+background: var(--accent);
+color: #1a1a1a;
+padding: 4px 9px;
+border-radius: 4px;
+align-self: flex-start;
+margin-bottom: 8px;
+display: inline-block;
+font-family: 'Oswald', sans-serif;
+letter-spacing: 1px;
+}
+.promo-body strong {
+display: block;
+font-size: 1.25rem;
+font-family: 'Oswald', sans-serif;
+text-transform: uppercase;
+letter-spacing: 0.8px;
+line-height: 1.15;
+margin-bottom: 4px;
+text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.promo-body p {
+font-size: 0.78rem;
+opacity: 0.95;
+margin: 0;
+}
+.badge { font-size: 0.6rem; font-weight: 700; background: var(--accent); color: #1a1a1a; padding: 4px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 6px; }
+.cat-card {
+flex: 0 0 42%;
+scroll-snap-align: start;
+aspect-ratio: 3/4;
+border-radius: 12px;
+overflow: hidden;
+position: relative;
+cursor: pointer;
+}
+.cat-card img { width: 100%; height: 100%; object-fit: cover; }
+.cat-card span {
+position: absolute; bottom: 0; left: 0; right: 0;
+padding: 16px;
+background: linear-gradient(transparent, rgba(179,0,0,0.9));
+color: #fff;
+font-family: 'Oswald', sans-serif;
+font-size: 1.1rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+/* —— Tienda grid —— */
+.filters {
+display: flex;
+gap: 8px;
+padding: 0 16px 16px;
+overflow-x: auto;
+scrollbar-width: none;
+}
+#shop-filters {
+position: sticky;
+top: var(--header-h);
+z-index: 1500;
+background: var(--bg);
+padding-top: 12px;
+box-shadow: 0 6px 10px -8px rgba(0,0,0,0.5);
+}
+.filter-chip {
+flex-shrink: 0;
+display: inline-flex;
+align-items: center;
+gap: 7px;
+padding: 6px 8px 6px 16px;
+border-radius: 100px;
+border: 1px solid var(--border);
+background: var(--surface);
+}
+.filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.filter-chip-btn {
+border: none;
+background: none;
+padding: 0;
+font-size: 0.72rem;
+font-weight: 600;
+text-transform: uppercase;
+cursor: pointer;
+font-family: 'Oswald', sans-serif;
+letter-spacing: 0.8px;
+color: inherit;
+white-space: nowrap;
+}
+.filter-chip-count {
+font-size: 0.62rem;
+font-weight: 700;
+background: rgba(255,255,255,0.1);
+color: inherit;
+padding: 3px 8px;
+border-radius: 100px;
+font-family: 'Oswald', sans-serif;
+}
+.filter-chip.active .filter-chip-count { background: rgba(255,255,255,0.25); }
+.filter-chip-share {
+width: 24px;
+height: 24px;
+flex-shrink: 0;
+border-radius: 50%;
+border: none;
+background: rgba(255,255,255,0.1);
+color: inherit;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 0.6rem;
+}
+.filter-chip.active .filter-chip-share { background: rgba(255,255,255,0.25); }
+.card-float-share {
+position: absolute;
+top: 10px; right: 10px;
+width: 32px; height: 32px;
+border-radius: 50%;
+border: none;
+background: rgba(0,0,0,0.7);
+color: var(--accent);
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 0.75rem;
+z-index: 2;
+}
+.grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 14px;
+padding: 0 16px 24px;
+}
+.card {
+width: 100%;
+text-align: left;
+}
+.card-img-btn, .card-info {
+display: block;
+width: 100%;
+border: none;
+background: none;
+padding: 0;
+text-align: left;
+font-family: inherit;
+color: inherit;
+cursor: pointer;
+}
+.card-img {
+aspect-ratio: 1/1;
+border-radius: 12px;
+overflow: hidden;
+background: var(--surface);
+margin-bottom: 10px;
+position: relative;
+}
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.brand-tag {
+position: absolute;
+top: 8px;
+left: 8px;
+background: rgba(0,0,0,0.8);
+color: var(--accent);
+font-family: 'Oswald', sans-serif;
+font-size: 0.6rem;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+padding: 4px 9px;
+border-radius: 100px;
+z-index: 2;
+}
+.card h4 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; margin-bottom: 4px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+.card .sku { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 4px; }
+.card .row { display: flex; justify-content: space-between; align-items: center; }
+.card .price { font-weight: 700; font-size: 0.9rem; color: var(--accent); font-family: 'Oswald', sans-serif; }
+.card-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+.card-actions-row { display: flex; gap: 6px; }
+.card-btn {
+width: 100%;
+min-width: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+background: var(--primary);
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 0 8px;
+height: 36px;
+font-size: 0.66rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.4px;
+font-family: 'Oswald', sans-serif;
+cursor: pointer;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.card-btn-wa {
+flex: 1;
+min-width: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+background: rgba(37,211,102,0.15);
+color: #25D366;
+border: 1px solid rgba(37,211,102,0.3);
+border-radius: 8px;
+padding: 0 8px;
+height: 34px;
+font-size: 0.64rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.4px;
+font-family: 'Oswald', sans-serif;
+cursor: pointer;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.card-icon-btn {
+width: 34px;
+height: 34px;
+flex-shrink: 0;
+border-radius: 8px;
+border: 1px solid var(--border);
+background: var(--surface);
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+color: var(--text);
+font-size: 0.82rem;
+}
+.card-icon-btn.wa { background: var(--wa); border-color: var(--wa); color: #fff; }
+/* —— Página producto —— */
+#view-product { padding-bottom: 100px; }
+.pd-topbar {
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 56px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 12px;
+background: rgba(26,26,26,0.98);
+backdrop-filter: blur(12px);
+z-index: 2100;
+border-bottom: 1px solid var(--border);
+}
+.pd-gallery { background: var(--surface); }
+.pd-main-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+.pd-thumbs {
+display: flex;
+gap: 8px;
+padding: 12px 16px;
+overflow-x: auto;
+}
+.pd-thumb {
+flex-shrink: 0;
+width: 64px;
+height: 80px;
+border-radius: 8px;
+overflow: hidden;
+border: 2px solid transparent;
+cursor: pointer;
+padding: 0;
+background: none;
+}
+.pd-thumb.active { border-color: var(--accent); }
+.pd-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pd-body { padding: 20px 16px; max-width: 720px; margin: 0 auto; }
+.pd-breadcrumb { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Oswald', sans-serif; }
+.pd-breadcrumb button { background: none; border: none; color: var(--accent); cursor: pointer; font-size: inherit; }
+.pd-name { font-size: 1.6rem; line-height: 1.15; margin-bottom: 8px; color: #fff; }
+.pd-sku { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
+.pd-sku code { background: var(--surface); padding: 2px 8px; border-radius: 4px; font-family: monospace; color: var(--accent); }
+.pd-price { font-size: 1.6rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; font-family: 'Oswald', sans-serif; }
+.pd-stock { font-size: 0.75rem; color: #25D366; margin-bottom: 20px; }
+.opt-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+.pd-tabs {
+display: flex;
+gap: 0;
+border-bottom: 1px solid var(--border);
+margin: 24px 0 16px;
+}
+.pd-tab {
+flex: 1;
+padding: 12px;
+border: none;
+background: none;
+font-size: 0.75rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+color: var(--muted);
+cursor: pointer;
+border-bottom: 2px solid transparent;
+margin-bottom: -1px;
+font-family: 'Oswald', sans-serif;
+}
+.pd-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.pd-panel { display: none; font-size: 0.9rem; line-height: 1.7; color: var(--dim); }
+.pd-panel.active { display: block; }
+.detail-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.detail-table td { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.detail-table td:first-child { color: var(--muted); width: 40%; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+.pd-sticky-bar {
+position: fixed;
+bottom: calc(var(--tab-h) + var(--safe-b));
+left: 0; right: 0;
+padding: 12px 16px;
+background: var(--surface);
+border-top: 1px solid var(--border);
+z-index: 2050;
+display: flex;
+gap: 12px;
+align-items: center;
+}
+body.product-open .pd-sticky-bar { bottom: var(--safe-b); }
+body.desktop.product-open .pd-sticky-bar { bottom: 0; }
+.pd-sticky-bar .price-mini { font-weight: 700; font-size: 1rem; flex: 1; color: var(--accent); font-family: 'Oswald', sans-serif; }
+.btn-add {
+flex: 2;
+background: var(--primary);
+color: #fff;
+border: none;
+padding: 14px 20px;
+border-radius: 8px;
+font-weight: 700;
+font-size: 0.78rem;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+font-family: 'Oswald', sans-serif;
+}
+/* —— Nosotros —— */
+.about-hero {
+background: var(--dark);
+color: #fff;
+padding: 40px 24px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+.about-hero::after {
+content: 'LA PIANOLA';
+position: absolute;
+right: -20px;
+bottom: -55px;
+font: 800 6rem/1 'Oswald',sans-serif;
+color: rgba(179,0,0,0.1);
+letter-spacing: 6px;
+}
+.about-hero h1 { font-size: 2.2rem; margin-bottom: 8px; color: var(--accent); position: relative; z-index: 1; }
+.about-hero p { color: var(--dim); position: relative; z-index: 1; }
+.about-content { padding: 24px 16px; max-width: 640px; margin: 0 auto; }
+.about-block { margin-bottom: 28px; }
+.about-block h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--accent); }
+.about-block p { font-size: 0.9rem; line-height: 1.7; color: var(--dim); }
+.about-info {
+display: grid;
+gap: 12px;
+margin-top: 20px;
+}
+.info-card {
+display: flex;
+gap: 14px;
+padding: 16px;
+background: var(--surface);
+border-radius: 12px;
+align-items: flex-start;
+border: 1px solid var(--border);
+}
+.info-card i { color: var(--primary); font-size: 1.1rem; margin-top: 2px; }
+.info-card strong { display: block; font-size: 0.85rem; margin-bottom: 4px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+.info-card span { font-size: 0.8rem; color: var(--dim); }
+/* —— Sucursales —— */
+.branches-section { margin-bottom: 28px; }
+.branches-intro { font-size: 0.88rem; color: var(--dim); line-height: 1.6; margin: 6px 0 16px; }
+.branches-grid { display: grid; gap: 16px; }
+.branch-card {
+border: 1px solid var(--border);
+border-radius: 14px;
+padding: 18px;
+background: var(--surface);
+}
+.branch-head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+.branch-logo {
+width: 52px; height: 52px;
+border-radius: 12px;
+background: var(--primary);
+color: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Oswald', sans-serif;
+font-weight: 700;
+font-size: 1.1rem;
+flex-shrink: 0;
+}
+.branch-name { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+.branch-loc { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--dim); margin-top: 2px; }
+.branch-loc i { color: var(--accent); font-size: 0.7rem; }
+.branch-rows { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.branch-row { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--text); }
+.branch-row i { color: var(--primary); width: 16px; margin-top: 3px; font-size: 0.85rem; }
+.branch-social { display: flex; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
+.branch-social a {
+width: 38px; height: 38px;
+border-radius: 50%;
+background: var(--dark);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--accent);
+text-decoration: none;
+font-size: 1rem;
+}
+.branch-social a.wa { color: var(--wa); }
+/* —— Portafolio de proyectos —— */
+.portfolio-section { margin-bottom: 28px; }
+.portfolio-intro { font-size: 0.88rem; color: var(--dim); line-height: 1.6; margin: 6px 0 16px; }
+.portfolio-filters { padding: 0 0 14px; }
+.portfolio-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 12px;
+}
+.portfolio-card-wrap { position: relative; }
+.portfolio-card {
+position: relative;
+cursor: pointer;
+border: none;
+padding: 0;
+background: var(--surface);
+font-family: inherit;
+text-align: left;
+border-radius: 12px;
+overflow: hidden;
+aspect-ratio: 1/1;
+width: 100%;
+display: block;
+}
+.portfolio-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s ease; }
+.portfolio-card:hover img { transform: scale(1.06); }
+.portfolio-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(transparent 42%, rgba(179,0,0,0.95));
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 14px;
+color: #fff;
+text-align: left;
+}
+.portfolio-overlay .badge { align-self: flex-start; margin-bottom: 6px; }
+.portfolio-overlay strong {
+display: block;
+font-size: 0.82rem;
+font-family: 'Oswald', sans-serif;
+text-transform: uppercase;
+letter-spacing: 0.4px;
+line-height: 1.25;
+}
+.portfolio-overlay span { font-size: 0.66rem; opacity: 0.85; display: block; margin-top: 3px; }
+.portfolio-overlay span i { margin-right: 4px; }
+/* Modal / lightbox de proyecto */
+.pf-modal-overlay {
+position: fixed; inset: 0;
+background: rgba(0,0,0,0.8);
+z-index: 4000;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.25s;
+}
+.pf-modal-overlay.show { opacity: 1; visibility: visible; }
+.pf-modal {
+position: fixed;
+left: 50%; top: 50%;
+transform: translate(-50%,-50%) scale(0.96);
+width: min(560px, 92vw);
+max-height: 88vh;
+overflow-y: auto;
+background: var(--surface);
+border-radius: 16px;
+z-index: 4100;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.25s, transform 0.25s;
+}
+.pf-modal.show { opacity: 1; visibility: visible; transform: translate(-50%,-50%) scale(1); }
+.pf-modal-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+.pf-modal-thumbs {
+display: flex;
+gap: 8px;
+padding: 12px 22px 0;
+overflow-x: auto;
+scrollbar-width: none;
+}
+.pf-modal-thumbs:empty { display: none; padding: 0; }
+.pf-modal-thumbs::-webkit-scrollbar { display: none; }
+.pf-modal-thumb {
+flex-shrink: 0;
+width: 64px;
+height: 64px;
+border-radius: 8px;
+overflow: hidden;
+border: 2px solid transparent;
+cursor: pointer;
+padding: 0;
+background: none;
+}
+.pf-modal-thumb.active { border-color: var(--accent); }
+.pf-modal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pf-modal-body { padding: 22px; }
+.pf-modal-close {
+position: absolute; top: 12px; right: 12px;
+width: 36px; height: 36px; border-radius: 50%;
+background: rgba(0,0,0,0.7); border: none;
+display: flex; align-items: center; justify-content: center;
+cursor: pointer; z-index: 2; color: #fff;
+}
+.pf-modal-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-family: 'Oswald', sans-serif; margin-bottom: 8px; }
+.pf-modal-body h3 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
+.pf-modal-body p.pf-modal-desc { font-size: 0.88rem; line-height: 1.65; color: var(--dim); margin-bottom: 20px; }
+@media (min-width: 769px) {
+.portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+}
+/* —— Carrito —— */
+.cart-panel {
+position: fixed;
+top: 0; right: -100%;
+width: min(400px, 100%);
+height: 100dvh;
+background: var(--surface);
+z-index: 2700;
+transition: right 0.35s;
+display: flex;
+flex-direction: column;
+padding: 20px 16px calc(20px + var(--safe-b));
+}
+.cart-panel.open { right: 0; }
+.cart-panel h2 { color: var(--accent); }
+.cart-item {
+display: flex;
+gap: 12px;
+padding: 14px 0;
+border-bottom: 1px solid var(--border);
+}
+.cart-item img { width: 56px; height: 72px; object-fit: cover; border-radius: 8px; }
+.cart-footer { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
+.btn-wa {
+width: 100%;
+padding: 14px;
+background: var(--wa);
+color: #fff;
+border: none;
+border-radius: 8px;
+font-weight: 700;
+cursor: pointer;
+margin-top: 12px;
+font-family: 'Oswald', sans-serif;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+/* —— Bottom nav —— */
+.bottom-nav {
+position: fixed;
+bottom: 0; left: 0; right: 0;
+height: calc(var(--tab-h) + var(--safe-b));
+padding-bottom: var(--safe-b);
+background: var(--surface);
+border-top: 1px solid var(--border);
+display: flex;
+z-index: 2000;
+box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+.tab {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 3px;
+border: none;
+background: none;
+color: var(--muted);
+font-size: 0.55rem;
+font-weight: 600;
+text-transform: uppercase;
+cursor: pointer;
+padding: 6px 2px;
+font-family: 'Oswald', sans-serif;
+letter-spacing: 0.5px;
+}
+.tab i { font-size: 1.1rem; }
+.tab.active { color: var(--accent); }
+.tab.active i { color: var(--accent); }
+.toast {
+position: fixed;
+bottom: calc(var(--tab-h) + var(--safe-b) + 80px);
+left: 50%;
+transform: translateX(-50%) translateY(20px);
+background: var(--dark);
+color: var(--accent);
+padding: 12px 20px;
+border-radius: 100px;
+font-size: 0.8rem;
+z-index: 9999;
+opacity: 0;
+transition: 0.3s;
+pointer-events: none;
+font-family: 'Oswald', sans-serif;
+text-transform: uppercase;
+letter-spacing: 1px;
+border: 1px solid var(--accent);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.empty { text-align: center; padding: 48px 20px; color: var(--muted); grid-column: 1 / -1; }
+.site-wrap {
+width: 100%;
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 24px;
+padding-right: 24px;
+}
+/* WhatsApp flotante */
+.wa-float-wrap {
+position: fixed;
+right: 16px;
+bottom: calc(var(--tab-h) + var(--safe-b) + 20px);
+z-index: 3500;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+gap: 10px;
+pointer-events: none;
+}
+.wa-float-wrap > * { pointer-events: auto; }
+.wa-float-msg {
+background: var(--surface);
+color: var(--text);
+font-size: 0.78rem;
+line-height: 1.35;
+padding: 10px 14px;
+border-radius: 12px 12px 4px 12px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+border: 1px solid var(--border);
+max-width: 200px;
+font-weight: 500;
+}
+.wa-float-btn {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background: var(--wa);
+color: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 28px;
+box-shadow: 0 4px 16px rgba(37,211,102,0.45);
+text-decoration: none;
+border: none;
+cursor: pointer;
+transition: transform 0.2s;
+}
+.wa-float-btn:hover { transform: scale(1.06); }
+.wa-float-btn:active { transform: scale(0.95); }
+body.product-open .wa-float-wrap {
+bottom: calc(80px + var(--safe-b));
+}
+.footer-dev {
+color: rgba(255,255,255,0.55);
+font-size: 0.75rem;
+text-decoration: none;
+transition: color 0.2s;
+}
+.footer-dev:hover { color: var(--accent); }
+.footer-dev strong { color: rgba(255,255,255,0.9); letter-spacing: 1px; }
+/* Botón añadir en página producto (escritorio) */
+.pd-actions-desktop { display: none; margin-top: 24px; }
+.pd-actions-desktop .btn-add { width: 100%; max-width: 360px; }
+/* Footer web (escritorio) */
+.site-footer {
+background: var(--dark);
+color: #fff;
+padding: 48px 32px 28px;
+margin-top: 48px;
+}
+.site-footer-inner {
+max-width: 1280px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1.2fr 1fr 1fr;
+gap: 40px;
+padding-bottom: 32px;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.site-footer h3 { font-size: 1.6rem; letter-spacing: 4px; margin-bottom: 12px; color: var(--accent); }
+.site-footer p { font-size: 0.85rem; opacity: 0.75; line-height: 1.6; color: var(--dim); }
+.site-footer h4 { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; opacity: 0.5; font-family: 'Oswald', sans-serif; color: var(--accent); }
+.site-footer ul { list-style: none; }
+.site-footer li { margin-bottom: 10px; }
+.site-footer button, .site-footer a {
+background: none; border: none; color: rgba(255,255,255,0.85);
+font-size: 0.85rem; cursor: pointer; text-decoration: none;
+font-family: inherit; padding: 0;
+}
+.site-footer button:hover, .site-footer a:hover { color: var(--accent); }
+.site-footer-bottom {
+max-width: 1280px;
+margin: 24px auto 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 0.75rem;
+opacity: 0.5;
+}
+/* ═══ ESCRITORIO ═══ */
+@media (min-width: 769px) {
+.mobile-only { display: none !important; }
+.desktop-only { display: block; }
+body {
+padding-top: 0;
+padding-bottom: 0;
+background: var(--bg);
+}
+body.product-open {
+padding-top: 0;
+padding-bottom: 0;
+}
+.bottom-nav { display: none; }
+.app-header {
+position: sticky;
+top: 0;
+box-shadow: 0 1px 0 var(--border);
+}
+.announcement { font-size: 0.65rem; padding: 10px; }
+.header-mobile { display: none !important; }
+.header-desktop {
+display: grid !important;
+grid-template-columns: 1fr auto 1fr;
+align-items: center;
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px 24px 22px;
+gap: 24px;
+}
+.header-nav-left {
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 32px;
+}
+.logo-center {
+font-size: 2.2rem;
+justify-self: center;
+grid-column: 2;
+color: var(--accent);
+}
+.header-nav-right {
+display: flex;
+align-items: center;
+justify-content: flex-start;
+gap: 14px;
+}
+.header-nav-right .search-sticky {
+flex: 1;
+max-width: 300px;
+border-radius: 4px;
+}
+.desktop-nav { display: flex; align-items: center; gap: 32px; }
+.desktop-nav button {
+background: none;
+border: none;
+font-size: 0.8rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+cursor: pointer;
+color: var(--text);
+padding: 4px 0;
+position: relative;
+white-space: nowrap;
+font-family: 'Oswald', sans-serif;
+}
+.desktop-nav button:hover { color: var(--accent); }
+.desktop-nav button.active::after {
+content: '';
+position: absolute;
+bottom: -6px;
+left: 0; right: 0;
+height: 2px;
+background: var(--accent);
+}
+.wa-float-wrap { bottom: 28px; }
+body.product-open .wa-float-wrap { bottom: 28px; }
+.view { min-height: auto; }
+body.product-open .view:not(#view-product) { display: none !important; }
+.hero-carousel {
+margin: 24px auto 0;
+border-radius: 12px;
+max-width: 1200px;
+aspect-ratio: 2/1;
+}
+.section-title {
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 24px;
+padding-right: 24px;
+}
+.filters {
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 24px;
+padding-right: 24px;
+}
+.promo-scroll, .cat-scroll {
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 24px;
+padding-right: 24px;
+}
+.grid {
+grid-template-columns: repeat(4, 1fr);
+gap: 24px;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 24px 48px;
+}
+.cat-scroll { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; overflow: visible; }
+.cat-card { flex: unset; max-width: none; }
+.promo-scroll { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; overflow: visible; }
+.promo-card { flex: unset; aspect-ratio: 4/3; height: auto; min-height: 0; }
+.about-hero {
+max-width: 1200px;
+margin: 24px auto 0;
+border-radius: 12px;
+padding: 64px 32px;
+}
+.about-hero h1 { font-size: 3rem; }
+.about-content { max-width: 720px; padding: 48px 24px 80px; }
+.about-info { grid-template-columns: 1fr 1fr; }
+.site-footer-inner,
+.site-footer-bottom { max-width: 1200px; }
+#view-product { padding-bottom: 0; }
+.pd-page-wrap {
+max-width: 1200px;
+margin: 0 auto;
+padding: 32px 24px 0;
+display: grid;
+grid-template-columns: 1.05fr 0.95fr;
+gap: 56px;
+align-items: start;
+}
+.pd-gallery { background: transparent; }
+.pd-main-img { border-radius: 8px; aspect-ratio: 4/5; }
+.pd-thumbs { padding: 16px 0; }
+.pd-body { padding: 0; max-width: none; }
+.pd-name { font-size: 2.2rem; }
+.pd-sticky-bar { display: none !important; }
+.pd-actions-desktop { display: block; }
+.pd-combine-wrap {
+max-width: 1200px;
+padding: 0 24px 48px;
+}
+.cart-panel { max-width: 440px; }
+.toast { bottom: 32px; }
+body.product-open #app-header { display: block !important; }
+}
+.header-desktop { display: none; }
+@media (max-width: 768px) {
+.site-footer { display: none; }
+body.product-open .bottom-nav { display: none; }
+body.product-open { padding-bottom: calc(72px + var(--safe-b)); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LA PIANOLA · ESTILO NEGRO + AMARILLO + ROJO
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --primary:#b30000;
+  --primary-dark:#8b0000;
+  --accent:#ffc107;
+  --accent-light:#ffe082;
+  --bg:#1a1a1a;
+  --surface:#2a2a2a;
+  --text:#ffffff;
+  --dim:#cccccc;
+  --muted:#888888;
+  --border:#333333;
+  --dark:#000000;
+  --dark-2:#111111;
+}
+body{
+  background:var(--bg);
+}
+.app-header{
+  background:rgba(26,26,26,.98);
+  border-bottom:1px solid rgba(179,0,0,.6);
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+.announcement{
+  background:linear-gradient(90deg,#000,var(--primary),#000);
+  font-weight:700;
+  color:#fff;
+}
+.logo-btn{
+  color:var(--accent);
+  position:relative;
+  text-shadow:0 2px 12px rgba(179,0,0,.5);
+}
+.logo-btn::after{
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-3px;
+  height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  border-radius:4px;
+}
+.header-desktop .logo-center{
+  font-size:2.45rem;
+  letter-spacing:3px;
+}
+.search-sticky{
+  background:#2a2a2a;
+  border:1px solid #444;
+  color:#fff;
+}
+.search-sticky input{color:#fff}
+.search-sticky input::placeholder{color:#888}
+.search-sticky i{color:var(--accent)}
+.icon-btn{
+  background:#2a2a2a;
+  color:#fff;
+  border:1px solid #444;
+}
+.icon-btn:hover{background:#3a3a3a;border-color:var(--accent)}
+.desktop-nav button{color:#ccc}
+.desktop-nav button:hover{color:var(--accent)}
+.desktop-nav button.active::after{background:var(--accent)}
+.menu-sidebar{
+  background:#1a1a1a;
+  color:#fff;
+  box-shadow:12px 0 40px rgba(0,0,0,.6);
+}
+.menu-head{border-color:#333}
+.menu-head h2,.menu-link{color:#fff}
+.menu-link:hover,.menu-link:active{background:#2a2a2a}
+.menu-label{color:#888}
+.menu-link i{color:var(--accent)}
+.menu-footer{background:#000;border-color:#333}
+.menu-footer strong{color:var(--accent)}
+.menu-footer a{color:#888}
+.menu-promo{box-shadow:0 10px 24px rgba(0,0,0,.4)}
+
+.hero-carousel{
+  border-radius:0;
+  background:#000;
+  box-shadow:0 16px 40px rgba(0,0,0,.5);
+}
+.hero-slide::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.7) 38%,rgba(0,0,0,.1) 72%,rgba(0,0,0,.3) 100%),
+    linear-gradient(0deg,rgba(0,0,0,.5),transparent 45%);
+}
+.hero-slide .hero-content{
+  position:absolute;
+  z-index:3;
+  left:6%;
+  top:50%;
+  transform:translateY(-50%);
+  max-width:520px;
+  color:#fff;
+}
+.hero-content .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+  padding:6px 10px;
+  background:var(--primary);
+  color:#fff;
+  border-radius:3px;
+  font:700 .68rem/1 'Oswald',sans-serif;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.hero-content h1{
+  font-size:clamp(2.2rem,5vw,4.8rem);
+  line-height:.95;
+  margin-bottom:12px;
+  letter-spacing:1px;
+  text-shadow:0 5px 25px rgba(0,0,0,.6);
+}
+.hero-content h1 span{color:var(--accent)}
+.hero-content p{
+  max-width:450px;
+  font-size:clamp(.82rem,1.4vw,1rem);
+  line-height:1.55;
+  color:rgba(255,255,255,.85);
+  margin-bottom:20px;
+}
+.hero-cta{
+  border:0;
+  background:var(--primary);
+  color:#fff;
+  padding:13px 20px;
+  border-radius:5px;
+  font:800 .78rem 'Oswald',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(179,0,0,.4);
+}
+.hero-cta:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.hero-dots{bottom:18px}
+.hero-dot.active{background:var(--accent)}
+
+.section-title{
+  position:relative;
+}
+.section-title h2{
+  color:var(--text);
+}
+.section-title h2::first-letter{color:var(--accent)}
+.link-btn{color:var(--accent)}
+.cat-section{border-color:var(--border)}
+.cat-eyebrow{color:var(--accent)}
+
+.promo-card,.cat-card,.card-img{
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+}
+.promo-card{
+  border:1px solid var(--border);
+}
+.promo-body{
+  background:linear-gradient(to top,rgba(0,0,0,.98),rgba(0,0,0,.6) 52%,transparent 100%);
+}
+.promo-body .badge,.badge{
+  background:var(--accent);
+  color:#1a1a1a;
+}
+.cat-card span{
+  background:linear-gradient(transparent,rgba(0,0,0,.95));
+}
+.filter-chip.active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+.filter-chip-share{color:inherit}
+.card h4{color:#fff}
+.card .price{color:var(--accent)}
+.brand-tag{
+  color:#1a1a1a;
+  background:var(--accent);
+  border-left:3px solid var(--primary);
+}
+.card-btn{
+  background:var(--primary);
+}
+.card-btn:hover{background:var(--dark);color:var(--accent)}
+.card-btn-wa{
+  color:#25D366;
+}
+.card-icon-btn:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+.pd-topbar{
+  background:rgba(26,26,26,.98);
+  border-color:#333;
+}
+.pd-topbar .icon-btn{color:#fff}
+.pd-breadcrumb button,.pd-price{color:var(--accent)}
+.pd-stock{color:#25D366}
+.pd-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.btn-add{background:var(--primary);color:#fff}
+.about-hero{
+  background:
+    linear-gradient(120deg,rgba(0,0,0,.98),rgba(0,0,0,.9)),
+    radial-gradient(circle at 80% 20%,rgba(179,0,0,.4),transparent 45%);
+  position:relative;
+  overflow:hidden;
+}
+.about-hero::after{
+  content:'LA PIANOLA';
+  position:absolute;
+  right:-20px;
+  bottom:-55px;
+  font:800 6rem/1 'Oswald',sans-serif;
+  color:rgba(179,0,0,.1);
+  letter-spacing:6px;
+}
+.about-hero h1{color:var(--accent)}
+.about-hero p{color:rgba(255,255,255,.7)}
+.info-card{
+  background:#2a2a2a;
+  border:1px solid #333;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+}
+.info-card i{color:var(--primary)}
+.info-card strong { color: #fff; }
+.branch-card{
+  border-color:var(--border);
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  background: #2a2a2a;
+}
+.branch-logo{background:var(--dark);border:2px solid var(--accent)}
+.branch-row i{color:var(--accent)}
+.branch-social a{color:var(--accent)}
+.portfolio-overlay{
+  background:linear-gradient(transparent 36%,rgba(0,0,0,.98));
+}
+.portfolio-overlay .badge{color:#1a1a1a}
+.pf-modal-cat{color:var(--accent)}
+.pf-modal-close:hover{color:var(--accent)}
+.pf-modal {
+  background: #1a1a1a;
+}
+.pf-modal-body h3 { color: #fff; }
+.cart-panel{
+  background:#1a1a1a;
+  color:#fff;
+}
+.cart-panel h2 { color: var(--accent); }
+.cart-panel .cart-item{border-color:#333}
+.cart-panel .icon-btn{color:#fff}
+.cart-panel .cart-footer{border-color:#333}
+.cart-panel .cart-item p{color:#fff}
+.cart-panel .cart-item p[style*="color:var(--dim)"]{color:#aaa!important}
+.bottom-nav{
+  background:#1a1a1a;
+  border-color:#333;
+}
+.tab{color:#888}
+.tab.active,.tab.active i{color:var(--accent)}
+.toast{background:#000;border:1px solid var(--accent);color:var(--accent)}
+.wa-float-msg{
+  border-color:#444;
+  background: #2a2a2a;
+  color: #fff;
+}
+.wa-float-btn{
+  box-shadow:0 8px 26px rgba(37,211,102,.3);
+}
+.site-footer{
+  background:#000;
+}
+.site-footer h3{color:var(--accent)}
+.site-footer h3::first-letter{color:#fff}
+.site-footer button:hover,.site-footer a:hover{color:var(--accent)}
+.footer-dev strong{color:var(--accent)}
+
+@media (max-width:768px){
+  body{padding-top:var(--header-h)}
+  .app-header{background:#1a1a1a}
+  .announcement{font-size:.52rem;padding:7px 8px;letter-spacing:1.2px}
+  .header-row{padding:10px 12px}
+  .logo-btn{font-size:1.15rem;letter-spacing:3px}
+  .search-sticky{padding:9px 12px}
+  .hero-carousel{
+    aspect-ratio:4/4.1;
+    margin:0;
+  }
+  .hero-slide img{filter:saturate(.92) contrast(1.02)}
+  .hero-slide .hero-content{
+    left:20px;
+    right:20px;
+    top:auto;
+    bottom:42px;
+    transform:none;
+    max-width:none;
+  }
+  .hero-content .eyebrow{font-size:.58rem;margin-bottom:8px}
+  .hero-content h1{font-size:2.15rem}
+  .hero-content p{font-size:.78rem;margin-bottom:14px;max-width:320px}
+  .hero-cta{padding:11px 15px;font-size:.68rem}
+  .section-title{padding-top:22px}
+  .promo-card{box-shadow:none}
+  .bottom-nav{box-shadow:0 -10px 28px rgba(0,0,0,.5)}
+}
+@media (min-width:769px){
+  .hero-carousel{
+    margin-top:22px;
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .hero-slide img{padding:0!important;object-fit:cover!important;filter:none!important;opacity:1!important;transform:none!important}
+}
+
+.brand-benefits{
+  max-width:1200px;
+  margin:0 auto;
+  padding:14px 24px 2px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.brand-benefit{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:13px 14px;
+  background:#2a2a2a;
+  border:1px solid var(--border);
+  border-radius:7px;
+  box-shadow:0 5px 18px rgba(0,0,0,.3);
+}
+.brand-benefit i{
+  width:34px;height:34px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:#3a1a1a;
+  color:var(--primary);
+  flex-shrink:0;
+}
+.brand-benefit strong{
+  display:block;
+  font:700 .72rem 'Oswald',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  color: #fff;
+}
+.brand-benefit span{
+  display:block;
+  margin-top:2px;
+  font-size:.63rem;
+  color:var(--dim);
+}
+.brand-benefit:nth-child(3) i {
+  background: #1a3a2a;
+  color: #25D366;
+}
+.brand-benefit:nth-child(3) strong {
+  color: #25D366;
+}
+@media(max-width:768px){
+  .brand-benefits{
+    padding:10px 12px 0;
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+  }
+  .brand-benefit{
+    padding:10px 9px;
+    gap:8px;
+    align-items:flex-start;
+  }
+  .brand-benefit i{
+    width:30px;
+    height:30px;
+    font-size:.78rem;
+    margin-top:1px;
+  }
+  .brand-benefit div{
+    min-width:0;
+    flex:1;
+  }
+  .brand-benefit strong{
+    font-size:.64rem;
+    line-height:1.2;
+  }
+  .brand-benefit span{
+    font-size:.55rem;
+    line-height:1.25;
+  }
+}
+</style>
+</head>
+<body>
+<header class="app-header" id="app-header">
+<div class="announcement"> LA PIANOLA · SALTEÑAS TRADICIONALES · DESDE 1994 · YACUIBA</div>
+<div class="header-inner">
+<div class="header-row header-mobile">
+<button type="button" class="logo-btn" onclick="App.go('home')">LA PIANOLA</button>
+<div class="search-sticky">
+<i class="fas fa-search"></i>
+<input type="search" id="search-input" placeholder="Buscar salteñas, empanadas, refrescos..." autocomplete="off">
+</div>
+<button type="button" class="icon-btn" onclick="App.sharePage()" aria-label="Compartir página"><i class="fas fa-share-alt"></i></button>
+<button type="button" class="icon-btn cart-btn" onclick="App.openCart()" aria-label="Bolsa">
+<i class="fas fa-shopping-bag"></i>
+<span class="cart-badge" id="cart-badge">0</span>
+</button>
+</div>
+<div class="header-desktop">
+<nav class="desktop-nav header-nav-left">
+<button type="button" data-nav="home" onclick="App.go('home')">Inicio</button>
+<button type="button" data-nav="shop" onclick="App.go('shop')">Menú</button>
+<button type="button" data-nav="about" onclick="App.go('about')">Nosotros</button>
+</nav>
+<button type="button" class="logo-btn logo-center" onclick="App.go('home')">LA PIANOLA</button>
+<div class="header-nav-right">
+<div class="search-sticky">
+<i class="fas fa-search"></i>
+<input type="search" id="search-input-desktop" placeholder="Buscar salteñas, empanadas, refrescos..." autocomplete="off">
+</div>
+<button type="button" class="icon-btn" onclick="App.sharePage()" aria-label="Compartir página"><i class="fas fa-share-alt"></i></button>
+<button type="button" class="icon-btn cart-btn" onclick="App.openCart()" aria-label="Bolsa">
+<i class="fas fa-shopping-bag"></i>
+<span class="cart-badge" id="cart-badge-desk">0</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="overlay" id="overlay" onclick="App.closeAll()"></div>
+<aside class="menu-sidebar" id="menu-sidebar">
+<div class="menu-head">
+<h2>Menú</h2>
+<button type="button" class="icon-btn" onclick="App.closeMenu()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+</div>
+<div class="menu-body" id="menu-content"></div>
+<div class="menu-footer">
+<a id="developer-link" href="#" target="_blank" rel="noopener noreferrer">
+Desarrollado por <strong>KEY STUDIO</strong>
+</a>
+</div>
+</aside>
+<main id="view-home" class="view active">
+<div class="hero-carousel" id="hero-carousel"></div>
+<div class="brand-benefits">
+  <div class="brand-benefit"><i class="fas fa-fire"></i><div><strong>Recién horneadas</strong><span>Calientes y jugosas</span></div></div>
+  <div class="brand-benefit"><i class="fas fa-truck"></i><div><strong>Delivery</strong><span>Rápido y coordinado</span></div></div>
+  <div class="brand-benefit"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><span>Atención directa</span></div></div>
+  <div class="brand-benefit"><i class="fas fa-tags"></i><div><strong>Promociones</strong><span>Ofertas para tu antojo</span></div></div>
+</div>
+<div class="section-title">
+<div><h2>Promociones</h2><span>Ofertas activas</span></div>
+</div>
+<div class="promo-scroll" id="home-promos"></div>
+<div class="section-title">
+<div><h2>Categorías</h2></div>
+<button type="button" class="link-btn" onclick="App.go('shop')">Ver menú</button>
+</div>
+<div class="cat-scroll" id="home-cats"></div>
+<div class="section-title"><h2>Productos destacados</h2></div>
+<div class="grid" id="home-featured"></div>
+</main>
+<main id="view-shop" class="view">
+<div class="section-title">
+<div><h2>Menú</h2><span id="shop-count"></span></div>
+</div>
+<div class="filters" id="shop-filters"></div>
+<div id="shop-categories"></div>
+<div class="grid" id="shop-grid"></div>
+</main>
+<main id="view-product" class="view">
+<div class="pd-topbar mobile-only" id="pd-topbar">
+<button type="button" class="icon-btn" onclick="App.closeProduct()" aria-label="Volver"><i class="fas fa-arrow-left"></i></button>
+<div style="display:flex;gap:8px;">
+<button type="button" class="icon-btn" onclick="App.shareProduct(App.product && App.product.id)" aria-label="Compartir producto"><i class="fas fa-share-alt"></i></button>
+<button type="button" class="icon-btn cart-btn" onclick="App.openCart()">
+<i class="fas fa-shopping-bag"></i>
+<span class="cart-badge" id="cart-badge-pd">0</span>
+</button>
+</div>
+</div>
+<div class="pd-page-wrap">
+<div class="pd-gallery">
+<img class="pd-main-img" id="pd-main-img" src="" alt="">
+<div class="pd-thumbs" id="pd-thumbs"></div>
+</div>
+<div class="pd-body">
+<p class="pd-breadcrumb">
+<button type="button" onclick="App.go('shop')">Menú</button>
+/ <span id="pd-cat-label"></span>
+</p>
+<h1 class="pd-name" id="pd-name"></h1>
+<p class="pd-sku">SKU: <code id="pd-sku"></code></p>
+<p class="pd-price" id="pd-price"></p>
+<p class="pd-stock"><i class="fas fa-check-circle"></i> Disponible · Calidad garantizada</p>
+<button type="button" class="link-btn" style="margin-bottom:16px;display:flex;align-items:center;gap:6px;" onclick="App.shareProduct(App.product && App.product.id)"><i class="fas fa-share-alt"></i> Compartir producto</button>
+<div class="pd-actions-desktop">
+<button type="button" class="btn-add" onclick="App.addToCart()">Agregar al pedido — <span id="pd-price-btn"></span></button>
+</div>
+<div class="pd-tabs">
+<button type="button" class="pd-tab active" data-tab="desc" onclick="App.switchTab('desc')">Descripción</button>
+<button type="button" class="pd-tab" data-tab="details" onclick="App.switchTab('details')">Detalles</button>
+<button type="button" class="pd-tab" data-tab="ship" onclick="App.switchTab('ship')">Entrega</button>
+</div>
+<div class="pd-panel active" id="panel-desc"></div>
+<div class="pd-panel" id="panel-details"></div>
+<div class="pd-panel" id="panel-ship">
+<p>Delivery en tu zona y envíos a todo el país. Pedidos procesados en 24-48 h.</p>
+<ul style="margin-top:12px;padding-left:18px;">
+<li>Delivery a domicilio disponible</li>
+<li>Seguimiento de tu pedido por WhatsApp</li>
+<li>Asesoría para elegir tu combinación ideal</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="pd-sticky-bar mobile-only">
+<span class="price-mini" id="pd-price-sticky"></span>
+<button type="button" class="btn-add" onclick="App.addToCart()">Agregar al pedido</button>
+</div>
+</main>
+<main id="view-about" class="view">
+<div class="about-hero">
+<h1>LA PIANOLA</h1>
+<p>Salteñas tradicionales · Yacuiba, Bolivia · Desde 1994</p>
+</div>
+<div class="about-content" id="about-content"></div>
+</main>
+<aside class="cart-panel" id="cart-panel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+<h2>Mi pedido</h2>
+<button type="button" class="icon-btn" onclick="App.closeCart()"><i class="fas fa-times"></i></button>
+</div>
+<div id="cart-items" style="flex:1;overflow-y:auto;"></div>
+<div class="cart-footer">
+<div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;margin-bottom:8px;color:#fff;">
+<span>Total estimado</span><span id="cart-total" style="color:var(--accent);">Bs. 0</span>
+</div>
+<button type="button" class="btn-wa" onclick="App.whatsapp()"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+</div>
+</aside>
+<div class="pf-modal-overlay" id="pf-modal-overlay" onclick="App.closeProjectModal()"></div>
+<div class="pf-modal" id="pf-modal" role="dialog" aria-modal="true" aria-labelledby="pf-modal-title">
+<button type="button" class="pf-modal-close" onclick="App.closeProjectModal()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+<img class="pf-modal-img" id="pf-modal-img" src="" alt="">
+<div class="pf-modal-thumbs" id="pf-modal-thumbs"></div>
+<div class="pf-modal-body">
+<p class="pf-modal-cat" id="pf-modal-cat"></p>
+<h3 id="pf-modal-title"></h3>
+<p class="pf-modal-desc" id="pf-modal-desc"></p>
+<div id="pf-modal-details" style="margin-bottom:20px;"></div>
+<div style="display:flex;gap:10px;">
+<button type="button" class="btn-wa" id="pf-modal-cta" style="margin-top:0;flex:1;"><i class="fab fa-whatsapp"></i> Solicitar similar</button>
+<button type="button" class="card-icon-btn" style="width:48px;height:48px;" id="pf-modal-share" aria-label="Compartir proyecto"><i class="fas fa-share-alt"></i></button>
+</div>
+</div>
+</div>
+<div class="pf-modal-overlay" id="promo-modal-overlay" onclick="App.closePromoModal()"></div>
+<div class="pf-modal" id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title">
+<button type="button" class="pf-modal-close" onclick="App.closePromoModal()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+<img class="pf-modal-img" id="promo-modal-img" src="" alt="">
+<div class="pf-modal-body">
+<p class="pf-modal-cat" id="promo-modal-cat"></p>
+<h3 id="promo-modal-title"></h3>
+<p class="pf-modal-desc" id="promo-modal-desc"></p>
+<div id="promo-modal-details" style="margin-bottom:20px;"></div>
+<div style="display:flex;gap:10px;margin-bottom:10px;">
+<button type="button" class="btn-add" id="promo-modal-cta" style="margin-top:0;flex:1;padding:14px 16px;"><i class="fas fa-store"></i> Ver productos</button>
+</div>
+<div style="display:flex;gap:10px;">
+<button type="button" class="btn-wa" id="promo-modal-wa" style="margin-top:0;flex:1;"><i class="fab fa-whatsapp"></i> Consultar promoción</button>
+<button type="button" class="card-icon-btn" style="width:48px;height:48px;" id="promo-modal-share" aria-label="Compartir promoción"><i class="fas fa-share-alt"></i></button>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<footer class="site-footer desktop-only">
+<div class="site-footer-inner">
+<div>
+<h3>LA PIANOLA</h3>
+<p>Salteñas tradicionales desde 1994. Calidad, sabor y tradición en Yacuiba, Bolivia.</p>
+</div>
+<div>
+<h4>Navegación</h4>
+<ul>
+<li><button type="button" onclick="App.go('home')">Inicio</button></li>
+<li><button type="button" onclick="App.go('shop')">Menú</button></li>
+<li><button type="button" onclick="App.go('about')">Nosotros</button></li>
+</ul>
+</div>
+<div>
+<h4>Contacto</h4>
+<ul>
+<li><button type="button" onclick="App.whatsapp()">WhatsApp: 71874227</button></li>
+<li><span style="opacity:0.85;font-size:0.85rem;">Yacuiba, Bolivia</span></li>
+</ul>
+</div>
+</div>
+<div class="site-footer-bottom">
+<span>© <span id="footer-year"></span> LA PIANOLA. Todos los derechos reservados.</span>
+<a id="footer-developer" class="footer-dev" href="#" target="_blank" rel="noopener noreferrer">
+Desarrollado por <strong>KEY STUDIO</strong>
+</a>
+</div>
+</footer>
+<div class="wa-float-wrap" id="wa-float-wrap">
+<div class="wa-float-msg">¿Buscas salteñas? ¡Te ayudamos!</div>
+<button type="button" class="wa-float-btn" onclick="App.whatsappHelp()" aria-label="WhatsApp">
+<i class="fab fa-whatsapp"></i>
+</button>
+</div>
+<nav class="bottom-nav" id="bottom-nav">
+<button type="button" class="tab active" data-view="home" onclick="App.go('home')"><i class="fas fa-home"></i><span>Inicio</span></button>
+<button type="button" class="tab" data-view="shop" onclick="App.go('shop')"><i class="fas fa-store"></i><span>Menú</span></button>
+<button type="button" class="tab" data-view="menu" onclick="App.openMenu()"><i class="fas fa-bars"></i><span>Menú</span></button>
+<button type="button" class="tab" data-view="about" onclick="App.go('about')"><i class="fas fa-info-circle"></i><span>Nosotros</span></button>
+<button type="button" class="tab" data-view="cart" onclick="App.openCart()"><i class="fas fa-shopping-bag"></i><span>Pedido</span></button>
+</nav>
+<script>
+const CONFIG = {
+phone: '59171874227',
+developer: {
+name: 'KEY STUDIO',
+url: 'https://keystudio.bo'
+},
+store: {
+name: 'LA PIANOLA',
+tagline: 'Salteñas tradicionales desde 1994',
+story: 'Somos un negocio boliviano con más de 30 años de tradición, ubicado en Yacuiba. Nos especializamos en salteñas y empanadas, elaboradas con recetas de antaño y el sabor que nos caracteriza.',
+mission: 'Preparar las mejores salteñas de Yacuiba con ingredientes frescos y atención personalizada. Queremos ser tu opción de confianza para disfrutar en casa o en el local.',
+hours: 'Lun – Dom: 07:00 – 21:00',
+address: 'Yacuiba, Bolivia',
+email: 'ventas@lapianola.bo',
+instagram: '@lapianola.yacuiba'
+}
+};
+/* ═══ CARRUSEL DE PORTADA ═══ */
+const heroImages = [
+'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=1800&q=85',
+'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=1800&q=85',
+'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1800&q=85'
+];
+const categories = [
+{ id: 'saltenas', name: 'Salteñas', image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600' },
+{ id: 'empanadas', name: 'Empanadas', image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=600' },
+{ id: 'refrescos', name: 'Refrescos', image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=600' },
+{ id: 'postres', name: 'Postres', image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600' },
+{ id: 'combos', name: 'Combos', image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600' },
+{ id: 'tradicionales', name: 'Tradicionales', image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600' }
+];
+const promotions = [
+{ badge: 'NUEVO', title: 'Docena de Salteñas', sub: 'Lleva 12 y paga menos', image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=1200', cat: 'saltenas',
+fullDescription: 'Docena de salteñas surtidas (carne, pollo, mixtas) recién horneadas. Ideal para compartir en familia o con amigos.',
+validUntil: 'Consultar vigencia vigente en tienda',
+conditions: ['Precio final según modelo', 'Delivery coordinado por separado', 'Sujeto a stock disponible'] },
+{ badge: 'AHORRO', title: 'Combo Desayuno', sub: 'Salteña + Café', image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=1200', cat: 'combos',
+fullDescription: 'Combo perfecto para empezar el día: una salteña de tu elección + un café caliente.',
+validUntil: 'Consultar vigencia vigente en tienda',
+conditions: ['Aplica a salteñas seleccionadas', 'Sujeto a stock disponible', 'No acumulable con otras promos'] },
+{ badge: 'COMBO', title: 'Combo Familiar', sub: 'Salteñas + Refrescos', image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200', cat: 'combos',
+fullDescription: 'Combina salteñas, empanadas y refrescos para compartir en familia. Consulta por combos disponibles.',
+validUntil: 'Consultar vigencia vigente en tienda',
+conditions: ['Delivery sin costo en compras seleccionadas', 'Sujeto a stock disponible', 'Tiempo de entrega según stock'] }
+];
+const catLabels = { saltenas: 'Salteñas', empanadas: 'Empanadas', refrescos: 'Refrescos', postres: 'Postres', combos: 'Combos', tradicionales: 'Tradicionales' };
+const catTaglines = {
+saltenas: 'Jugosas y deliciosas',
+empanadas: 'Crujientes y calientes',
+refrescos: 'Refrescantes',
+postres: 'El toque dulce',
+combos: 'Para compartir',
+tradicionales: 'Recetas de antaño'
+};
+const branches = [
+{
+id: 1,
+name: 'LA PIANOLA — Casa Matriz',
+location: 'Yacuiba',
+initials: 'CM',
+address: 'Completar dirección de la Casa Matriz, Yacuiba',
+phone: '71874227',
+whatsapp: '59171874227',
+hours: 'Lun – Dom: 07:00 – 21:00',
+facebook: 'https://facebook.com/lapianola.yacuiba',
+instagram: 'https://instagram.com/lapianola.yacuiba'
+},
+{
+id: 2,
+name: 'LA PIANOLA — Sucursal',
+location: 'Yacuiba',
+initials: 'SU',
+address: 'Completar dirección de la Sucursal, Yacuiba',
+phone: '71874227',
+whatsapp: '59171874227',
+hours: 'Lun – Dom: 07:00 – 21:00',
+facebook: 'https://facebook.com/lapianola.yacuiba',
+instagram: 'https://instagram.com/lapianola.yacuiba'
+}
+];
+const projects = [
+{
+id: 1,
+title: 'Salteña de Carne',
+cat: 'saltenas',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900',
+images: [
+'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=1100',
+'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=1100'
+],
+description: 'Salteña de carne jugosa, con papa, huevo, aceituna y el toque especial de La Pianola.'
+},
+{
+id: 2,
+title: 'Empanada de Queso',
+cat: 'empanadas',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=900',
+images: [
+'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=1100'
+],
+description: 'Empanada de queso derretido, crujiente por fuera y suave por dentro. Perfecta para compartir.'
+},
+{
+id: 3,
+title: 'Salteña de Pollo',
+cat: 'saltenas',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=900',
+images: [
+'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1100'
+],
+description: 'Salteña de pollo desmenuzado, sazonada con especias tradicionales y horneada al momento.'
+},
+{
+id: 4,
+title: 'Combo Personal',
+cat: 'combos',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900',
+images: [
+'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=1100'
+],
+description: 'Combo personal con salteña, empanada y refresco. Ideal para una persona.'
+},
+{
+id: 5,
+title: 'Postre de Chocolate',
+cat: 'postres',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=900',
+images: [
+'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1100'
+],
+description: 'Postre de chocolate intenso, perfecto para cerrar con algo dulce.'
+},
+{
+id: 6,
+title: 'Refresco Natural',
+cat: 'refrescos',
+location: 'Yacuiba, Bolivia',
+client: 'Cliente particular',
+duration: 'Entrega en 30 min',
+image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=900',
+images: [
+'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=1100'
+],
+description: 'Refresco natural de frutas, bien frío para acompañar tus salteñas.'
+}
+];
+const products = [
+{
+id: 1,
+sku: 'LP-SAL-001',
+name: 'Salteña de Carne',
+brand: 'LA PIANOLA',
+price: 8,
+cat: 'saltenas',
+img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900',
+images: [
+'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900',
+'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=900'
+],
+desc: 'Salteña de carne jugosa, con papa, huevo y aceituna.',
+description: '<p>Salteña de <strong>carne</strong> jugosa, con papa, huevo, aceituna y el toque especial de La Pianola.</p><p>Recién horneada para que disfrutes de todo el sabor.</p>',
+details: { Ingredientes: 'Carne de res, papa, huevo, aceituna, especias', Masa: 'Masa tradicional', Preparación: 'Al horno', Garantía: 'Calidad garantizada' },
+pairsWith: [2, 4]
+},
+{
+id: 2,
+sku: 'LP-EMP-002',
+name: 'Empanada de Queso',
+brand: 'LA PIANOLA',
+price: 6,
+cat: 'empanadas',
+img: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=900',
+images: [
+'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=900'
+],
+desc: 'Empanada de queso derretido, crujiente y deliciosa.',
+description: '<p>Empanada de <strong>queso</strong> derretido, crujiente por fuera y suave por dentro. El acompañamiento perfecto para tu salteña.</p><p>Disponible con o sin azúcar.</p>',
+details: { Porción: 'Individual', Preparación: 'Frita al momento', Acompañamiento: 'Azúcar o sal', Garantía: 'Calidad garantizada' },
+pairsWith: [1, 3]
+},
+{
+id: 3,
+sku: 'LP-SAL-003',
+name: 'Salteña de Pollo',
+brand: 'LA PIANOLA',
+price: 8,
+cat: 'saltenas',
+img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=900',
+images: ['https://images.unsplash.com/photo-1550547660-d9450f859349?w=900'],
+desc: 'Salteña de pollo desmenuzado, sazonada con especias tradicionales.',
+description: '<p>Salteña de <strong>pollo desmenuzado</strong>, sazonada con especias tradicionales y horneada al momento.</p><p>Ideal para quienes prefieren una opción más ligera.</p>',
+details: { Ingredientes: 'Pollo desmenuzado, papa, especias', Masa: 'Masa tradicional', Preparación: 'Al horno', Garantía: 'Calidad garantizada' },
+pairsWith: [2, 4]
+},
+{
+id: 4,
+sku: 'LP-COM-004',
+name: 'Combo Personal',
+brand: 'LA PIANOLA',
+price: 15,
+cat: 'combos',
+img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900',
+images: ['https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900'],
+desc: 'Combo personal con salteña, empanada y refresco.',
+description: '<p><strong>Combo personal</strong> que incluye una salteña de carne, una empanada de queso y un refresco natural.</p><p>Ideal para una persona que quiere disfrutar de todo en una sola orden.</p>',
+details: { Incluye: 'Salteña, empanada y refresco', Porción: 'Personal', Preparación: 'Al momento', Garantía: 'Calidad garantizada' },
+pairsWith: [5, 6]
+},
+{
+id: 5,
+sku: 'LP-POS-005',
+name: 'Postre de Chocolate',
+brand: 'LA PIANOLA',
+price: 10,
+cat: 'postres',
+img: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=900',
+images: ['https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=900'],
+desc: 'Postre de chocolate intenso, perfecto para cerrar con algo dulce.',
+description: '<p><strong>Postre de chocolate</strong> intenso y cremoso, perfecto para cerrar tu comida con algo dulce.</p><p>Preparado con ingredientes de calidad.</p>',
+details: { Ingredientes: 'Chocolate, crema, base', Porción: 'Individual', Preparación: 'Al momento', Garantía: 'Calidad garantizada' },
+pairsWith: [1, 4]
+},
+{
+id: 6,
+sku: 'LP-REF-006',
+name: 'Refresco Natural',
+brand: 'LA PIANOLA',
+price: 5,
+cat: 'refrescos',
+img: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=900',
+images: ['https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=900'],
+desc: 'Refresco natural de frutas, bien frío para acompañar tu comida.',
+description: '<p><strong>Refresco natural</strong> de frutas, bien frío para acompañar tus salteñas y calmar la sed.</p><p>Disponible en varios sabores.</p>',
+details: { Tipo: 'Jugo natural', Presentación: 'Vaso', Temperatura: 'Bien fría', Garantía: 'Calidad garantizada' },
+pairsWith: [1, 4]
+}
+];
+const App = {
+view: 'home',
+activeFilter: 'all',
+cart: JSON.parse(localStorage.getItem('lapianola_cart') || '[]'),
+product: null,
+currentProjectGallery: null,
+heroIndex: 0,
+heroTimer: null,
+previousView: 'home',
+selColor: null,
+selSize: null,
+_settingHash: false,
+_scrollSaveTimer: null,
+init() {
+this.renderMenu();
+this.renderHero();
+this.renderHome();
+this.renderShop();
+this.renderAbout();
+this.updateCart();
+const searchMobile = document.getElementById('search-input');
+const searchDesk = document.getElementById('search-input-desktop');
+const onSearchInput = (val) => {
+if (searchMobile) searchMobile.value = val;
+if (searchDesk) searchDesk.value = val;
+this.onSearch(val);
+};
+if (searchMobile) searchMobile.addEventListener('input', (e) => onSearchInput(e.target.value));
+if (searchDesk) searchDesk.addEventListener('input', (e) => onSearchInput(e.target.value));
+const devUrl = CONFIG.developer?.url || '#';
+['developer-link', 'footer-developer'].forEach(id => {
+const el = document.getElementById(id);
+if (el) el.href = devUrl;
+});
+const yearEl = document.getElementById('footer-year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+window.addEventListener('resize', () => this.onResize());
+this.onResize();
+this.setDesktopNav('home');
+window.addEventListener('hashchange', () => this.onHashChange());
+window.addEventListener('scroll', () => this.queueSaveScroll(), { passive: true });
+window.addEventListener('pagehide', () => this.saveScroll());
+const sharedId = new URLSearchParams(window.location.search).get('producto');
+const sharedCat = new URLSearchParams(window.location.search).get('categoria');
+if (location.hash) {
+this.applyRoute(this.parseHash(), true);
+} else if (sharedId && products.some(p => p.id === Number(sharedId))) {
+this.openProduct(sharedId);
+} else if (sharedCat && categories.some(c => c.id === sharedCat)) {
+this.go('shop', { cat: sharedCat });
+} else {
+history.replaceState(null, '', location.pathname + location.search + '#/');
+}
+},
+parseHash() {
+const raw = (location.hash || '').replace(/^#\/?/, '');
+const parts = raw.split('/').filter(Boolean);
+if (!parts.length) return { view: 'home' };
+if (parts[0] === 'tienda') return { view: 'shop', cat: parts[1] || null };
+if (parts[0] === 'nosotros') return { view: 'about' };
+if (parts[0] === 'producto' && parts[1]) return { view: 'product', id: parts[1] };
+return { view: 'home' };
+},
+applyRoute(route, isInitialLoad) {
+if (route.view === 'product') {
+if (products.some(p => p.id === Number(route.id))) {
+this.openProduct(route.id, { silent: true });
+} else {
+this.go('home', {}, { silent: true });
+}
+} else {
+this.go(route.view, { cat: route.cat }, { silent: true });
+}
+if (isInitialLoad) this.restoreScroll(route.view);
+},
+onHashChange() {
+if (this._settingHash) { this._settingHash = false; return; }
+this.applyRoute(this.parseHash());
+},
+updateHash(view, cat) {
+let hash;
+if (view === 'home') hash = '#/';
+else if (view === 'shop') hash = (cat && cat !== 'all') ? '#/tienda/' + cat : '#/tienda';
+else if (view === 'about') hash = '#/nosotros';
+else return;
+if (location.hash !== hash) {
+this._settingHash = true;
+location.hash = hash;
+}
+},
+queueSaveScroll() {
+clearTimeout(this._scrollSaveTimer);
+this._scrollSaveTimer = setTimeout(() => this.saveScroll(), 150);
+},
+saveScroll() {
+try {
+const key = document.body.classList.contains('product-open') ? 'product' : this.view;
+const y = document.body.classList.contains('product-open')
+? (document.getElementById('view-product')?.scrollTop || 0)
+: window.scrollY;
+sessionStorage.setItem('lapianola_scroll_' + key, String(y));
+} catch (e) { /* almacenamiento no disponible */ }
+},
+restoreScroll(view) {
+try {
+const y = Number(sessionStorage.getItem('lapianola_scroll_' + view) || 0);
+if (!y) return;
+requestAnimationFrame(() => {
+if (view === 'product') {
+const el = document.getElementById('view-product');
+if (el) el.scrollTop = y;
+} else {
+window.scrollTo(0, y);
+}
+});
+} catch (e) { /* almacenamiento no disponible */ }
+},
+isMobile() { return window.innerWidth < 769; },
+onResize() {
+document.body.classList.toggle('desktop', !this.isMobile());
+if (!this.isMobile() && document.body.classList.contains('product-open')) {
+document.getElementById('app-header').style.display = '';
+}
+},
+go(view, opts = {}, navOpts = {}) {
+this.closeOverlays();
+if (view !== 'product') {
+document.body.classList.remove('product-open');
+document.getElementById('app-header').style.display = '';
+}
+this.view = view;
+document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+const el = document.getElementById('view-' + view);
+if (el) el.classList.add('active');
+document.querySelectorAll('.tab').forEach(t => {
+t.classList.toggle('active', t.dataset.view === view && view !== 'menu');
+});
+if (view === 'shop') {
+if (opts.cat) this.filter(opts.cat);
+else this.renderShopGrid();
+}
+if (!navOpts.silent) {
+if (view === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+if (view === 'about') window.scrollTo({ top: 0 });
+}
+this.setDesktopNav(view);
+if (!navOpts.silent) this.updateHash(view, opts.cat);
+},
+setDesktopNav(view) {
+document.querySelectorAll('.desktop-nav button').forEach(b => {
+b.classList.toggle('active', b.dataset.nav === view);
+});
+},
+openProduct(id, navOpts = {}) {
+const p = products.find(x => x.id === Number(id));
+if (!p) return;
+this.closeOverlays();
+this.previousView = document.body.classList.contains('product-open') ? this.previousView : this.view;
+this.product = p;
+this.selColor = null;
+this.selSize = null;
+document.body.classList.add('product-open');
+document.getElementById('app-header').style.display = this.isMobile() ? 'none' : '';
+document.getElementById('pd-main-img').src = p.images[0];
+document.getElementById('pd-thumbs').innerHTML = p.images.map((src, i) =>
+`<button type="button" class="pd-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.setImage(this)"><img src="${src}" alt=""></button>`
+).join('');
+document.getElementById('pd-cat-label').textContent = catLabels[p.cat];
+document.getElementById('pd-name').textContent = p.name;
+document.getElementById('pd-sku').textContent = p.sku + (p.brand ? ' · Marca: ' + p.brand : '');
+document.getElementById('pd-price').textContent = 'Bs. ' + p.price;
+document.getElementById('pd-price-sticky').textContent = 'Bs. ' + p.price;
+const priceBtn = document.getElementById('pd-price-btn');
+if (priceBtn) priceBtn.textContent = 'Bs. ' + p.price;
+document.getElementById('panel-desc').innerHTML = p.description;
+document.getElementById('panel-details').innerHTML = '<table class="detail-table">' +
+Object.entries(p.details).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('') + '</table>';
+this.switchTab('desc');
+if (!navOpts.silent) {
+document.getElementById('view-product').scrollTop = 0;
+window.scrollTo(0, 0);
+}
+document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+document.getElementById('view-product').classList.add('active');
+document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+if (!navOpts.silent) {
+this._settingHash = true;
+location.hash = '#/producto/' + p.id;
+}
+},
+closeProduct() {
+document.body.classList.remove('product-open');
+document.getElementById('app-header').style.display = '';
+this.go(this.previousView || 'shop');
+},
+setImage(btn) {
+const idx = Number(btn.dataset.idx);
+const img = btn.querySelector('img');
+if (!img) return;
+document.getElementById('pd-main-img').src = img.src;
+document.querySelectorAll('.pd-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+},
+switchTab(tab) {
+document.querySelectorAll('.pd-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+document.querySelectorAll('.pd-panel').forEach(p => p.classList.remove('active'));
+document.getElementById('panel-' + tab).classList.add('active');
+},
+addToCart() {
+const p = this.product;
+this.cart.push({
+id: p.id,
+sku: p.sku,
+name: p.name,
+price: p.price,
+img: p.img
+});
+this.updateCart();
+localStorage.setItem('lapianola_cart', JSON.stringify(this.cart));
+this.toast('Añadido al pedido');
+setTimeout(() => this.openCart(), 400);
+},
+openMenu() {
+document.getElementById('menu-sidebar').classList.add('open');
+document.getElementById('overlay').classList.add('show');
+document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.view === 'menu'));
+},
+closeMenu() {
+document.getElementById('menu-sidebar').classList.remove('open');
+if (!document.getElementById('cart-panel').classList.contains('open')) {
+document.getElementById('overlay').classList.remove('show');
+}
+},
+openCart() {
+this.closeMenu();
+document.getElementById('cart-panel').classList.add('open');
+document.getElementById('overlay').classList.add('show');
+document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.view === 'cart'));
+},
+closeCart() {
+document.getElementById('cart-panel').classList.remove('open');
+document.getElementById('overlay').classList.remove('show');
+},
+closeAll() {
+this.closeMenu();
+this.closeCart();
+},
+closeOverlays() {
+this.closeMenu();
+this.closeCart();
+const pfOverlay = document.getElementById('pf-modal-overlay');
+if (pfOverlay && pfOverlay.classList.contains('show')) this.closeProjectModal();
+const promoOverlay = document.getElementById('promo-modal-overlay');
+if (promoOverlay && promoOverlay.classList.contains('show')) this.closePromoModal();
+},
+updateCart() {
+const n = this.cart.length;
+document.getElementById('cart-badge').textContent = n;
+['cart-badge-desk', 'cart-badge-pd'].forEach(id => {
+const el = document.getElementById(id);
+if (el) el.textContent = n;
+});
+let total = 0;
+const box = document.getElementById('cart-items');
+if (!this.cart.length) {
+box.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px 0;">Tu pedido está vacío</p>';
+} else {
+box.innerHTML = this.cart.map((item, i) => {
+total += item.price;
+return `<div class="cart-item">
+<img src="${item.img}" alt="">
+<div style="flex:1;">
+<p style="font-weight:600;font-size:0.85rem;">${item.name}</p>
+<p style="font-size:0.7rem;color:var(--dim);">SKU ${item.sku}</p>
+<p style="font-weight:700;margin-top:4px;color:var(--accent);">Bs. ${item.price}</p>
+</div>
+<button type="button" class="icon-btn" style="width:36px;height:36px;" onclick="App.removeCart(${i})"><i class="fas fa-trash-alt"></i></button>
+</div>`;
+}).join('');
+}
+document.getElementById('cart-total').textContent = 'Bs. ' + total;
+},
+removeCart(i) {
+this.cart.splice(i, 1);
+localStorage.setItem('lapianola_cart', JSON.stringify(this.cart));
+this.updateCart();
+},
+whatsapp() {
+const phone = CONFIG.phone;
+let msg;
+if (this.cart.length) {
+const lines = this.cart.map(p => `• ${p.name} (SKU: ${p.sku})`).join('\n');
+msg = ` *PEDIDO LA PIANOLA*\n${lines}\n*Total estimado: ${document.getElementById('cart-total').textContent}*`;
+} else {
+msg = 'Hola LA PIANOLA, me gustaría más información sobre sus salteñas.';
+}
+window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+},
+whatsappHelp() {
+const msg = 'Hola LA PIANOLA, quiero consultar disponibilidad y promociones de sus productos.';
+window.open('https://wa.me/' + CONFIG.phone + '?text=' + encodeURIComponent(msg), '_blank');
+},
+toast(msg) {
+const t = document.getElementById('toast');
+t.textContent = msg;
+t.classList.add('show');
+setTimeout(() => t.classList.remove('show'), 2500);
+},
+onSearch(q) {
+q = q.trim().toLowerCase();
+if (!q) {
+if (this.view === 'shop') this.renderShopGrid();
+if (this.view === 'home') this.renderGrid('home-featured', products.slice(0, 4));
+return;
+}
+this.go('shop');
+const found = products.filter(p =>
+p.name.toLowerCase().includes(q) ||
+p.sku.toLowerCase().includes(q) ||
+p.cat.includes(q)
+);
+document.getElementById('shop-categories').style.display = 'none';
+document.getElementById('shop-categories').innerHTML = '';
+document.getElementById('shop-grid').style.display = '';
+this.renderGrid('shop-grid', found);
+document.getElementById('shop-count').textContent = '(' + found.length + ' resultados)';
+},
+filter(cat) {
+this.activeFilter = cat;
+document.querySelectorAll('#shop-filters .filter-chip').forEach(b =>
+b.classList.toggle('active', b.dataset.cat === cat)
+);
+if (cat === 'all') {
+document.getElementById('shop-grid').style.display = 'none';
+document.getElementById('shop-grid').innerHTML = '';
+document.getElementById('shop-categories').style.display = '';
+this.renderShopCategories();
+document.getElementById('shop-count').textContent = '(' + products.length + ' productos)';
+} else {
+document.getElementById('shop-categories').style.display = 'none';
+document.getElementById('shop-categories').innerHTML = '';
+document.getElementById('shop-grid').style.display = '';
+const data = products.filter(p => p.cat === cat);
+this.renderGrid('shop-grid', data);
+document.getElementById('shop-count').textContent = '(' + data.length + ' productos)';
+}
+},
+renderShopCategories() {
+const cont = document.getElementById('shop-categories');
+cont.innerHTML = categories.map(c => {
+const catProducts = products.filter(p => p.cat === c.id);
+if (!catProducts.length) return '';
+const latest = catProducts.slice(-4).reverse();
+const tagline = catTaglines[c.id] ? `<span class="cat-eyebrow">${catTaglines[c.id]}</span>` : '';
+return `<div class="cat-section">
+<div class="section-title cat-section-title">
+<div>${tagline}<h2>${c.name}</h2></div>
+<button type="button" class="link-btn" onclick="App.filter('${c.id}')">Ver todo <i class="fas fa-chevron-right"></i></button>
+</div>
+<div class="grid">${latest.map(p => this.productCard(p)).join('')}</div>
+</div>`;
+}).join('');
+},
+renderGrid(id, data) {
+const g = document.getElementById(id);
+g.innerHTML = data.length ? data.map(p => this.productCard(p)).join('') :
+'<p class="empty">No hay productos.</p>';
+},
+productCard(p) {
+const brandTag = p.brand ? `<span class="brand-tag">${p.brand}</span>` : '';
+return `<div class="card">
+<button type="button" class="card-img-btn" onclick="App.openProduct(${p.id})" aria-label="Ver ${p.name}">
+<div class="card-img"><img src="${p.img}" alt="${p.name}" loading="lazy">${brandTag}</div>
+</button>
+<button type="button" class="card-info" onclick="App.openProduct(${p.id})">
+<p class="sku">${p.sku}${p.brand ? ' · ' + p.brand : ''}</p>
+<h4>${p.name}</h4>
+<div class="row"><span class="price">Bs. ${p.price}</span><span style="font-size:0.65rem;color:var(--muted);">${catLabels[p.cat]}</span></div>
+</button>
+<div class="card-actions">
+<button type="button" class="card-btn" onclick="App.openProduct(${p.id})"><i class="fas fa-eye"></i> Ver detalles</button>
+<div class="card-actions-row">
+<button type="button" class="card-btn-wa" onclick="event.stopPropagation(); App.quickWhatsapp(${p.id})"><i class="fab fa-whatsapp"></i> Consultar</button>
+<button type="button" class="card-icon-btn" onclick="event.stopPropagation(); App.shareProduct(${p.id})" aria-label="Compartir producto"><i class="fas fa-share-alt"></i></button>
+</div>
+</div>
+</div>`;
+},
+quickWhatsapp(id) {
+const p = products.find(x => x.id === Number(id));
+if (!p) return;
+const msg = `Hola LA PIANOLA, me interesa este producto:\n*${p.name}* (SKU: ${p.sku})\nBs. ${p.price}\n¿Podrían darme más información?`;
+window.open('https://wa.me/' + CONFIG.phone + '?text=' + encodeURIComponent(msg), '_blank');
+},
+productUrl(id) {
+const url = new URL(window.location.href);
+url.hash = '';
+url.searchParams.set('producto', id);
+return url.toString();
+},
+async shareProduct(id) {
+const p = products.find(x => x.id === Number(id));
+if (!p) return;
+const url = this.productUrl(id);
+const shareData = { title: p.name + ' · LA PIANOLA', text: `Mira este producto de LA PIANOLA: ${p.name} — Bs. ${p.price}`, url };
+if (navigator.share) {
+try { await navigator.share(shareData); } catch (e) { /* cancelado por el usuario */ }
+return;
+}
+try {
+await navigator.clipboard.writeText(url);
+this.toast('Enlace copiado');
+} catch (e) {
+window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + url), '_blank');
+}
+},
+categoryUrl(cat) {
+const url = new URL(window.location.href);
+url.hash = '';
+url.searchParams.delete('producto');
+url.searchParams.set('categoria', cat);
+return url.toString();
+},
+async shareCategory(cat) {
+const url = this.categoryUrl(cat);
+const label = catLabels[cat] || cat;
+const shareData = { title: label + ' · LA PIANOLA', text: `Mira los productos de ${label} en LA PIANOLA:`, url };
+if (navigator.share) {
+try { await navigator.share(shareData); } catch (e) { /* cancelado por el usuario */ }
+return;
+}
+try {
+await navigator.clipboard.writeText(url);
+this.toast('Enlace de categoría copiado');
+} catch (e) {
+window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + url), '_blank');
+}
+},
+pageUrl() {
+const url = new URL(window.location.href);
+url.hash = '';
+url.searchParams.delete('producto');
+url.searchParams.delete('categoria');
+return url.toString();
+},
+async sharePage() {
+const url = this.pageUrl();
+const shareData = { title: 'LA PIANOLA · Salteñas tradicionales desde 1994', text: 'Mira el menú de LA PIANOLA: salteñas, empanadas y más en Yacuiba.', url };
+if (navigator.share) {
+try { await navigator.share(shareData); } catch (e) { /* cancelado por el usuario */ }
+return;
+}
+try {
+await navigator.clipboard.writeText(url);
+this.toast('Enlace copiado');
+} catch (e) {
+window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + url), '_blank');
+}
+},
+renderMenu() {
+const promos = promotions.map((pr, idx) =>
+`<div class="menu-promo" onclick="App.closeMenu(); App.openPromoModal(${idx});">
+<strong>${pr.badge} — ${pr.title}</strong><span>${pr.sub}</span>
+</div>`
+).join('');
+const cats = categories.map(c =>
+`<button type="button" class="menu-link" onclick="App.filter('${c.id}'); App.go('shop'); App.closeMenu();">
+<i class="fas fa-tag"></i> ${c.name}
+</button>`
+).join('');
+document.getElementById('menu-content').innerHTML = `
+<p class="menu-label">Promociones</p>${promos}
+<p class="menu-label">Categorías</p>${cats}
+<p class="menu-label">Menú</p>
+<button type="button" class="menu-link" onclick="App.go('shop'); App.closeMenu();"><i class="fas fa-store"></i> Ver menú</button>
+<button type="button" class="menu-link" onclick="App.go('about'); App.closeMenu();"><i class="fas fa-info-circle"></i> Sobre LA PIANOLA</button>
+<button type="button" class="menu-link" onclick="App.whatsapp(); App.closeMenu();"><i class="fab fa-whatsapp"></i> WhatsApp: 71874227</button>
+<button type="button" class="menu-link" onclick="App.sharePage(); App.closeMenu();"><i class="fas fa-share-alt"></i> Compartir tienda</button>
+`;
+},
+renderHero() {
+const track = document.getElementById('hero-carousel');
+if (!track) return;
+const heroCopy = [
+  {eyebrow:'LA PIANOLA · DESDE 1994', title:'Salteñas <span>tradicionales</span>', text:'El auténtico sabor de Yacuiba, preparado con recetas de antaño.', cta:'Ver menú'},
+  {eyebrow:'SALTEÑAS · EMPANADAS · REFRESCOS', title:'Sabor que <span>se disfruta</span>', text:'Descubrí los combos que marcan tendencia esta temporada.', cta:'Explorar menú'},
+  {eyebrow:'COMIDA · BEBIDAS · POSTRES', title:'Tu antojo. <span>Tu momento.</span>', text:'Renová tu hambre con platos pensados para vos.', cta:'Ver categorías'}
+];
+track.innerHTML = heroImages.map((src, i) => {
+  const c = heroCopy[i] || heroCopy[0];
+  const action = i === 1 ? "App.filter('saltenas'); App.go('shop')" : i === 2 ? "App.go('shop')" : "App.go('shop')";
+  return `<div class="hero-slide${i === 0 ? ' active' : ''}" style="background-image:url('${src}')"><img src="${src}" alt="LA PIANOLA — Salteñas tradicionales" loading="${i === 0 ? 'eager' : 'lazy'}"><div class="hero-content"><span class="eyebrow">${c.eyebrow}</span><h1>${c.title}</h1><p>${c.text}</p><button type="button" class="hero-cta" onclick="event.stopPropagation();${action}">${c.cta} <i class="fas fa-arrow-right"></i></button></div></div>`;
+}).join('') +
+`<div class="hero-dots">${heroImages.map((_, i) =>
+`<button type="button" class="hero-dot${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.goToHeroSlide(${i})" aria-label="Ver imagen ${i + 1}"></button>`
+).join('')}</div>`;
+this.heroIndex = 0;
+this.startHeroAutoplay();
+},
+startHeroAutoplay() {
+if (this.heroTimer) clearInterval(this.heroTimer);
+this.heroTimer = setInterval(() => {
+this.goToHeroSlide((this.heroIndex + 1) % heroImages.length, true);
+}, 4000);
+},
+goToHeroSlide(idx, fromAutoplay) {
+this.heroIndex = idx;
+document.querySelectorAll('#hero-carousel .hero-slide').forEach((el, i) => el.classList.toggle('active', i === idx));
+document.querySelectorAll('#hero-carousel .hero-dot').forEach((el, i) => el.classList.toggle('active', i === idx));
+if (!fromAutoplay) this.startHeroAutoplay();
+},
+renderHome() {
+document.getElementById('home-promos').innerHTML = promotions.map((pr, idx) =>
+`<article class="promo-card" onclick="App.openPromoModal(${idx});">
+<button type="button" class="card-float-share" onclick="event.stopPropagation(); App.sharePromo(${idx})" aria-label="Compartir promoción"><i class="fas fa-share-alt"></i></button>
+<img src="${pr.image}" alt=""><div class="promo-body"><span class="badge">${pr.badge}</span><strong>${pr.title}</strong><p>${pr.sub}</p></div>
+</article>`
+).join('');
+document.getElementById('home-cats').innerHTML = categories.map(c =>
+`<article class="cat-card" onclick="App.filter('${c.id}'); App.go('shop');">
+<img src="${c.image}" alt="${c.name}"><span>${c.name}</span>
+</article>`
+).join('');
+this.renderGrid('home-featured', products.slice(0, 4));
+},
+renderShop() {
+const cats = ['all', ...categories.map(c => c.id)];
+document.getElementById('shop-filters').innerHTML = cats.map(c => {
+const count = c === 'all' ? products.length : products.filter(p => p.cat === c).length;
+const label = c === 'all' ? 'Todos' : catLabels[c];
+const shareBtn = c === 'all' ? '' : `<button type="button" class="filter-chip-share" onclick="event.stopPropagation(); App.shareCategory('${c}')" aria-label="Compartir categoría ${label}"><i class="fas fa-share-alt"></i></button>`;
+return `<div class="filter-chip${c === 'all' ? ' active' : ''}" data-cat="${c}">
+<button type="button" class="filter-chip-btn" onclick="App.filter('${c}')">${label}</button>
+<span class="filter-chip-count">${count}</span>
+${shareBtn}
+</div>`;
+}).join('');
+this.renderShopGrid();
+},
+renderShopGrid() {
+this.filter(this.activeFilter);
+},
+renderAbout() {
+const s = CONFIG.store;
+document.getElementById('about-content').innerHTML = `
+<div class="about-block"><h3>Nuestra historia</h3><p>${s.story}</p></div>
+<div class="about-block"><h3>Misión</h3><p>${s.mission}</p></div>
+<div class="about-block branches-section">
+<h3>Dónde Encontrarnos</h3>
+<p class="branches-intro">Contamos con nuestra Casa Matriz y una Sucursal en Yacuiba. Visítanos y probá tus platos favoritos.</p>
+<div class="branches-grid" id="branches-grid"></div>
+</div>
+<div class="about-block portfolio-section">
+<h3>Nuestros Platos</h3>
+<p class="portfolio-intro">Algunos de los platos que preparamos para nuestros clientes. Tocá cualquier plato para ver más detalles.</p>
+<div class="filters portfolio-filters" id="portfolio-filters"></div>
+<div class="portfolio-grid" id="portfolio-grid"></div>
+</div>
+<div class="about-block"><h3>¿Por qué elegir LA PIANOLA?</h3>
+<div style="display:grid;gap:10px;margin-top:12px;">
+<div class="info-card"><i class="fas fa-check-circle"></i><div><strong>Calidad garantizada</strong><span>Ingredientes frescos y preparación al momento.</span></div></div>
+<div class="info-card"><i class="fas fa-tags"></i><div><strong>Los mejores precios</strong><span>Variedad de platos y combos para cada presupuesto.</span></div></div>
+<div class="info-card"><i class="fas fa-truck"></i><div><strong>Entrega rápida</strong><span>Delivery a domicilio y envíos a todo el país.</span></div></div>
+<div class="info-card"><i class="fas fa-users"></i><div><strong>Atención personalizada</strong><span>Te ayudamos a elegir tu combinación ideal.</span></div></div>
+</div>
+</div>
+<div class="about-info">
+<div class="info-card"><i class="fas fa-clock"></i><div><strong>Horario</strong><span>${s.hours}</span></div></div>
+<div class="info-card"><i class="fas fa-map-marker-alt"></i><div><strong>Ubicación</strong><span>${s.address}</span></div></div>
+<div class="info-card"><i class="fas fa-phone"></i><div><strong>Teléfonos</strong><span>71874227</span></div></div>
+<div class="info-card"><i class="fab fa-instagram"></i><div><strong>Instagram</strong><span>${s.instagram}</span></div></div>
+</div>
+`;
+this.renderBranches();
+this.renderPortfolioFilters();
+this.renderPortfolioGrid('all');
+},
+renderBranches() {
+document.getElementById('branches-grid').innerHTML = branches.map(b => `
+<div class="branch-card">
+<div class="branch-head">
+<div class="branch-logo">${b.initials}</div>
+<div>
+<div class="branch-name">${b.name}</div>
+<div class="branch-loc"><i class="fas fa-map-marker-alt"></i>${b.location}</div>
+</div>
+</div>
+<div class="branch-rows">
+<div class="branch-row"><i class="fas fa-map-marker-alt"></i><span>${b.address}</span></div>
+<div class="branch-row"><i class="fas fa-phone"></i><span>${b.phone}</span></div>
+<div class="branch-row"><i class="fas fa-clock"></i><span>${b.hours}</span></div>
+</div>
+<div class="branch-social">
+<a class="wa" href="https://wa.me/${b.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp ${b.name}"><i class="fab fa-whatsapp"></i></a>
+<a href="${b.facebook}" target="_blank" rel="noopener" aria-label="Facebook ${b.name}"><i class="fab fa-facebook-f"></i></a>
+<a href="${b.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${b.name}"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+`).join('');
+},
+renderPortfolioFilters() {
+const cats = ['all', ...new Set(projects.map(p => p.cat))];
+document.getElementById('portfolio-filters').innerHTML = cats.map(c =>
+`<button type="button" class="filter-chip${c === 'all' ? ' active' : ''}" data-pfcat="${c}" onclick="App.filterPortfolio('${c}')">${c === 'all' ? 'Todos' : catLabels[c]}</button>`
+).join('');
+},
+filterPortfolio(cat) {
+document.querySelectorAll('#portfolio-filters .filter-chip').forEach(b =>
+b.classList.toggle('active', b.dataset.pfcat === cat)
+);
+this.renderPortfolioGrid(cat);
+},
+renderPortfolioGrid(cat) {
+const data = cat === 'all' ? projects : projects.filter(p => p.cat === cat);
+document.getElementById('portfolio-grid').innerHTML = data.map(p => `
+<div class="portfolio-card-wrap">
+<button type="button" class="portfolio-card" onclick="App.openProjectModal(${p.id})">
+<img src="${p.image}" alt="${p.title}" loading="lazy">
+<div class="portfolio-overlay">
+<span class="badge">${catLabels[p.cat]}</span>
+<strong>${p.title}</strong>
+<span><i class="fas fa-map-marker-alt"></i>${p.location}</span>
+</div>
+</button>
+<button type="button" class="card-float-share" onclick="App.shareProjectCard(${p.id})" aria-label="Compartir plato"><i class="fas fa-share-alt"></i></button>
+</div>
+`).join('');
+},
+async shareProject(id) {
+const p = projects.find(x => x.id === Number(id));
+if (!p) return;
+const shareData = { title: p.title + ' · LA PIANOLA', text: `Mira este plato de LA PIANOLA: ${p.title}`, url: window.location.href };
+if (navigator.share) {
+try { await navigator.share(shareData); } catch (e) { /* cancelado */ }
+return;
+}
+try {
+await navigator.clipboard.writeText(shareData.url);
+this.toast('Enlace copiado');
+} catch (e) {
+window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + shareData.url), '_blank');
+}
+},
+shareProjectCard(id) { this.shareProject(id); },
+openProjectModal(id) {
+const p = projects.find(x => x.id === Number(id));
+if (!p) return;
+const gallery = (p.images && p.images.length) ? p.images : [p.image];
+this.currentProjectGallery = gallery;
+document.getElementById('pf-modal-img').src = gallery[0];
+document.getElementById('pf-modal-img').alt = p.title;
+const thumbsEl = document.getElementById('pf-modal-thumbs');
+thumbsEl.innerHTML = gallery.length > 1 ? gallery.map((src, i) =>
+`<button type="button" class="pf-modal-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.setProjectImage(this)"><img src="${src}" alt=""></button>`
+).join('') : '';
+document.getElementById('pf-modal-cat').textContent = catLabels[p.cat] + ' · ' + p.location;
+document.getElementById('pf-modal-title').textContent = p.title;
+document.getElementById('pf-modal-desc').textContent = p.description;
+document.getElementById('pf-modal-details').innerHTML = '<table class="detail-table">' +
+`<tr><td>Cliente</td><td>${p.client || 'Cliente particular'}</td></tr>` +
+`<tr><td>Ubicación</td><td>${p.location}</td></tr>` +
+`<tr><td>Duración</td><td>${p.duration || 'A consultar'}</td></tr>` +
+`<tr><td>Categoría</td><td>${catLabels[p.cat]}</td></tr>` +
+'</table>';
+document.getElementById('pf-modal-cta').onclick = () => {
+const msg = `Hola LA PIANOLA, vi el plato "${p.title}" en su web y me gustaría algo similar.`;
+window.open('https://wa.me/' + CONFIG.phone + '?text=' + encodeURIComponent(msg), '_blank');
+};
+document.getElementById('pf-modal-share').onclick = () => this.shareProject(p.id);
+document.getElementById('pf-modal-overlay').classList.add('show');
+document.getElementById('pf-modal').classList.add('show');
+document.body.style.overflow = 'hidden';
+},
+setProjectImage(btn) {
+const idx = Number(btn.dataset.idx);
+document.getElementById('pf-modal-img').src = this.currentProjectGallery[idx];
+document.querySelectorAll('#pf-modal-thumbs .pf-modal-thumb').forEach(t => t.classList.remove('active'));
+btn.classList.add('active');
+},
+closeProjectModal() {
+document.getElementById('pf-modal-overlay').classList.remove('show');
+document.getElementById('pf-modal').classList.remove('show');
+document.body.style.overflow = '';
+},
+async sharePromo(idx) {
+const pr = promotions[Number(idx)];
+if (!pr) return;
+const url = this.categoryUrl(pr.cat);
+const shareData = { title: pr.title + ' · LA PIANOLA', text: `Promoción de LA PIANOLA: ${pr.title} — ${pr.sub}`, url };
+if (navigator.share) {
+try { await navigator.share(shareData); } catch (e) { /* cancelado */ }
+return;
+}
+try {
+await navigator.clipboard.writeText(url);
+this.toast('Enlace copiado');
+} catch (e) {
+window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + url), '_blank');
+}
+},
+openPromoModal(idx) {
+const pr = promotions[Number(idx)];
+if (!pr) return;
+document.getElementById('promo-modal-img').src = pr.image;
+document.getElementById('promo-modal-img').alt = pr.title;
+document.getElementById('promo-modal-cat').textContent = pr.badge + ' · ' + catLabels[pr.cat];
+document.getElementById('promo-modal-title').textContent = pr.title;
+document.getElementById('promo-modal-desc').textContent = pr.fullDescription || pr.sub;
+document.getElementById('promo-modal-details').innerHTML = '<table class="detail-table">' +
+`<tr><td>Categoría</td><td>${catLabels[pr.cat]}</td></tr>` +
+`<tr><td>Vigencia</td><td>${pr.validUntil || 'Consultar disponibilidad'}</td></tr>` +
+(pr.conditions && pr.conditions.length ? `<tr><td>Condiciones</td><td>${pr.conditions.join(' · ')}</td></tr>` : '') +
+'</table>';
+document.getElementById('promo-modal-cta').onclick = () => {
+this.closePromoModal();
+this.go('shop', { cat: pr.cat });
+};
+document.getElementById('promo-modal-wa').onclick = () => {
+const msg = `Hola LA PIANOLA, vi la promoción "${pr.title}" y me gustaría más información.`;
+window.open('https://wa.me/' + CONFIG.phone + '?text=' + encodeURIComponent(msg), '_blank');
+};
+document.getElementById('promo-modal-share').onclick = () => this.sharePromo(idx);
+document.getElementById('promo-modal-overlay').classList.add('show');
+document.getElementById('promo-modal').classList.add('show');
+document.body.style.overflow = 'hidden';
+},
+closePromoModal() {
+document.getElementById('promo-modal-overlay').classList.remove('show');
+document.getElementById('promo-modal').classList.remove('show');
+document.body.style.overflow = '';
+}
+};
+document.addEventListener('DOMContentLoaded', () => App.init());
+</script>
+</body>
+</html>
