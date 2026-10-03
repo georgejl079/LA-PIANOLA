@@ -1,0 +1,4 @@
+# Redirects file for Cloudflare Pages
+# Serve admin panel
+/admin/ /admin/index.html 200
+/admin /admin/index.html 200
