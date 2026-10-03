@@ -1852,26 +1852,29 @@ Desarrollado por <strong>KEY STUDIO</strong>
 <button type="button" class="tab" data-view="about" onclick="App.go('about')"><i class="fas fa-info-circle"></i><span>Nosotros</span></button>
 <button type="button" class="tab" data-view="cart" onclick="App.openCart()"><i class="fas fa-shopping-bag"></i><span>Pedido</span></button>
 </nav>
+</script>
+<script>
 const API_BASE = '/api';
 const USE_API = true;
 
 async function loadFromApi() {
   if (!USE_API) return null;
-  const [cats, prods, promos, heroes] = await Promise.all([
+  const [cats, prods, promos, heroes, storeInfo] = await Promise.all([
     fetch(`${API_BASE}/categories`).then(r => r.json()),
     fetch(`${API_BASE}/products`).then(r => r.json()),
     fetch(`${API_BASE}/promotions`).then(r => r.json()),
     fetch(`${API_BASE}/hero-images`).then(r => r.json()),
+    fetch(`${API_BASE}/store-info`).then(r => r.json()),
   ]);
   return {
     categories: Array.isArray(cats) ? cats : [],
     products: Array.isArray(prods) ? prods : [],
     promotions: Array.isArray(promos) ? promos : [],
     heroImages: Array.isArray(heroes) ? heroes : [],
+    storeInfo: storeInfo || {},
   };
 }
-</script>
-<script>
+
 const CONFIG = {
   phone: '59171874227',
   developer: {
@@ -2958,6 +2961,14 @@ _scrollSaveTimer: null,
           if (remote.promotions?.length) promotions = remote.promotions;
           if (remote.heroImages?.length) heroImages = remote.heroImages;
           if (remote.products?.length) products = remote.products;
+          if (remote.storeInfo) {
+            if (remote.storeInfo.story) CONFIG.store.story = remote.storeInfo.story;
+            if (remote.storeInfo.mission) CONFIG.store.mission = remote.storeInfo.mission;
+            if (remote.storeInfo.hours) CONFIG.store.hours = remote.storeInfo.hours;
+            if (remote.storeInfo.address) CONFIG.store.address = remote.storeInfo.address;
+            if (remote.storeInfo.email) CONFIG.store.email = remote.storeInfo.email;
+            if (remote.storeInfo.instagram) CONFIG.store.instagram = remote.storeInfo.instagram;
+          }
         }
       } catch (e) { console.warn('API load failed', e); }
     }

@@ -27,6 +27,7 @@ export default {
       '/api/products': 'products?order=id.asc',
       '/api/promotions': 'promotions?order=id.asc',
       '/api/hero-images': 'hero_images?order=order.asc',
+      '/api/store-info': 'store_info?id=eq.1',
     };
 
     const relative = routes[url.pathname];
@@ -80,6 +81,15 @@ export default {
         }));
       } else if (url.pathname === '/api/hero-images') {
         payload = (data || []).map(h => h.url);
+      } else if (url.pathname === '/api/store-info') {
+        payload = data && data[0] ? {
+          story: data[0].story || '',
+          mission: data[0].mission || '',
+          hours: data[0].hours || '',
+          address: data[0].address || '',
+          email: data[0].email || '',
+          instagram: data[0].instagram || '',
+        } : {};
       }
 
       return new Response(JSON.stringify(payload), {
