@@ -534,7 +534,7 @@ const SUPABASE_URL_KEY = 'lp_supabase_url';
 const SUPABASE_KEY_KEY = 'lp_supabase_key';
 const SUPABASE_BUCKET_KEY = 'lp_supabase_bucket';
 
-let supabase = null;
+let sbClient = null;
 let currentUser = null;
 
 function getConfig() {
@@ -560,9 +560,9 @@ function getStoragePath(fileName) {
 async function uploadImage(file, bucketName) {
   if (!file) return '';
   const path = getStoragePath(file.name);
-  const { data, error } = await supabase.storage.from(bucketName).upload(path, file, { cacheControl: '3600', upsert: false });
+  const { data, error } = await sbClient.storage.from(bucketName).upload(path, file, { cacheControl: '3600', upsert: false });
   if (error) { alert('Error al subir imagen: ' + error.message); return ''; }
-  const { data: pub } = supabase.storage.from(bucketName).getPublicUrl(data.path);
+  const { data: pub } = sbClient.storage.from(bucketName).getPublicUrl(data.path);
   return pub.publicUrl;
 }
 
@@ -596,13 +596,13 @@ function setupUpload(areaId, inputId, previewId, hiddenUrlId, bucketName) {
 }
 
 async function login(email, password) {
-  if (!supabase) {
+  if (!sbClient) {
     alert('Error: Supabase no está configurado. Configuralo primero.');
     return;
   }
 
   console.log('Intentando login con:', email);
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
 
   if (error) {
     console.error('Error de login:', error);
@@ -616,7 +616,7 @@ async function login(email, password) {
 }
 
 async function logout() {
-  await supabase.auth.signOut();
+  await sbClient.auth.signOut();
   currentUser = null;
   location.reload();
 }
@@ -629,7 +629,7 @@ function showAdmin() {
 }
 
 async function loadCategories() {
-  const { data } = await supabase.from('categories').select('*').order('"order"');
+  const { data } = await sbClient.from('categories').select('*').order('"order"');
   const container = document.getElementById('categories-list');
   const selectProd = document.getElementById('prod-cat');
   const selectPromo = document.getElementById('promo-cat');
@@ -656,7 +656,7 @@ async function loadCategories() {
 
 async function deleteCategory(id) {
   if (!confirm('¿Eliminar categoría? Esto puede afectar productos y promociones asociados.')) return;
-  const { error } = await supabase.from('categories').delete().eq('id', id);
+  const { error } = await sbClient.from('categories').delete().eq('id', id);
   if (error) { alert(error.message); return; }
   loadCategories();
   loadProducts();
@@ -664,7 +664,7 @@ async function deleteCategory(id) {
 }
 
 async function loadProducts() {
-  const { data } = await supabase.from('products').select('*').order('id');
+  const { data } = await sbClient.from('products').select('*').order('id');
   const container = document.getElementById('products-list');
   if (!container) return;
   container.innerHTML = data.map(p => `
@@ -684,13 +684,13 @@ async function loadProducts() {
 
 async function deleteProduct(id) {
   if (!confirm('¿Eliminar producto?')) return;
-  const { error } = await supabase.from('products').delete().eq('id', id);
+  const { error } = await sbClient.from('products').delete().eq('id', id);
   if (error) { alert(error.message); return; }
   loadProducts();
 }
 
 async function editProduct(id) {
-  const { data } = await supabase.from('products').select('*').eq('id', id).single();
+  const { data } = await sbClient.from('products').select('*').eq('id', id).single();
   if (!data) return;
 
   document.getElementById('product-form-title').textContent = 'Editar producto';
@@ -724,7 +724,7 @@ function resetProductForm() {
 }
 
 async function loadPromotions() {
-  const { data } = await supabase.from('promotions').select('*').order('id');
+  const { data } = await sbClient.from('promotions').select('*').order('id');
   const container = document.getElementById('promotions-list');
   if (!container) return;
   container.innerHTML = data.map(p => `
@@ -744,13 +744,13 @@ async function loadPromotions() {
 
 async function deletePromotion(id) {
   if (!confirm('¿Eliminar promoción?')) return;
-  const { error } = await supabase.from('promotions').delete().eq('id', id);
+  const { error } = await sbClient.from('promotions').delete().eq('id', id);
   if (error) { alert(error.message); return; }
   loadPromotions();
 }
 
 async function editPromotion(id) {
-  const { data } = await supabase.from('promotions').select('*').eq('id', id).single();
+  const { data } = await sbClient.from('promotions').select('*').eq('id', id).single();
   if (!data) return;
 
   document.getElementById('promo-form-title').textContent = 'Editar promoción';
@@ -784,7 +784,7 @@ function resetPromoForm() {
 }
 
 async function loadHero() {
-  const { data } = await supabase.from('hero_images').select('*').order('"order"');
+  const { data } = await sbClient.from('hero_images').select('*').order('"order"');
   const container = document.getElementById('hero-list');
   if (!container) return;
   container.innerHTML = data.map(h => `
@@ -802,13 +802,13 @@ async function loadHero() {
 
 async function deleteHero(id) {
   if (!confirm('¿Eliminar imagen del carrusel?')) return;
-  const { error } = await supabase.from('hero_images').delete().eq('id', id);
+  const { error } = await sbClient.from('hero_images').delete().eq('id', id);
   if (error) { alert(error.message); return; }
   loadHero();
 }
 
 async function loadStory() {
-  const { data } = await supabase.from('store_info').select('*').single();
+  const { data } = await sbClient.from('store_info').select('*').single();
   if (!data) return;
 
   document.getElementById('story-text').value = data.story || '';
@@ -829,7 +829,7 @@ async function saveStory() {
     instagram: document.getElementById('story-instagram').value.trim(),
   };
 
-  const { error } = await supabase.from('store_info').upsert(payload);
+  const { error } = await sbClient.from('store_info').upsert(payload);
   if (error) { alert(error.message); return; }
   alert('Historia guardada');
 }
@@ -840,10 +840,10 @@ async function loadAll() {
 
 async function exportJson() {
   const [categories, products, promotions, hero] = await Promise.all([
-    supabase.from('categories').select('*'),
-    supabase.from('products').select('*'),
-    supabase.from('promotions').select('*'),
-    supabase.from('hero_images').select('*')
+    sbClient.from('categories').select('*'),
+    sbClient.from('products').select('*'),
+    sbClient.from('promotions').select('*'),
+    sbClient.from('hero_images').select('*')
   ]);
   const payload = {
     categories: categories.data || [],
@@ -864,18 +864,18 @@ async function importJson(file) {
   const payload = JSON.parse(text);
   if (!confirm('Esto reemplazará todo el contenido actual. ¿Continuar?')) return;
   for (const table of ['hero_images', 'promotions', 'products', 'categories']) {
-    await supabase.from(table).delete().neq('id', 0);
+    await sbClient.from(table).delete().neq('id', 0);
   }
-  if (payload.categories?.length) await supabase.from('categories').insert(payload.categories);
-  if (payload.products?.length) await supabase.from('products').insert(payload.products);
-  if (payload.promotions?.length) await supabase.from('promotions').insert(payload.promotions);
-  if (payload.hero_images?.length) await supabase.from('hero_images').insert(payload.hero_images);
+  if (payload.categories?.length) await sbClient.from('categories').insert(payload.categories);
+  if (payload.products?.length) await sbClient.from('products').insert(payload.products);
+  if (payload.promotions?.length) await sbClient.from('promotions').insert(payload.promotions);
+  if (payload.hero_images?.length) await sbClient.from('hero_images').insert(payload.hero_images);
   alert('Importación finalizada');
   loadAll();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  supabase = initSupabase();
+  sbClient = initSupabase();
 
   // Configuración desde la pantalla de login
   document.getElementById('show-config-btn').addEventListener('click', () => {
@@ -885,6 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sb-url-login').value = config.url;
     document.getElementById('sb-key-login').value = config.key;
     document.getElementById('sb-bucket-login').value = config.bucket;
+    console.log('Configuración cargada');
   });
 
   document.getElementById('save-config-login').addEventListener('click', () => {
@@ -895,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(SUPABASE_URL_KEY, url);
     localStorage.setItem(SUPABASE_KEY_KEY, key);
     localStorage.setItem(SUPABASE_BUCKET_KEY, bucket);
-    supabase = initSupabase();
+    sbClient = initSupabase();
     document.getElementById('config-card').style.display = 'none';
     alert('Configuración guardada');
   });
@@ -908,12 +909,12 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(SUPABASE_URL_KEY, url);
     localStorage.setItem(SUPABASE_KEY_KEY, key);
     localStorage.setItem(SUPABASE_BUCKET_KEY, bucket);
-    supabase = initSupabase();
+    sbClient = initSupabase();
     alert('Configuración guardada');
   });
 
-  if (supabase) {
-    supabase.auth.getSession().then(({ data }) => {
+  if (sbClient) {
+    sbClient.auth.getSession().then(({ data }) => {
       if (data.session?.user) { currentUser = data.session.user; showAdmin(); }
     });
   }
@@ -922,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-    if (!supabase) { alert('Configurá primero la conexión haciendo clic en "Configurar Supabase"'); return; }
+    if (!sbClient) { alert('Configurá primero la conexión haciendo clic en "Configurar Supabase"'); return; }
     login(email, password);
   });
 
@@ -948,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = document.getElementById('cat-name').value.trim();
     const image = document.getElementById('cat-image-url').value;
     if (!id || !name || !image) { alert('Completá todos los campos'); return; }
-    const { error } = await supabase.from('categories').upsert({ id, name, image, order: 0 });
+    const { error } = await sbClient.from('categories').upsert({ id, name, image, order: 0 });
     if (error) { alert(error.message); return; }
     e.target.reset();
     document.getElementById('cat-image-preview').style.display = 'none';
@@ -973,10 +974,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let error;
     if (id) {
-      const result = await supabase.from('products').update(payload).eq('id', id);
+      const result = await sbClient.from('products').update(payload).eq('id', id);
       error = result.error;
     } else {
-      const result = await supabase.from('products').insert([payload]);
+      const result = await sbClient.from('products').insert([payload]);
       error = result.error;
     }
 
@@ -1004,10 +1005,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let error;
     if (id) {
-      const result = await supabase.from('promotions').update(payload).eq('id', id);
+      const result = await sbClient.from('promotions').update(payload).eq('id', id);
       error = result.error;
     } else {
-      const result = await supabase.from('promotions').insert([payload]);
+      const result = await sbClient.from('promotions').insert([payload]);
       error = result.error;
     }
 
@@ -1027,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const image = document.getElementById('hero-image-url').value;
     if (!image) { alert('Subí una imagen'); return; }
-    const { data, error } = await supabase.from('hero_images').insert([{ url: image, order: 0 }]).select();
+    const { data, error } = await sbClient.from('hero_images').insert([{ url: image, order: 0 }]).select();
     if (error) { alert(error.message); return; }
     e.target.reset();
     document.getElementById('hero-image-preview').style.display = 'none';
