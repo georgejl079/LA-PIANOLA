@@ -30,6 +30,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
+  flex-direction: column;
 }
 .login-card {
   background: var(--surface);
@@ -151,6 +152,32 @@ body {
   font-size: 1.1rem;
   margin-bottom: 12px;
 }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.card-header h2 { margin: 0; }
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.toolbar input, .toolbar select {
+  padding: 10px 12px;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  min-width: 160px;
+}
+.toolbar input { flex: 1; min-width: 200px; }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -167,6 +194,7 @@ body {
   height: 140px;
   object-fit: cover;
   display: block;
+  background: #111;
 }
 .item .body { padding: 10px; }
 .item .body h3 {
@@ -186,34 +214,7 @@ body {
   color: var(--muted);
   border: 1px dashed var(--border);
   border-radius: 12px;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.card-header h2 {
-  margin: 0;
-  font-size: 1.1rem;
-}
-.edit-btn {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-.delete-btn {
-  background: #dc3545;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.8rem;
+  grid-column: 1 / -1;
 }
 .upload-area {
   border: 2px dashed var(--border);
@@ -234,6 +235,53 @@ body {
   margin-right: 6px;
   margin-bottom: 6px;
 }
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 100;
+  padding: 20px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  margin: 40px auto;
+  padding: 20px;
+  position: relative;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.modal-header h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.25rem;
+  margin: 0;
+}
+.modal-close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.modal-actions .btn { flex: 1; }
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -300,164 +348,46 @@ body {
     <main>
       <section id="panel-categories" class="panel active">
         <div class="card">
-          <h2>Nueva categoría</h2>
-          <form id="category-form">
-            <div class="form-group">
-              <label>ID (slug sin espacios)</label>
-              <input type="text" id="cat-id" required placeholder="ej: saltenas">
-            </div>
-            <div class="form-group">
-              <label>Nombre</label>
-              <input type="text" id="cat-name" required placeholder="Ej: Salteñas">
-            </div>
-            <div class="form-group">
-              <label>Imagen (JPEG)</label>
-              <div class="upload-area" id="cat-upload-area">
-                <input type="file" id="cat-image-input" accept="image/jpeg,image/jpg,image/png">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Hacé clic o arrastrá una imagen para subir</p>
-              </div>
-              <img id="cat-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
-              <input type="hidden" id="cat-image-url">
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar categoría</button>
-          </form>
-        </div>
-        <div class="card">
-          <h2>Categorías</h2>
+          <div class="card-header">
+            <h2>Categorías</h2>
+            <button type="button" class="btn btn-primary" id="btn-new-category"><i class="fas fa-plus"></i> Nueva categoría</button>
+          </div>
           <div id="categories-list" class="grid"></div>
         </div>
       </section>
 
       <section id="panel-products" class="panel">
         <div class="card">
-          <h2><span id="product-form-title">Nuevo producto</span></h2>
-          <form id="product-form">
-            <input type="hidden" id="prod-id">
-            <div class="form-group">
-              <label>SKU</label>
-              <input type="text" id="prod-sku" placeholder="LP-PLA-001">
-            </div>
-            <div class="form-group">
-              <label>Nombre</label>
-              <input type="text" id="prod-name" required placeholder="Ej: Milanesa">
-            </div>
-            <div class="form-group">
-              <label>Categoría</label>
-              <select id="prod-cat" required></select>
-            </div>
-            <div class="form-group">
-              <label>Precio (Bs)</label>
-              <input type="number" id="prod-price" step="0.01" required placeholder="0.00">
-            </div>
-            <div class="form-group">
-              <label>Imagen principal (JPEG)</label>
-              <div class="upload-area" id="prod-upload-area">
-                <input type="file" id="prod-image-input" accept="image/jpeg,image/jpg,image/png">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Hacé clic o arrastrá una imagen para subir</p>
-              </div>
-              <img id="prod-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
-              <input type="hidden" id="prod-image-url">
-            </div>
-            <div class="form-group">
-              <label>Descripción corta</label>
-              <input type="text" id="prod-desc" placeholder="Breve descripción">
-            </div>
-            <div class="form-group">
-              <label>Descripción HTML</label>
-              <textarea id="prod-description" placeholder='<p>Descripción con <strong>HTML</strong></p>'></textarea>
-            </div>
-            <div class="form-group">
-              <label>Detalles (JSON)</label>
-              <textarea id="prod-details" placeholder='{"Ingredientes": "Carne, arroz, papa"}'></textarea>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <button type="submit" class="btn btn-primary" style="flex:1;">Guardar producto</button>
-              <button type="button" id="cancel-product-edit" class="btn btn-ghost" style="display:none;">Cancelar</button>
-            </div>
-          </form>
-        </div>
-        <div class="card">
-          <h2>Productos</h2>
+          <div class="card-header">
+            <h2>Productos</h2>
+            <button type="button" class="btn btn-primary" id="btn-new-product"><i class="fas fa-plus"></i> Nuevo producto</button>
+          </div>
+          <div class="toolbar">
+            <input type="search" id="product-search" placeholder="Buscar por nombre o SKU...">
+            <select id="product-filter-cat">
+              <option value="">Todas las categorías</option>
+            </select>
+          </div>
           <div id="products-list" class="grid"></div>
         </div>
       </section>
 
       <section id="panel-promotions" class="panel">
         <div class="card">
-          <h2><span id="promo-form-title">Nueva promoción</span></h2>
-          <form id="promo-form">
-            <input type="hidden" id="promo-id">
-            <div class="form-group">
-              <label>Badge</label>
-              <input type="text" id="promo-badge" placeholder="NUEVO">
-            </div>
-            <div class="form-group">
-              <label>Título</label>
-              <input type="text" id="promo-title" required placeholder="Ej: Combo Familiar">
-            </div>
-            <div class="form-group">
-              <label>Subtítulo</label>
-              <input type="text" id="promo-sub" placeholder="Descripción corta">
-            </div>
-            <div class="form-group">
-              <label>Categoría</label>
-              <select id="promo-cat" required></select>
-            </div>
-            <div class="form-group">
-              <label>Descripción completa</label>
-              <textarea id="promo-full-desc" rows="3" placeholder="Descripción detallada de la promoción..."></textarea>
-            </div>
-            <div class="form-group">
-              <label>Vigencia</label>
-              <input type="text" id="promo-valid-until" placeholder="Consultar vigencia en tienda">
-            </div>
-            <div class="form-group">
-              <label>Condiciones (una por línea)</label>
-              <textarea id="promo-conditions" rows="3" placeholder="Precio final según modelo&#10;Sujeto a stock disponible"></textarea>
-            </div>
-            <div class="form-group">
-              <label>Imagen (JPEG)</label>
-              <div class="upload-area" id="promo-upload-area">
-                <input type="file" id="promo-image-input" accept="image/jpeg,image/jpg,image/png">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Hacé clic o arrastrá una imagen para subir</p>
-              </div>
-              <img id="promo-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
-              <input type="hidden" id="promo-image-url">
-            </div>
-            <div style="display:flex;gap:10px;">
-              <button type="submit" class="btn btn-primary" style="flex:1;">Guardar promoción</button>
-              <button type="button" id="cancel-promo-edit" class="btn btn-ghost" style="display:none;">Cancelar</button>
-            </div>
-          </form>
-        </div>
-        <div class="card">
-          <h2>Promociones</h2>
+          <div class="card-header">
+            <h2>Promociones</h2>
+            <button type="button" class="btn btn-primary" id="btn-new-promo"><i class="fas fa-plus"></i> Nueva promoción</button>
+          </div>
           <div id="promotions-list" class="grid"></div>
         </div>
       </section>
 
       <section id="panel-hero" class="panel">
         <div class="card">
-          <h2>Agregar imagen al carrusel</h2>
-          <form id="hero-form">
-            <div class="form-group">
-              <label>Imagen (JPEG)</label>
-              <div class="upload-area" id="hero-upload-area">
-                <input type="file" id="hero-image-input" accept="image/jpeg,image/jpg,image/png">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Hacé clic o arrastrá una imagen para subir</p>
-              </div>
-              <img id="hero-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
-              <input type="hidden" id="hero-image-url">
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar al carrusel</button>
-          </form>
-        </div>
-        <div class="card">
-          <h2>Imágenes del carrusel</h2>
+          <div class="card-header">
+            <h2>Imágenes del carrusel</h2>
+            <button type="button" class="btn btn-primary" id="btn-new-hero"><i class="fas fa-plus"></i> Agregar imagen</button>
+          </div>
           <div id="hero-list" class="grid"></div>
         </div>
       </section>
@@ -533,6 +463,177 @@ body {
   </div>
 </div>
 
+<!-- Category modal -->
+<div class="modal-overlay" id="modal-category">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="category-form-title">Nueva categoría</h2>
+      <button type="button" class="modal-close" data-close-modal="modal-category" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="category-form">
+      <input type="hidden" id="cat-editing" value="">
+      <div class="form-group">
+        <label>ID (slug sin espacios)</label>
+        <input type="text" id="cat-id" required placeholder="ej: saltenas">
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" id="cat-name" required placeholder="Ej: Salteñas">
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <div class="upload-area" id="cat-upload-area">
+          <input type="file" id="cat-image-input" accept="image/jpeg,image/jpg,image/png,image/webp">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Hacé clic o arrastrá una imagen para subir</p>
+        </div>
+        <img id="cat-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
+        <input type="hidden" id="cat-image-url">
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-ghost" data-close-modal="modal-category">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Product modal -->
+<div class="modal-overlay" id="modal-product">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="product-form-title">Nuevo producto</h2>
+      <button type="button" class="modal-close" data-close-modal="modal-product" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="product-form">
+      <input type="hidden" id="prod-id">
+      <div class="form-group">
+        <label>SKU</label>
+        <input type="text" id="prod-sku" placeholder="LP-PLA-001">
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" id="prod-name" required placeholder="Ej: Milanesa">
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="prod-cat" required></select>
+      </div>
+      <div class="form-group">
+        <label>Precio (Bs)</label>
+        <input type="number" id="prod-price" step="0.01" required placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>Imagen principal</label>
+        <div class="upload-area" id="prod-upload-area">
+          <input type="file" id="prod-image-input" accept="image/jpeg,image/jpg,image/png,image/webp">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Hacé clic o arrastrá una imagen para subir</p>
+        </div>
+        <img id="prod-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
+        <input type="hidden" id="prod-image-url">
+      </div>
+      <div class="form-group">
+        <label>Descripción corta</label>
+        <input type="text" id="prod-desc" placeholder="Breve descripción">
+      </div>
+      <div class="form-group">
+        <label>Descripción HTML</label>
+        <textarea id="prod-description" placeholder='<p>Descripción con <strong>HTML</strong></p>'></textarea>
+      </div>
+      <div class="form-group">
+        <label>Detalles (JSON)</label>
+        <textarea id="prod-details" placeholder='{"Ingredientes": "Carne, arroz, papa"}'></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-ghost" data-close-modal="modal-product">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Promo modal -->
+<div class="modal-overlay" id="modal-promo">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="promo-form-title">Nueva promoción</h2>
+      <button type="button" class="modal-close" data-close-modal="modal-promo" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="promo-form">
+      <input type="hidden" id="promo-id">
+      <div class="form-group">
+        <label>Badge</label>
+        <input type="text" id="promo-badge" placeholder="NUEVO">
+      </div>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" id="promo-title" required placeholder="Ej: Combo Familiar">
+      </div>
+      <div class="form-group">
+        <label>Subtítulo</label>
+        <input type="text" id="promo-sub" placeholder="Descripción corta">
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="promo-cat" required></select>
+      </div>
+      <div class="form-group">
+        <label>Descripción completa</label>
+        <textarea id="promo-full-desc" rows="3" placeholder="Descripción detallada de la promoción..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Vigencia</label>
+        <input type="text" id="promo-valid-until" placeholder="Consultar vigencia en tienda">
+      </div>
+      <div class="form-group">
+        <label>Condiciones (una por línea)</label>
+        <textarea id="promo-conditions" rows="3" placeholder="Precio final según modelo&#10;Sujeto a stock disponible"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <div class="upload-area" id="promo-upload-area">
+          <input type="file" id="promo-image-input" accept="image/jpeg,image/jpg,image/png,image/webp">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Hacé clic o arrastrá una imagen para subir</p>
+        </div>
+        <img id="promo-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
+        <input type="hidden" id="promo-image-url">
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-ghost" data-close-modal="modal-promo">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Hero modal -->
+<div class="modal-overlay" id="modal-hero">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Agregar imagen al carrusel</h2>
+      <button type="button" class="modal-close" data-close-modal="modal-hero" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="hero-form">
+      <div class="form-group">
+        <label>Imagen</label>
+        <div class="upload-area" id="hero-upload-area">
+          <input type="file" id="hero-image-input" accept="image/jpeg,image/jpg,image/png,image/webp">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Hacé clic o arrastrá una imagen para subir</p>
+        </div>
+        <img id="hero-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
+        <input type="hidden" id="hero-image-url">
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-ghost" data-close-modal="modal-hero">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 const SUPABASE_URL_KEY = 'lp_supabase_url';
 const SUPABASE_KEY_KEY = 'lp_supabase_key';
@@ -542,6 +643,9 @@ const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3Mi
 
 let sbClient = null;
 let currentUser = null;
+let allProducts = [];
+let allCategories = [];
+let catNameMap = {};
 
 function getConfig() {
   const urlEl = document.getElementById('sb-url');
@@ -560,16 +664,31 @@ function initSupabase() {
   return window.supabase.createClient(url, key);
 }
 
+function sanitizeFileName(fileName) {
+  const parts = String(fileName || 'image.jpg').split('.');
+  const ext = (parts.length > 1 ? parts.pop() : 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+  const base = parts.join('.')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9._-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase() || 'image';
+  return `${base}.${ext}`;
+}
+
 function getStoragePath(fileName) {
-  const { bucket } = getConfig();
-  const ts = Date.now();
-  return `${bucket}/${ts}-${fileName}`;
+  return `${Date.now()}-${sanitizeFileName(fileName)}`;
 }
 
 async function uploadImage(file, bucketName) {
   if (!file) return '';
   const path = getStoragePath(file.name);
-  const { data, error } = await sbClient.storage.from(bucketName).upload(path, file, { cacheControl: '3600', upsert: false });
+  const { data, error } = await sbClient.storage.from(bucketName).upload(path, file, {
+    cacheControl: '3600',
+    upsert: false,
+    contentType: file.type || undefined
+  });
   if (error) { alert('Error al subir imagen: ' + error.message); return ''; }
   const { data: pub } = sbClient.storage.from(bucketName).getPublicUrl(data.path);
   return pub.publicUrl;
@@ -580,23 +699,20 @@ function setupUpload(areaId, inputId, previewId, hiddenUrlId, bucketName) {
   const input = document.getElementById(inputId);
   const preview = document.getElementById(previewId);
   const hidden = document.getElementById(hiddenUrlId);
+  if (!area || !input) return;
   area.addEventListener('click', () => input.click());
   area.addEventListener('dragover', (e) => { e.preventDefault(); area.style.borderColor = 'var(--accent)'; });
   area.addEventListener('dragleave', () => { area.style.borderColor = 'var(--border)'; });
   area.addEventListener('drop', (e) => {
     e.preventDefault();
     area.style.borderColor = 'var(--border)';
-    if (e.dataTransfer.files[0]) {
-      input.files = e.dataTransfer.files;
-      handlePreview(e.dataTransfer.files[0]);
-    }
+    if (e.dataTransfer.files[0]) handlePreview(e.dataTransfer.files[0]);
   });
   input.addEventListener('change', () => {
     if (input.files[0]) handlePreview(input.files[0]);
   });
   async function handlePreview(file) {
-    const url = URL.createObjectURL(file);
-    preview.src = url;
+    preview.src = URL.createObjectURL(file);
     preview.style.display = 'block';
     const finalBucket = bucketName || getConfig().bucket;
     const publicUrl = await uploadImage(file, finalBucket);
@@ -604,22 +720,23 @@ function setupUpload(areaId, inputId, previewId, hiddenUrlId, bucketName) {
   }
 }
 
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  if (!document.querySelector('.modal-overlay.open')) document.body.style.overflow = '';
+}
+
 async function login(email, password) {
   if (!sbClient) {
     alert('Error: Supabase no está configurado. Configuralo primero.');
     return;
   }
-
-  console.log('Intentando login con:', email);
   const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    console.error('Error de login:', error);
-    alert('Error de autenticación: ' + error.message);
-    return;
-  }
-
-  console.log('Login exitoso:', data.user);
+  if (error) { alert('Error de autenticación: ' + error.message); return; }
   currentUser = data.user;
   showAdmin();
 }
@@ -634,61 +751,126 @@ function showAdmin() {
   document.getElementById('auth-section').style.display = 'none';
   document.getElementById('admin-section').style.display = 'block';
   document.getElementById('user-email').textContent = currentUser.email;
+  const cfg = getConfig();
+  document.getElementById('sb-url').value = cfg.url;
+  document.getElementById('sb-key').value = cfg.key;
+  document.getElementById('sb-bucket').value = cfg.bucket;
   loadAll();
 }
 
+function fillCategorySelects() {
+  const options = allCategories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  const prod = document.getElementById('prod-cat');
+  const promo = document.getElementById('promo-cat');
+  const filter = document.getElementById('product-filter-cat');
+  const currentFilter = filter.value;
+  if (prod) prod.innerHTML = options;
+  if (promo) promo.innerHTML = options;
+  if (filter) {
+    filter.innerHTML = `<option value="">Todas las categorías</option>` + options;
+    filter.value = currentFilter;
+  }
+  catNameMap = {};
+  allCategories.forEach(c => { catNameMap[c.id] = c.name; });
+}
+
 async function loadCategories() {
-  const { data } = await sbClient.from('categories').select('*').order('"order"');
+  const { data, error } = await sbClient.from('categories').select('*').order('"order"');
+  if (error) { console.error(error); return; }
+  allCategories = data || [];
+  fillCategorySelects();
   const container = document.getElementById('categories-list');
-  const selectProd = document.getElementById('prod-cat');
-  const selectPromo = document.getElementById('promo-cat');
-  if (!container) return;
-  container.innerHTML = data.map(c => `
+  container.innerHTML = allCategories.length ? allCategories.map(c => `
     <div class="item">
-      <img src="${c.image}" alt="${c.name}">
+      <img src="${c.image || ''}" alt="${c.name}">
       <div class="body">
         <h3>${c.name}</h3>
         <p class="muted">${c.id}</p>
         <div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="editCategory('${c.id}')"><i class="fas fa-edit"></i></button>
           <button class="btn btn-ghost btn-sm" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
         </div>
       </div>
     </div>
-  `).join('') || '<div class="empty">Sin categorías</div>';
-  if (selectProd) {
-    selectProd.innerHTML = (data || []).map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  `).join('') : '<div class="empty">Sin categorías</div>';
+}
+
+function resetCategoryForm() {
+  document.getElementById('category-form-title').textContent = 'Nueva categoría';
+  document.getElementById('category-form').reset();
+  document.getElementById('cat-editing').value = '';
+  document.getElementById('cat-id').disabled = false;
+  document.getElementById('cat-image-preview').style.display = 'none';
+  document.getElementById('cat-image-url').value = '';
+}
+
+function openNewCategory() {
+  resetCategoryForm();
+  openModal('modal-category');
+}
+
+async function editCategory(id) {
+  let cat = allCategories.find(x => x.id === id);
+  if (!cat) {
+    const { data } = await sbClient.from('categories').select('*').eq('id', id).single();
+    cat = data;
   }
-  if (selectPromo) {
-    selectPromo.innerHTML = (data || []).map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  if (!cat) return;
+  document.getElementById('category-form-title').textContent = 'Editar categoría';
+  document.getElementById('cat-editing').value = cat.id;
+  document.getElementById('cat-id').value = cat.id;
+  document.getElementById('cat-id').disabled = true;
+  document.getElementById('cat-name').value = cat.name;
+  document.getElementById('cat-image-url').value = cat.image || '';
+  const preview = document.getElementById('cat-image-preview');
+  if (cat.image) {
+    preview.src = cat.image;
+    preview.style.display = 'block';
+  } else {
+    preview.style.display = 'none';
   }
+  openModal('modal-category');
 }
 
 async function deleteCategory(id) {
   if (!confirm('¿Eliminar categoría? Esto puede afectar productos y promociones asociados.')) return;
   const { error } = await sbClient.from('categories').delete().eq('id', id);
   if (error) { alert(error.message); return; }
-  loadCategories();
-  loadProducts();
-  loadPromotions();
+  await loadCategories();
+  await loadProducts();
+  await loadPromotions();
 }
 
-async function loadProducts() {
-  const { data } = await sbClient.from('products').select('*').order('id');
+function renderProducts() {
+  const q = (document.getElementById('product-search').value || '').trim().toLowerCase();
+  const cat = document.getElementById('product-filter-cat').value;
+  const filtered = allProducts.filter(p => {
+    const matchCat = !cat || p.cat === cat;
+    const hay = `${p.name || ''} ${p.sku || ''}`.toLowerCase();
+    const matchQ = !q || hay.includes(q);
+    return matchCat && matchQ;
+  });
   const container = document.getElementById('products-list');
-  if (!container) return;
-  container.innerHTML = data.map(p => `
+  container.innerHTML = filtered.length ? filtered.map(p => `
     <div class="item">
-      <img src="${p.img}" alt="${p.name}">
+      <img src="${p.img || ''}" alt="${p.name}">
       <div class="body">
         <h3>${p.name}</h3>
-        <p class="muted">${p.cat} · Bs ${Number(p.price).toFixed(2)}</p>
+        <p class="muted">${catNameMap[p.cat] || p.cat} · Bs ${Number(p.price).toFixed(2)}</p>
         <div class="actions">
           <button class="btn btn-ghost btn-sm" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
           <button class="btn btn-ghost btn-sm" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
         </div>
       </div>
     </div>
-  `).join('') || '<div class="empty">Sin productos</div>';
+  `).join('') : '<div class="empty">Sin productos</div>';
+}
+
+async function loadProducts() {
+  const { data, error } = await sbClient.from('products').select('*').order('id');
+  if (error) { console.error(error); return; }
+  allProducts = data || [];
+  renderProducts();
 }
 
 async function deleteProduct(id) {
@@ -698,49 +880,52 @@ async function deleteProduct(id) {
   loadProducts();
 }
 
-async function editProduct(id) {
-  const { data } = await sbClient.from('products').select('*').eq('id', id).single();
-  if (!data) return;
-
-  document.getElementById('product-form-title').textContent = 'Editar producto';
-  document.getElementById('prod-id').value = data.id;
-  document.getElementById('prod-sku').value = data.sku || '';
-  document.getElementById('prod-name').value = data.name;
-  document.getElementById('prod-cat').value = data.cat;
-  document.getElementById('prod-price').value = data.price;
-  document.getElementById('prod-image-url').value = data.img;
-  document.getElementById('prod-desc').value = data.short_desc || '';
-  document.getElementById('prod-description').value = data.description || '';
-  document.getElementById('prod-details').value = typeof data.details === 'object' ? JSON.stringify(data.details, null, 2) : data.details || '{}';
-
-  if (data.img) {
-    const preview = document.getElementById('prod-image-preview');
-    preview.src = data.img;
-    preview.style.display = 'block';
-  }
-
-  document.getElementById('cancel-product-edit').style.display = 'inline-flex';
-  document.getElementById('product-form').scrollIntoView({ behavior: 'smooth' });
-}
-
 function resetProductForm() {
   document.getElementById('product-form-title').textContent = 'Nuevo producto';
   document.getElementById('product-form').reset();
   document.getElementById('prod-id').value = '';
   document.getElementById('prod-image-preview').style.display = 'none';
   document.getElementById('prod-image-url').value = '';
-  document.getElementById('cancel-product-edit').style.display = 'none';
+  fillCategorySelects();
+}
+
+function openNewProduct() {
+  resetProductForm();
+  openModal('modal-product');
+}
+
+async function editProduct(id) {
+  const { data } = await sbClient.from('products').select('*').eq('id', id).single();
+  if (!data) return;
+  fillCategorySelects();
+  document.getElementById('product-form-title').textContent = 'Editar producto';
+  document.getElementById('prod-id').value = data.id;
+  document.getElementById('prod-sku').value = data.sku || '';
+  document.getElementById('prod-name').value = data.name;
+  document.getElementById('prod-cat').value = data.cat;
+  document.getElementById('prod-price').value = data.price;
+  document.getElementById('prod-image-url').value = data.img || '';
+  document.getElementById('prod-desc').value = data.short_desc || '';
+  document.getElementById('prod-description').value = data.description || '';
+  document.getElementById('prod-details').value = typeof data.details === 'object' ? JSON.stringify(data.details, null, 2) : (data.details || '{}');
+  const preview = document.getElementById('prod-image-preview');
+  if (data.img) {
+    preview.src = data.img;
+    preview.style.display = 'block';
+  } else {
+    preview.style.display = 'none';
+  }
+  openModal('modal-product');
 }
 
 async function loadPromotions() {
   const { data } = await sbClient.from('promotions').select('*').order('id');
   const container = document.getElementById('promotions-list');
-  if (!container) return;
-  container.innerHTML = data.map(p => `
+  container.innerHTML = (data || []).length ? data.map(p => `
     <div class="item">
-      <img src="${p.image}" alt="${p.title}">
+      <img src="${p.image || ''}" alt="${p.title}">
       <div class="body">
-        <h3>${p.badge ? `<span class="tag">${p.badge}</span>` : ''} ${p.title}</h3>
+        <h3>${p.badge ? `<span class="tag">${p.badge}</span>` : ''}${p.title}</h3>
         <p class="muted">${p.sub || ''}</p>
         <div class="actions">
           <button class="btn btn-ghost btn-sm" onclick="editPromotion(${p.id})"><i class="fas fa-edit"></i></button>
@@ -748,7 +933,7 @@ async function loadPromotions() {
         </div>
       </div>
     </div>
-  `).join('') || '<div class="empty">Sin promociones</div>';
+  `).join('') : '<div class="empty">Sin promociones</div>';
 }
 
 async function deletePromotion(id) {
@@ -758,10 +943,24 @@ async function deletePromotion(id) {
   loadPromotions();
 }
 
+function resetPromoForm() {
+  document.getElementById('promo-form-title').textContent = 'Nueva promoción';
+  document.getElementById('promo-form').reset();
+  document.getElementById('promo-id').value = '';
+  document.getElementById('promo-image-preview').style.display = 'none';
+  document.getElementById('promo-image-url').value = '';
+  fillCategorySelects();
+}
+
+function openNewPromo() {
+  resetPromoForm();
+  openModal('modal-promo');
+}
+
 async function editPromotion(id) {
   const { data } = await sbClient.from('promotions').select('*').eq('id', id).single();
   if (!data) return;
-
+  fillCategorySelects();
   document.getElementById('promo-form-title').textContent = 'Editar promoción';
   document.getElementById('promo-id').value = data.id;
   document.getElementById('promo-badge').value = data.badge || '';
@@ -770,33 +969,33 @@ async function editPromotion(id) {
   document.getElementById('promo-cat').value = data.cat;
   document.getElementById('promo-full-desc').value = data.fullDescription || '';
   document.getElementById('promo-valid-until').value = data.validUntil || '';
-  document.getElementById('promo-conditions').value = Array.isArray(data.conditions) ? data.conditions.join('\n') : data.conditions || '';
-  document.getElementById('promo-image-url').value = data.image;
-
+  document.getElementById('promo-conditions').value = Array.isArray(data.conditions) ? data.conditions.join('\n') : (data.conditions || '');
+  document.getElementById('promo-image-url').value = data.image || '';
+  const preview = document.getElementById('promo-image-preview');
   if (data.image) {
-    const preview = document.getElementById('promo-image-preview');
     preview.src = data.image;
     preview.style.display = 'block';
+  } else {
+    preview.style.display = 'none';
   }
-
-  document.getElementById('cancel-promo-edit').style.display = 'inline-flex';
-  document.getElementById('promo-form').scrollIntoView({ behavior: 'smooth' });
+  openModal('modal-promo');
 }
 
-function resetPromoForm() {
-  document.getElementById('promo-form-title').textContent = 'Nueva promoción';
-  document.getElementById('promo-form').reset();
-  document.getElementById('promo-id').value = '';
-  document.getElementById('promo-image-preview').style.display = 'none';
-  document.getElementById('promo-image-url').value = '';
-  document.getElementById('cancel-promo-edit').style.display = 'none';
+function resetHeroForm() {
+  document.getElementById('hero-form').reset();
+  document.getElementById('hero-image-preview').style.display = 'none';
+  document.getElementById('hero-image-url').value = '';
+}
+
+function openNewHero() {
+  resetHeroForm();
+  openModal('modal-hero');
 }
 
 async function loadHero() {
   const { data } = await sbClient.from('hero_images').select('*').order('"order"');
   const container = document.getElementById('hero-list');
-  if (!container) return;
-  container.innerHTML = data.map(h => `
+  container.innerHTML = (data || []).length ? data.map(h => `
     <div class="item">
       <img src="${h.url}" alt="Hero">
       <div class="body">
@@ -806,7 +1005,7 @@ async function loadHero() {
         </div>
       </div>
     </div>
-  `).join('') || '<div class="empty">Sin imágenes</div>';
+  `).join('') : '<div class="empty">Sin imágenes</div>';
 }
 
 async function deleteHero(id) {
@@ -819,7 +1018,6 @@ async function deleteHero(id) {
 async function loadStory() {
   const { data } = await sbClient.from('store_info').select('*').single();
   if (!data) return;
-
   document.getElementById('story-text').value = data.story || '';
   document.getElementById('story-mission').value = data.mission || '';
   document.getElementById('story-hours').value = data.hours || '';
@@ -830,6 +1028,7 @@ async function loadStory() {
 
 async function saveStory() {
   const payload = {
+    id: 1,
     story: document.getElementById('story-text').value.trim(),
     mission: document.getElementById('story-mission').value.trim(),
     hours: document.getElementById('story-hours').value.trim(),
@@ -837,14 +1036,14 @@ async function saveStory() {
     email: document.getElementById('story-email').value.trim(),
     instagram: document.getElementById('story-instagram').value.trim(),
   };
-
   const { error } = await sbClient.from('store_info').upsert(payload);
   if (error) { alert(error.message); return; }
   alert('Historia guardada');
 }
 
 async function loadAll() {
-  await Promise.all([loadCategories(), loadProducts(), loadPromotions(), loadHero(), loadStory()]);
+  await loadCategories();
+  await Promise.all([loadProducts(), loadPromotions(), loadHero(), loadStory()]);
 }
 
 async function exportJson() {
@@ -940,15 +1139,12 @@ async function loadWebCatalog() {
 document.addEventListener('DOMContentLoaded', () => {
   sbClient = initSupabase();
 
-  // Configuración desde la pantalla de login
   document.getElementById('show-config-btn').addEventListener('click', () => {
     document.getElementById('config-card').style.display = 'block';
-    // Pre-llenar con valores existentes
     const config = getConfig();
     document.getElementById('sb-url-login').value = config.url;
     document.getElementById('sb-key-login').value = config.key;
     document.getElementById('sb-bucket-login').value = config.bucket;
-    console.log('Configuración cargada');
   });
 
   document.getElementById('save-config-login').addEventListener('click', () => {
@@ -984,10 +1180,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
     if (!sbClient) { alert('Configurá primero la conexión haciendo clic en "Configurar Supabase"'); return; }
-    login(email, password);
+    login(document.getElementById('email').value.trim(), document.getElementById('password').value);
   });
 
   document.getElementById('logout-btn').addEventListener('click', logout);
@@ -1001,6 +1195,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.querySelectorAll('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', () => closeModal(el.dataset.closeModal));
+  });
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal(overlay.id);
+    });
+  });
+
+  document.getElementById('btn-new-category').addEventListener('click', openNewCategory);
+  document.getElementById('btn-new-product').addEventListener('click', openNewProduct);
+  document.getElementById('btn-new-promo').addEventListener('click', openNewPromo);
+  document.getElementById('btn-new-hero').addEventListener('click', openNewHero);
+
+  document.getElementById('product-search').addEventListener('input', renderProducts);
+  document.getElementById('product-filter-cat').addEventListener('change', renderProducts);
+
   setupUpload('cat-upload-area', 'cat-image-input', 'cat-image-preview', 'cat-image-url');
   setupUpload('prod-upload-area', 'prod-image-input', 'prod-image-preview', 'prod-image-url');
   setupUpload('promo-upload-area', 'promo-image-input', 'promo-image-preview', 'promo-image-url');
@@ -1008,15 +1219,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('category-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const editing = document.getElementById('cat-editing').value;
     const id = document.getElementById('cat-id').value.trim();
     const name = document.getElementById('cat-name').value.trim();
     const image = document.getElementById('cat-image-url').value;
-    if (!id || !name || !image) { alert('Completá todos los campos'); return; }
-    const { error } = await sbClient.from('categories').upsert({ id, name, image, order: 0 });
+    if (!id || !name) { alert('Completá ID y nombre'); return; }
+    if (!image) { alert('Subí o mantené una imagen'); return; }
+    const order = editing
+      ? (allCategories.find(c => c.id === editing)?.order ?? 0)
+      : allCategories.length;
+    const { error } = await sbClient.from('categories').upsert({ id, name, image, order });
     if (error) { alert(error.message); return; }
-    e.target.reset();
-    document.getElementById('cat-image-preview').style.display = 'none';
-    document.getElementById('cat-image-url').value = '';
+    closeModal('modal-category');
+    resetCategoryForm();
     loadCategories();
   });
 
@@ -1033,23 +1248,21 @@ document.addEventListener('DOMContentLoaded', () => {
       description: document.getElementById('prod-description').value.trim() || null,
       details: (() => { try { return JSON.parse(document.getElementById('prod-details').value || '{}'); } catch { return {}; } })(),
     };
-    if (!payload.img) { alert('Subí una imagen'); return; }
+    if (!payload.img) { alert('Subí o mantené una imagen'); return; }
 
     let error;
     if (id) {
       const result = await sbClient.from('products').update(payload).eq('id', id);
       error = result.error;
     } else {
-      const result = await sbClient.from('products').insert([payload]);
+      const result = await sbClient.from('products').insert([{ ...payload, brand: 'LA PIANOLA', images: [payload.img] }]);
       error = result.error;
     }
-
     if (error) { alert(error.message); return; }
+    closeModal('modal-product');
     resetProductForm();
     loadProducts();
   });
-
-  document.getElementById('cancel-product-edit').addEventListener('click', resetProductForm);
 
   document.getElementById('promo-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1064,7 +1277,7 @@ document.addEventListener('DOMContentLoaded', () => {
       conditions: document.getElementById('promo-conditions').value.split('\n').filter(c => c.trim()) || [],
       image: document.getElementById('promo-image-url').value,
     };
-    if (!payload.image) { alert('Subí una imagen'); return; }
+    if (!payload.image) { alert('Subí o mantené una imagen'); return; }
 
     let error;
     if (id) {
@@ -1074,13 +1287,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await sbClient.from('promotions').insert([payload]);
       error = result.error;
     }
-
     if (error) { alert(error.message); return; }
+    closeModal('modal-promo');
     resetPromoForm();
     loadPromotions();
   });
-
-  document.getElementById('cancel-promo-edit').addEventListener('click', resetPromoForm);
 
   document.getElementById('story-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1091,11 +1302,10 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const image = document.getElementById('hero-image-url').value;
     if (!image) { alert('Subí una imagen'); return; }
-    const { data, error } = await sbClient.from('hero_images').insert([{ url: image, order: 0 }]).select();
+    const { error } = await sbClient.from('hero_images').insert([{ url: image, order: 0 }]);
     if (error) { alert(error.message); return; }
-    e.target.reset();
-    document.getElementById('hero-image-preview').style.display = 'none';
-    document.getElementById('hero-image-url').value = '';
+    closeModal('modal-hero');
+    resetHeroForm();
     loadHero();
   });
 

@@ -1854,24 +1854,66 @@ Desarrollado por <strong>KEY STUDIO</strong>
 </nav>
 </script>
 <script>
-const API_BASE = '/api';
 const USE_API = true;
+const SUPABASE_URL = 'https://ctrfgdlleaxcxlwrxqub.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0cmZnZGxsZWF4Y3hsd3J4cXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDI0NTgsImV4cCI6MjEwNjI3ODQ1OH0.dsIkortIxEY3Pm5zvcwE_EV4nfksT-ELVK0LGdOUg74';
+
+async function sbFetch(path) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+  });
+  if (!res.ok) throw new Error(`Supabase ${path}: ${res.status}`);
+  return res.json();
+}
 
 async function loadFromApi() {
   if (!USE_API) return null;
-  const [cats, prods, promos, heroes, storeInfo] = await Promise.all([
-    fetch(`${API_BASE}/categories`).then(r => r.json()),
-    fetch(`${API_BASE}/products`).then(r => r.json()),
-    fetch(`${API_BASE}/promotions`).then(r => r.json()),
-    fetch(`${API_BASE}/hero-images`).then(r => r.json()),
-    fetch(`${API_BASE}/store-info`).then(r => r.json()),
+  const [cats, prods, promos, heroes, storeRows] = await Promise.all([
+    sbFetch('categories?order=order.asc'),
+    sbFetch('products?order=id.asc'),
+    sbFetch('promotions?order=id.asc'),
+    sbFetch('hero_images?order=order.asc'),
+    sbFetch('store_info?id=eq.1'),
   ]);
+  const store = storeRows && storeRows[0] ? storeRows[0] : {};
   return {
-    categories: Array.isArray(cats) ? cats : [],
-    products: Array.isArray(prods) ? prods : [],
-    promotions: Array.isArray(promos) ? promos : [],
-    heroImages: Array.isArray(heroes) ? heroes : [],
-    storeInfo: storeInfo || {},
+    categories: (cats || []).map(c => ({ id: c.id, name: c.name, image: c.image })),
+    products: (prods || []).map(p => ({
+      id: p.id,
+      sku: p.sku || '',
+      name: p.name,
+      brand: p.brand || 'LA PIANOLA',
+      price: Number(p.price),
+      cat: p.cat,
+      img: p.img,
+      images: Array.isArray(p.images) ? p.images : [p.img],
+      short_desc: p.short_desc || '',
+      description: p.description || '',
+      details: p.details || {},
+      pairsWith: Array.isArray(p.pairsWith) ? p.pairsWith : [],
+    })),
+    promotions: (promos || []).map(p => ({
+      badge: p.badge || '',
+      title: p.title,
+      sub: p.sub || '',
+      image: p.image,
+      cat: p.cat,
+      fullDescription: p.fullDescription || '',
+      validUntil: p.validUntil || '',
+      conditions: Array.isArray(p.conditions) ? p.conditions : [],
+    })),
+    heroImages: (heroes || []).map(h => h.url).filter(Boolean),
+    storeInfo: {
+      story: store.story || '',
+      mission: store.mission || '',
+      hours: store.hours || '',
+      address: store.address || '',
+      email: store.email || '',
+      instagram: store.instagram || '',
+    },
   };
 }
 
