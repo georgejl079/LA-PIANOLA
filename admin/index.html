@@ -187,6 +187,34 @@ body {
   border: 1px dashed var(--border);
   border-radius: 12px;
 }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.edit-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.delete-btn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
 .upload-area {
   border: 2px dashed var(--border);
   border-radius: 12px;
@@ -230,6 +258,25 @@ body {
       <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
     </form>
     <p class="muted" style="margin-top:12px;font-size:0.8rem;">Usá una cuenta registrada en Supabase Auth.</p>
+    <button id="show-config-btn" class="btn btn-ghost btn-block" style="margin-top:12px;font-size:0.8rem;">
+      <i class="fas fa-cog"></i> Configurar Supabase
+    </button>
+  </div>
+  <div id="config-card" class="login-card" style="display:none;margin-top:16px;">
+    <h2>Configuración de Supabase</h2>
+    <div class="form-group">
+      <label>Supabase URL</label>
+      <input type="text" id="sb-url-login" placeholder="https://xxxx.supabase.co">
+    </div>
+    <div class="form-group">
+      <label>Supabase Anon Key</label>
+      <input type="text" id="sb-key-login" placeholder="eyJhbG...">
+    </div>
+    <div class="form-group">
+      <label>Bucket de Storage</label>
+      <input type="text" id="sb-bucket-login" value="images" placeholder="images">
+    </div>
+    <button id="save-config-login" class="btn btn-primary btn-block">Guardar y volver</button>
   </div>
 </div>
 
@@ -247,6 +294,7 @@ body {
       <button data-panel="products"><i class="fas fa-utensils"></i> Productos</button>
       <button data-panel="promotions"><i class="fas fa-tags"></i> Promociones</button>
       <button data-panel="hero"><i class="fas fa-images"></i> Carrusel</button>
+      <button data-panel="story"><i class="fas fa-book"></i> Historia</button>
       <button data-panel="settings"><i class="fas fa-cog"></i> Configuración</button>
     </aside>
     <main>
@@ -283,8 +331,9 @@ body {
 
       <section id="panel-products" class="panel">
         <div class="card">
-          <h2>Nuevo producto</h2>
+          <h2><span id="product-form-title">Nuevo producto</span></h2>
           <form id="product-form">
+            <input type="hidden" id="prod-id">
             <div class="form-group">
               <label>SKU</label>
               <input type="text" id="prod-sku" placeholder="LP-PLA-001">
@@ -323,7 +372,10 @@ body {
               <label>Detalles (JSON)</label>
               <textarea id="prod-details" placeholder='{"Ingredientes": "Carne, arroz, papa"}'></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar producto</button>
+            <div style="display:flex;gap:10px;">
+              <button type="submit" class="btn btn-primary" style="flex:1;">Guardar producto</button>
+              <button type="button" id="cancel-product-edit" class="btn btn-ghost" style="display:none;">Cancelar</button>
+            </div>
           </form>
         </div>
         <div class="card">
@@ -334,8 +386,9 @@ body {
 
       <section id="panel-promotions" class="panel">
         <div class="card">
-          <h2>Nueva promoción</h2>
+          <h2><span id="promo-form-title">Nueva promoción</span></h2>
           <form id="promo-form">
+            <input type="hidden" id="promo-id">
             <div class="form-group">
               <label>Badge</label>
               <input type="text" id="promo-badge" placeholder="NUEVO">
@@ -353,6 +406,18 @@ body {
               <select id="promo-cat" required></select>
             </div>
             <div class="form-group">
+              <label>Descripción completa</label>
+              <textarea id="promo-full-desc" rows="3" placeholder="Descripción detallada de la promoción..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Vigencia</label>
+              <input type="text" id="promo-valid-until" placeholder="Consultar vigencia en tienda">
+            </div>
+            <div class="form-group">
+              <label>Condiciones (una por línea)</label>
+              <textarea id="promo-conditions" rows="3" placeholder="Precio final según modelo&#10;Sujeto a stock disponible"></textarea>
+            </div>
+            <div class="form-group">
               <label>Imagen (JPEG)</label>
               <div class="upload-area" id="promo-upload-area">
                 <input type="file" id="promo-image-input" accept="image/jpeg,image/jpg,image/png">
@@ -362,7 +427,10 @@ body {
               <img id="promo-image-preview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:8px;">
               <input type="hidden" id="promo-image-url">
             </div>
-            <button type="submit" class="btn btn-primary">Guardar promoción</button>
+            <div style="display:flex;gap:10px;">
+              <button type="submit" class="btn btn-primary" style="flex:1;">Guardar promoción</button>
+              <button type="button" id="cancel-promo-edit" class="btn btn-ghost" style="display:none;">Cancelar</button>
+            </div>
           </form>
         </div>
         <div class="card">
@@ -391,6 +459,40 @@ body {
         <div class="card">
           <h2>Imágenes del carrusel</h2>
           <div id="hero-list" class="grid"></div>
+        </div>
+      </section>
+
+      <section id="panel-story" class="panel">
+        <div class="card">
+          <h2>Historia del Negocio</h2>
+          <p class="muted" style="margin-bottom:12px;">Editá la información sobre la historia de LA PIANOLA.</p>
+          <form id="story-form">
+            <div class="form-group">
+              <label>Historia</label>
+              <textarea id="story-text" rows="6" placeholder="Escribí la historia del negocio..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Misión</label>
+              <textarea id="story-mission" rows="3" placeholder="Misión del negocio..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Horario</label>
+              <input type="text" id="story-hours" placeholder="Lun – Dom: 07:00 – 21:00">
+            </div>
+            <div class="form-group">
+              <label>Dirección</label>
+              <input type="text" id="story-address" placeholder="Yacuiba, Bolivia">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="story-email" placeholder="ventas@lapianola.bo">
+            </div>
+            <div class="form-group">
+              <label>Instagram</label>
+              <input type="text" id="story-instagram" placeholder="@lapianola.yacuiba">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar historia</button>
+          </form>
         </div>
       </section>
 
@@ -494,8 +596,21 @@ function setupUpload(areaId, inputId, previewId, hiddenUrlId, bucketName) {
 }
 
 async function login(email, password) {
+  if (!supabase) {
+    alert('Error: Supabase no está configurado. Configuralo primero.');
+    return;
+  }
+
+  console.log('Intentando login con:', email);
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) { alert('Error: ' + error.message); return; }
+
+  if (error) {
+    console.error('Error de login:', error);
+    alert('Error de autenticación: ' + error.message);
+    return;
+  }
+
+  console.log('Login exitoso:', data.user);
   currentUser = data.user;
   showAdmin();
 }
@@ -559,6 +674,7 @@ async function loadProducts() {
         <h3>${p.name}</h3>
         <p class="muted">${p.cat} · Bs ${Number(p.price).toFixed(2)}</p>
         <div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
           <button class="btn btn-ghost btn-sm" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
         </div>
       </div>
@@ -573,6 +689,40 @@ async function deleteProduct(id) {
   loadProducts();
 }
 
+async function editProduct(id) {
+  const { data } = await supabase.from('products').select('*').eq('id', id).single();
+  if (!data) return;
+
+  document.getElementById('product-form-title').textContent = 'Editar producto';
+  document.getElementById('prod-id').value = data.id;
+  document.getElementById('prod-sku').value = data.sku || '';
+  document.getElementById('prod-name').value = data.name;
+  document.getElementById('prod-cat').value = data.cat;
+  document.getElementById('prod-price').value = data.price;
+  document.getElementById('prod-image-url').value = data.img;
+  document.getElementById('prod-desc').value = data.short_desc || '';
+  document.getElementById('prod-description').value = data.description || '';
+  document.getElementById('prod-details').value = typeof data.details === 'object' ? JSON.stringify(data.details, null, 2) : data.details || '{}';
+
+  if (data.img) {
+    const preview = document.getElementById('prod-image-preview');
+    preview.src = data.img;
+    preview.style.display = 'block';
+  }
+
+  document.getElementById('cancel-product-edit').style.display = 'inline-flex';
+  document.getElementById('product-form').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetProductForm() {
+  document.getElementById('product-form-title').textContent = 'Nuevo producto';
+  document.getElementById('product-form').reset();
+  document.getElementById('prod-id').value = '';
+  document.getElementById('prod-image-preview').style.display = 'none';
+  document.getElementById('prod-image-url').value = '';
+  document.getElementById('cancel-product-edit').style.display = 'none';
+}
+
 async function loadPromotions() {
   const { data } = await supabase.from('promotions').select('*').order('id');
   const container = document.getElementById('promotions-list');
@@ -584,6 +734,7 @@ async function loadPromotions() {
         <h3>${p.badge ? `<span class="tag">${p.badge}</span>` : ''} ${p.title}</h3>
         <p class="muted">${p.sub || ''}</p>
         <div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="editPromotion(${p.id})"><i class="fas fa-edit"></i></button>
           <button class="btn btn-ghost btn-sm" onclick="deletePromotion(${p.id})"><i class="fas fa-trash"></i></button>
         </div>
       </div>
@@ -596,6 +747,40 @@ async function deletePromotion(id) {
   const { error } = await supabase.from('promotions').delete().eq('id', id);
   if (error) { alert(error.message); return; }
   loadPromotions();
+}
+
+async function editPromotion(id) {
+  const { data } = await supabase.from('promotions').select('*').eq('id', id).single();
+  if (!data) return;
+
+  document.getElementById('promo-form-title').textContent = 'Editar promoción';
+  document.getElementById('promo-id').value = data.id;
+  document.getElementById('promo-badge').value = data.badge || '';
+  document.getElementById('promo-title').value = data.title;
+  document.getElementById('promo-sub').value = data.sub || '';
+  document.getElementById('promo-cat').value = data.cat;
+  document.getElementById('promo-full-desc').value = data.fullDescription || '';
+  document.getElementById('promo-valid-until').value = data.validUntil || '';
+  document.getElementById('promo-conditions').value = Array.isArray(data.conditions) ? data.conditions.join('\n') : data.conditions || '';
+  document.getElementById('promo-image-url').value = data.image;
+
+  if (data.image) {
+    const preview = document.getElementById('promo-image-preview');
+    preview.src = data.image;
+    preview.style.display = 'block';
+  }
+
+  document.getElementById('cancel-promo-edit').style.display = 'inline-flex';
+  document.getElementById('promo-form').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetPromoForm() {
+  document.getElementById('promo-form-title').textContent = 'Nueva promoción';
+  document.getElementById('promo-form').reset();
+  document.getElementById('promo-id').value = '';
+  document.getElementById('promo-image-preview').style.display = 'none';
+  document.getElementById('promo-image-url').value = '';
+  document.getElementById('cancel-promo-edit').style.display = 'none';
 }
 
 async function loadHero() {
@@ -622,8 +807,35 @@ async function deleteHero(id) {
   loadHero();
 }
 
+async function loadStory() {
+  const { data } = await supabase.from('store_info').select('*').single();
+  if (!data) return;
+
+  document.getElementById('story-text').value = data.story || '';
+  document.getElementById('story-mission').value = data.mission || '';
+  document.getElementById('story-hours').value = data.hours || '';
+  document.getElementById('story-address').value = data.address || '';
+  document.getElementById('story-email').value = data.email || '';
+  document.getElementById('story-instagram').value = data.instagram || '';
+}
+
+async function saveStory() {
+  const payload = {
+    story: document.getElementById('story-text').value.trim(),
+    mission: document.getElementById('story-mission').value.trim(),
+    hours: document.getElementById('story-hours').value.trim(),
+    address: document.getElementById('story-address').value.trim(),
+    email: document.getElementById('story-email').value.trim(),
+    instagram: document.getElementById('story-instagram').value.trim(),
+  };
+
+  const { error } = await supabase.from('store_info').upsert(payload);
+  if (error) { alert(error.message); return; }
+  alert('Historia guardada');
+}
+
 async function loadAll() {
-  await Promise.all([loadCategories(), loadProducts(), loadPromotions(), loadHero()]);
+  await Promise.all([loadCategories(), loadProducts(), loadPromotions(), loadHero(), loadStory()]);
 }
 
 async function exportJson() {
@@ -665,6 +877,29 @@ async function importJson(file) {
 document.addEventListener('DOMContentLoaded', () => {
   supabase = initSupabase();
 
+  // Configuración desde la pantalla de login
+  document.getElementById('show-config-btn').addEventListener('click', () => {
+    document.getElementById('config-card').style.display = 'block';
+    // Pre-llenar con valores existentes
+    const config = getConfig();
+    document.getElementById('sb-url-login').value = config.url;
+    document.getElementById('sb-key-login').value = config.key;
+    document.getElementById('sb-bucket-login').value = config.bucket;
+  });
+
+  document.getElementById('save-config-login').addEventListener('click', () => {
+    const url = document.getElementById('sb-url-login').value.trim();
+    const key = document.getElementById('sb-key-login').value.trim();
+    const bucket = document.getElementById('sb-bucket-login').value.trim() || 'images';
+    if (!url || !key) { alert('Completá la URL y la key'); return; }
+    localStorage.setItem(SUPABASE_URL_KEY, url);
+    localStorage.setItem(SUPABASE_KEY_KEY, key);
+    localStorage.setItem(SUPABASE_BUCKET_KEY, bucket);
+    supabase = initSupabase();
+    document.getElementById('config-card').style.display = 'none';
+    alert('Configuración guardada');
+  });
+
   document.getElementById('save-config').addEventListener('click', () => {
     const url = document.getElementById('sb-url').value.trim();
     const key = document.getElementById('sb-key').value.trim();
@@ -687,7 +922,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-    if (!supabase) { alert('Configurá primero la conexión en la solapa Configuración.'); return; }
+    if (!supabase) { alert('Configurá primero la conexión haciendo clic en "Configurar Supabase"'); return; }
     login(email, password);
   });
 
@@ -723,6 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('product-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const id = document.getElementById('prod-id').value;
     const payload = {
       sku: document.getElementById('prod-sku').value.trim() || null,
       name: document.getElementById('prod-name').value.trim(),
@@ -734,30 +970,57 @@ document.addEventListener('DOMContentLoaded', () => {
       details: (() => { try { return JSON.parse(document.getElementById('prod-details').value || '{}'); } catch { return {}; } })(),
     };
     if (!payload.img) { alert('Subí una imagen'); return; }
-    const { error } = await supabase.from('products').insert([payload]);
+
+    let error;
+    if (id) {
+      const result = await supabase.from('products').update(payload).eq('id', id);
+      error = result.error;
+    } else {
+      const result = await supabase.from('products').insert([payload]);
+      error = result.error;
+    }
+
     if (error) { alert(error.message); return; }
-    e.target.reset();
-    document.getElementById('prod-image-preview').style.display = 'none';
-    document.getElementById('prod-image-url').value = '';
+    resetProductForm();
     loadProducts();
   });
 
+  document.getElementById('cancel-product-edit').addEventListener('click', resetProductForm);
+
   document.getElementById('promo-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const id = document.getElementById('promo-id').value;
     const payload = {
       badge: document.getElementById('promo-badge').value.trim() || null,
       title: document.getElementById('promo-title').value.trim(),
       sub: document.getElementById('promo-sub').value.trim() || null,
       cat: document.getElementById('promo-cat').value,
+      fullDescription: document.getElementById('promo-full-desc').value.trim() || null,
+      validUntil: document.getElementById('promo-valid-until').value.trim() || null,
+      conditions: document.getElementById('promo-conditions').value.split('\n').filter(c => c.trim()) || [],
       image: document.getElementById('promo-image-url').value,
     };
     if (!payload.image) { alert('Subí una imagen'); return; }
-    const { error } = await supabase.from('promotions').insert([payload]);
+
+    let error;
+    if (id) {
+      const result = await supabase.from('promotions').update(payload).eq('id', id);
+      error = result.error;
+    } else {
+      const result = await supabase.from('promotions').insert([payload]);
+      error = result.error;
+    }
+
     if (error) { alert(error.message); return; }
-    e.target.reset();
-    document.getElementById('promo-image-preview').style.display = 'none';
-    document.getElementById('promo-image-url').value = '';
+    resetPromoForm();
     loadPromotions();
+  });
+
+  document.getElementById('cancel-promo-edit').addEventListener('click', resetPromoForm);
+
+  document.getElementById('story-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await saveStory();
   });
 
   document.getElementById('hero-form').addEventListener('submit', async (e) => {
