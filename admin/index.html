@@ -515,7 +515,11 @@ body {
         </div>
         <div class="card">
           <h2>Datos</h2>
-          <p class="muted" style="margin-bottom:10px;">Podés exportar o importar el contenido completo en JSON.</p>
+          <p class="muted" style="margin-bottom:10px;">Cargá el catálogo actual de la web (productos, categorías, promociones, hero e historia) para editarlo desde el panel.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+            <button id="load-web-catalog" class="btn btn-primary"><i class="fas fa-cloud-download-alt"></i> Cargar catálogo de la web</button>
+          </div>
+          <p class="muted" style="margin-bottom:10px;">También podés exportar o importar un JSON de respaldo.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button id="export-json" class="btn btn-accent"><i class="fas fa-download"></i> Exportar JSON</button>
             <label class="btn btn-ghost" style="cursor:pointer;">
@@ -530,18 +534,23 @@ body {
 </div>
 
 <script>
-const SUPABASE_URL_KEY = 'lp_supabase_urlhttps://ctrfgdlleaxcxlwrxqub.supabase.co';
-const SUPABASE_KEY_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0cmZnZGxsZWF4Y3hsd3J4cXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDI0NTgsImV4cCI6MjEwNjI3ODQ1OH0.dsIkortIxEY3Pm5zvcwE_EV4nfksT-ELVK0LGdOUg74';
+const SUPABASE_URL_KEY = 'lp_supabase_url';
+const SUPABASE_KEY_KEY = 'lp_supabase_key';
 const SUPABASE_BUCKET_KEY = 'lp_supabase_bucket';
+const DEFAULT_SUPABASE_URL = 'https://ctrfgdlleaxcxlwrxqub.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0cmZnZGxsZWF4Y3hsd3J4cXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDI0NTgsImV4cCI6MjEwNjI3ODQ1OH0.dsIkortIxEY3Pm5zvcwE_EV4nfksT-ELVK0LGdOUg74';
 
 let sbClient = null;
 let currentUser = null;
 
 function getConfig() {
+  const urlEl = document.getElementById('sb-url');
+  const keyEl = document.getElementById('sb-key');
+  const bucketEl = document.getElementById('sb-bucket');
   return {
-    url: localStorage.getItem(SUPABASE_URL_KEY) || document.getElementById('sb-url').value || '',
-    key: localStorage.getItem(SUPABASE_KEY_KEY) || document.getElementById('sb-key').value || '',
-    bucket: localStorage.getItem(SUPABASE_BUCKET_KEY) || document.getElementById('sb-bucket').value || 'images'
+    url: localStorage.getItem(SUPABASE_URL_KEY) || (urlEl && urlEl.value) || DEFAULT_SUPABASE_URL,
+    key: localStorage.getItem(SUPABASE_KEY_KEY) || (keyEl && keyEl.value) || DEFAULT_SUPABASE_ANON_KEY,
+    bucket: localStorage.getItem(SUPABASE_BUCKET_KEY) || (bucketEl && bucketEl.value) || 'images'
   };
 }
 
@@ -839,17 +848,19 @@ async function loadAll() {
 }
 
 async function exportJson() {
-  const [categories, products, promotions, hero] = await Promise.all([
+  const [categories, products, promotions, hero, store] = await Promise.all([
     sbClient.from('categories').select('*'),
     sbClient.from('products').select('*'),
     sbClient.from('promotions').select('*'),
-    sbClient.from('hero_images').select('*')
+    sbClient.from('hero_images').select('*'),
+    sbClient.from('store_info').select('*')
   ]);
   const payload = {
     categories: categories.data || [],
     products: products.data || [],
     promotions: promotions.data || [],
-    hero_images: hero.data || []
+    hero_images: hero.data || [],
+    store_info: store.data || []
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -859,19 +870,71 @@ async function exportJson() {
   a.click();
 }
 
+async function applyCatalogPayload(payload) {
+  if (!currentUser) {
+    alert('Tenés que iniciar sesión para cargar o importar datos.');
+    return false;
+  }
+  if (!confirm('Esto reemplazará productos, categorías, promociones, hero e historia. ¿Continuar?')) return false;
+  for (const table of ['hero_images', 'promotions', 'products', 'categories']) {
+    const { error } = await sbClient.from(table).delete().not('id', 'is', null);
+    if (error) throw new Error(table + ': ' + error.message);
+  }
+  if (payload.categories?.length) {
+    const { error } = await sbClient.from('categories').insert(payload.categories);
+    if (error) throw new Error('categories: ' + error.message);
+  }
+  if (payload.products?.length) {
+    const { error } = await sbClient.from('products').insert(payload.products);
+    if (error) throw new Error('products: ' + error.message);
+  }
+  if (payload.promotions?.length) {
+    const { error } = await sbClient.from('promotions').insert(payload.promotions);
+    if (error) throw new Error('promotions: ' + error.message);
+  }
+  if (payload.hero_images?.length) {
+    const { error } = await sbClient.from('hero_images').insert(payload.hero_images);
+    if (error) throw new Error('hero_images: ' + error.message);
+  }
+  if (payload.store_info?.length) {
+    const { error } = await sbClient.from('store_info').upsert(payload.store_info);
+    if (error) throw new Error('store_info: ' + error.message);
+  }
+  return true;
+}
+
 async function importJson(file) {
   const text = await file.text();
   const payload = JSON.parse(text);
-  if (!confirm('Esto reemplazará todo el contenido actual. ¿Continuar?')) return;
-  for (const table of ['hero_images', 'promotions', 'products', 'categories']) {
-    await sbClient.from(table).delete().neq('id', 0);
+  try {
+    const ok = await applyCatalogPayload(payload);
+    if (!ok) return;
+    alert('Importación finalizada');
+    loadAll();
+  } catch (err) {
+    alert('Error al importar: ' + err.message);
   }
-  if (payload.categories?.length) await sbClient.from('categories').insert(payload.categories);
-  if (payload.products?.length) await sbClient.from('products').insert(payload.products);
-  if (payload.promotions?.length) await sbClient.from('promotions').insert(payload.promotions);
-  if (payload.hero_images?.length) await sbClient.from('hero_images').insert(payload.hero_images);
-  alert('Importación finalizada');
-  loadAll();
+}
+
+async function loadWebCatalog() {
+  if (!sbClient) { alert('Configurá e iniciá sesión primero'); return; }
+  const btn = document.getElementById('load-web-catalog');
+  btn.disabled = true;
+  btn.textContent = 'Cargando...';
+  try {
+    const res = await fetch('../lapianola-seed.json?t=' + Date.now());
+    if (!res.ok) throw new Error('No se encontró lapianola-seed.json (status ' + res.status + ')');
+    const payload = await res.json();
+    const ok = await applyCatalogPayload(payload);
+    if (!ok) return;
+    alert('Catálogo de la web cargado. Ya podés editar productos, categorías, promociones e historia.');
+    loadAll();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Cargar catálogo de la web';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1037,6 +1100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('export-json').addEventListener('click', exportJson);
+  document.getElementById('load-web-catalog').addEventListener('click', loadWebCatalog);
   document.getElementById('import-json').addEventListener('change', async (e) => {
     if (e.target.files[0]) await importJson(e.target.files[0]);
   });

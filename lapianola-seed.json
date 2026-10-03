@@ -1,0 +1,1637 @@
+{
+  "categories": [
+    {
+      "id": "saltenas",
+      "name": "Salteñas",
+      "image": "img/cat-saltenas.jpeg",
+      "order": 0
+    },
+    {
+      "id": "platos",
+      "name": "Platos a la Carta",
+      "image": "img/cat-platos.jpeg",
+      "order": 1
+    },
+    {
+      "id": "sandwich",
+      "name": "Sandwich",
+      "image": "img/cat-sandwich.jpeg",
+      "order": 2
+    },
+    {
+      "id": "desayunos",
+      "name": "Desayunos y Meriendas",
+      "image": "img/cat-desayunos.jpeg",
+      "order": 3
+    },
+    {
+      "id": "cafes",
+      "name": "Cafés e Infusiones",
+      "image": "img/cat-cafes.jpeg",
+      "order": 4
+    },
+    {
+      "id": "salados",
+      "name": "Salados",
+      "image": "img/cat-salados.jpeg",
+      "order": 5
+    },
+    {
+      "id": "dulces",
+      "name": "Dulces",
+      "image": "img/cat-dulces.jpeg",
+      "order": 6
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "sku": "LP-SAL-001",
+      "name": "Salteña de Carne",
+      "brand": "LA PIANOLA",
+      "price": 7,
+      "cat": "saltenas",
+      "img": "img/saltena-carne.jpeg",
+      "images": [
+        "img/saltena-carne.jpeg",
+        "img/saltena-carne-2.jpeg"
+      ],
+      "short_desc": "Salteña de carne jugosa, con papa, huevo y aceituna.",
+      "description": "<p>Salteña de <strong>carne</strong> jugosa, con papa, huevo, aceituna y el toque especial de La Pianola.</p><p>Recién horneada para que disfrutes de todo el sabor.</p>",
+      "details": {
+        "Ingredientes": "Carne de res, papa, huevo, aceituna, especias",
+        "Masa": "Masa tradicional",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "sku": "LP-SAL-002",
+      "name": "Salteña de Pollo",
+      "brand": "LA PIANOLA",
+      "price": 7,
+      "cat": "saltenas",
+      "img": "img/saltena-pollo.jpg",
+      "images": [
+        "img/saltena-pollo.jpeg"
+      ],
+      "short_desc": "Salteña de pollo desmenuzado, sazonada con especias tradicionales.",
+      "description": "<p>Salteña de <strong>pollo desmenuzado</strong>, sazonada con especias tradicionales y horneada al momento.</p><p>Ideal para quienes prefieren una opción más ligera.</p>",
+      "details": {
+        "Ingredientes": "Pollo desmenuzado, papa, especias",
+        "Masa": "Masa tradicional",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": 3,
+      "sku": "LP-SAL-003",
+      "name": "Salteña Especial",
+      "brand": "LA PIANOLA",
+      "price": 8,
+      "cat": "saltenas",
+      "img": "img/saltena-especial.jpeg",
+      "images": [
+        "img/saltena-especial.jpeg"
+      ],
+      "short_desc": "Salteña de Pollo y Carne, la especialidad de la casa.",
+      "description": "<p>Salteña de <strong>Pollo y Carne</strong>, la combinación perfecta para los más exigentes.</p><p>La especialidad de la casa.</p>",
+      "details": {
+        "Ingredientes": "Pollo, carne, papa, huevo, aceituna",
+        "Masa": "Masa tradicional",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "sku": "LP-PLA-001",
+      "name": "Pollo Broasted",
+      "brand": "LA PIANOLA",
+      "price": 30,
+      "cat": "platos",
+      "img": "img/pollo-broasted.jpeg",
+      "images": [
+        "img/pollo-broasted.jpeg",
+        "img/pollo-broasted-2.jpeg"
+      ],
+      "short_desc": "Pollo Frito apanado con Arroz y Papa Frita.",
+      "description": "<p>Pollo Frito apanado con Arroz y Papa Frita.</p><p>Recién preparado para que disfrutes de todo el sabor.</p>",
+      "details": {
+        "Ingredientes": "Pollo, arroz, papa",
+        "Preparación": "Frito",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": 5,
+      "sku": "LP-PLA-002",
+      "name": "Chicharrón de Pollo",
+      "brand": "LA PIANOLA",
+      "price": 60,
+      "cat": "platos",
+      "img": "img/chicharron-pollo.jpeg",
+      "images": [
+        "img/chicharron-pollo.jpeg"
+      ],
+      "short_desc": "Pollo Frito con Verduras Salteadas, Arroz y Papa Frita.",
+      "description": "<p>Pollo Frito con Verduras Salteadas, Arroz y Papa Frita.</p><p>Ideal para quienes prefieren una opción más contundente.</p>",
+      "details": {
+        "Ingredientes": "Pollo, verduras, arroz, papa",
+        "Preparación": "Frito y salteado",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": 6,
+      "sku": "LP-PLA-003",
+      "name": "Suprema de Pollo",
+      "brand": "LA PIANOLA",
+      "price": 60,
+      "cat": "platos",
+      "img": "img/suprema-pollo.jpeg",
+      "images": [
+        "img/suprema-pollo.jpeg"
+      ],
+      "short_desc": "Milanesa de Pollo con Arroz y Papa Frita.",
+      "description": "<p>Milanesa de Pollo con Arroz y Papa Frita.</p><p>Una opción clásica y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Pollo, arroz, papa",
+        "Preparación": "Milanesa",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": 7,
+      "sku": "LP-PLA-004",
+      "name": "Milanesa",
+      "brand": "LA PIANOLA",
+      "price": 60,
+      "cat": "platos",
+      "img": "img/milanesa.jpeg",
+      "images": [
+        "img/milanesa.jpeg"
+      ],
+      "short_desc": "Milanesa de Carne con Arroz y Papa Frita.",
+      "description": "<p>Milanesa de Carne con Arroz y Papa Frita.</p><p>La favorita de la casa.</p>",
+      "details": {
+        "Ingredientes": "Carne, arroz, papa",
+        "Preparación": "Milanesa",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        8,
+        9
+      ]
+    },
+    {
+      "id": 8,
+      "sku": "LP-PLA-005",
+      "name": "Pollo a la Plancha",
+      "brand": "LA PIANOLA",
+      "price": 70,
+      "cat": "platos",
+      "img": "img/pollo-plancha.jpeg",
+      "images": [
+        "img/pollo-plancha.jpeg"
+      ],
+      "short_desc": "Pechuga de Pollo con Arroz y Papa Frita.",
+      "description": "<p>Pechuga de Pollo con Arroz y Papa Frita.</p><p>Una opción más ligera y saludable.</p>",
+      "details": {
+        "Ingredientes": "Pechuga de pollo, arroz, papa",
+        "Preparación": "A la plancha",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": 9,
+      "sku": "LP-PLA-006",
+      "name": "Napolitana",
+      "brand": "LA PIANOLA",
+      "price": 70,
+      "cat": "platos",
+      "img": "img/napolitana.jpeg",
+      "images": [
+        "img/napolitana.jpeg"
+      ],
+      "short_desc": "Milanesa de Carne c/Salsa, Queso, Arroz y Papa Frita.",
+      "description": "<p>Milanesa de Carne c/Salsa, Queso, Arroz y Papa Frita.</p><p>Una explosión de sabor.</p>",
+      "details": {
+        "Ingredientes": "Carne, salsa, queso, arroz, papa",
+        "Preparación": "Milanesa",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": 10,
+      "sku": "LP-PLA-007",
+      "name": "Pique Macho",
+      "brand": "LA PIANOLA",
+      "price": 70,
+      "cat": "platos",
+      "img": "img/pique-macho.jpg",
+      "images": [
+        "img/pique-macho.jpg"
+      ],
+      "short_desc": "Carne en Tiras con Verduras Salchicha, Aceitunas, Queso, Huevo y Papa Frita.",
+      "description": "<p>Carne en Tiras con Verduras Salchicha, Aceitunas, Queso, Huevo y Papa Frita.</p><p>El plato bandera de Bolivia.</p>",
+      "details": {
+        "Ingredientes": "Carne, verduras, salchicha, aceitunas, queso, huevo, papa",
+        "Preparación": "Salteado",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": 11,
+      "sku": "LP-PLA-008",
+      "name": "Lomo a la Frontera",
+      "brand": "LA PIANOLA",
+      "price": 70,
+      "cat": "platos",
+      "img": "img/lomo-frontera.jpg",
+      "images": [
+        "img/lomo-frontera.jpg"
+      ],
+      "short_desc": "Carne c/Verduras, Salsa, Huevo, Arroz y Papa Frita.",
+      "description": "<p>Carne c/Verduras, Salsa, Huevo, Arroz y Papa Frita.</p><p>Un plato completo y sabroso.</p>",
+      "details": {
+        "Ingredientes": "Carne, verduras, salsa, huevo, arroz, papa",
+        "Preparación": "Salteado",
+        "Acompañamiento": "Arroz y Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": 12,
+      "sku": "LP-PLA-009",
+      "name": "Picada de Milanesa",
+      "brand": "LA PIANOLA",
+      "price": 70,
+      "cat": "platos",
+      "img": "img/picada-milanesa.jpg",
+      "images": [
+        "img/picada-milanesa.jpg"
+      ],
+      "short_desc": "Milanesa de Carne Picada, Quesos, Jamón, Aceitunas, Tomate, Cebolla y Papa Frita.",
+      "description": "<p>Milanesa de Carne Picada, Quesos, Jamón, Aceitunas, Tomate, Cebolla y Papa Frita.</p><p>Perfecta para compartir.</p>",
+      "details": {
+        "Ingredientes": "Carne, quesos, jamón, aceitunas, tomate, cebolla, papa",
+        "Preparación": "Milanesa",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        4,
+        8
+      ]
+    },
+    {
+      "id": 13,
+      "sku": "LP-SAN-001",
+      "name": "Lomito - Milanesa",
+      "brand": "LA PIANOLA",
+      "price": 30,
+      "cat": "sandwich",
+      "img": "img/lomito-milanesa.jpg",
+      "images": [
+        "img/lomito-milanesa.jpg"
+      ],
+      "short_desc": "Carne, Queso, Jamón, Ensalada, Huevo y Papa Frita.",
+      "description": "<p>Carne, Queso, Jamón, Ensalada, Huevo y Papa Frita.</p><p>Un sándwich completo y delicioso.</p>",
+      "details": {
+        "Ingredientes": "Carne, queso, jamón, ensalada, huevo, papa",
+        "Preparación": "A la plancha",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        14,
+        15
+      ]
+    },
+    {
+      "id": 14,
+      "sku": "LP-SAN-002",
+      "name": "Lomito Salteado",
+      "brand": "LA PIANOLA",
+      "price": 35,
+      "cat": "sandwich",
+      "img": "img/lomito-salteado.jpg",
+      "images": [
+        "img/lomito-salteado.jpg"
+      ],
+      "short_desc": "Carne, Verduras Salteadas, Queso, Jamón, Huevo y Papa Frita.",
+      "description": "<p>Carne, Verduras Salteadas, Queso, Jamón, Huevo y Papa Frita.</p><p>Una opción más fresca y sabrosa.</p>",
+      "details": {
+        "Ingredientes": "Carne, verduras, queso, jamón, huevo, papa",
+        "Preparación": "Salteado",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        13,
+        16
+      ]
+    },
+    {
+      "id": 15,
+      "sku": "LP-SAN-003",
+      "name": "Hamburguesa Especial",
+      "brand": "LA PIANOLA",
+      "price": 25,
+      "cat": "sandwich",
+      "img": "img/hamburguesa-especial.jpg",
+      "images": [
+        "img/hamburguesa-especial.jpg"
+      ],
+      "short_desc": "Carne, Jamón, Queso, Huevo, Ensalada y Papa Frita.",
+      "description": "<p>Carne, Jamón, Queso, Huevo, Ensalada y Papa Frita.</p><p>La clásica hamburguesa que todos aman.</p>",
+      "details": {
+        "Ingredientes": "Carne, jamón, queso, huevo, ensalada, papa",
+        "Preparación": "A la parrilla",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        13,
+        17
+      ]
+    },
+    {
+      "id": 16,
+      "sku": "LP-SAN-004",
+      "name": "Hamburguesa Bacon Bliss",
+      "brand": "LA PIANOLA",
+      "price": 35,
+      "cat": "sandwich",
+      "img": "img/hamburguesa-bacon.jpg",
+      "images": [
+        "img/hamburguesa-bacon.jpg"
+      ],
+      "short_desc": "Carne, Bacon, Queso Cheddar, Pepinillo, Tomate y Papa Frita.",
+      "description": "<p>Carne, Bacon, Queso Cheddar, Pepinillo, Tomate y Papa Frita.</p><p>Para los amantes del bacon.</p>",
+      "details": {
+        "Ingredientes": "Carne, bacon, queso cheddar, pepinillo, tomate, papa",
+        "Preparación": "A la parrilla",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        14,
+        18
+      ]
+    },
+    {
+      "id": 17,
+      "sku": "LP-SAN-005",
+      "name": "Hamburguesa Mexican",
+      "brand": "LA PIANOLA",
+      "price": 35,
+      "cat": "sandwich",
+      "img": "img/hamburguesa-mexican.jpg",
+      "images": [
+        "img/hamburguesa-mexican.jpg"
+      ],
+      "short_desc": "Carne, Queso Cheddar, Jamón, Nachos, Jalapeños y Papa Frita.",
+      "description": "<p>Carne, Queso Cheddar, Jamón, Nachos, Jalapeños y Papa Frita.</p><p>Un toque picante y crujiente.</p>",
+      "details": {
+        "Ingredientes": "Carne, queso cheddar, jamón, nachos, jalapeños, papa",
+        "Preparación": "A la parrilla",
+        "Acompañamiento": "Papa Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": 18,
+      "sku": "LP-SAN-006",
+      "name": "Carlito",
+      "brand": "LA PIANOLA",
+      "price": 15,
+      "cat": "sandwich",
+      "img": "img/carlito.jpg",
+      "images": [
+        "img/carlito.jpg"
+      ],
+      "short_desc": "Pan miga Tostado c/Mantequilla, Jamón y Queso.",
+      "description": "<p>Pan miga Tostado c/Mantequilla, Jamón y Queso.</p><p>Un clásico para el desayuno o merienda.</p>",
+      "details": {
+        "Ingredientes": "Pan de miga, mantequilla, jamón, queso",
+        "Preparación": "Tostado",
+        "Acompañamiento": "Ninguno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        19,
+        20
+      ]
+    },
+    {
+      "id": 19,
+      "sku": "LP-SAN-007",
+      "name": "Sunrise Sandwich",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "sandwich",
+      "img": "img/sunrise-sandwich.jpg",
+      "images": [
+        "img/sunrise-sandwich.jpg"
+      ],
+      "short_desc": "Sándwich de Huevo en pan Miga Integral c/Ensalada.",
+      "description": "<p>Sándwich de Huevo en pan Miga Integral c/Ensalada.</p><p>Una opción saludable y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Huevo, pan integral, ensalada",
+        "Preparación": "A la plancha",
+        "Acompañamiento": "Ninguno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        18,
+        20
+      ]
+    },
+    {
+      "id": 20,
+      "sku": "LP-SAN-008",
+      "name": "Supremo Desmechado",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "sandwich",
+      "img": "img/supremo-desmechado.jpg",
+      "images": [
+        "img/supremo-desmechado.jpg"
+      ],
+      "short_desc": "Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.",
+      "description": "<p>Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.</p><p>Un sándwich fresco y sabroso.</p>",
+      "details": {
+        "Ingredientes": "Pollo, tomate, lechuga, salsa rosa, pan de miga",
+        "Preparación": "Tostado",
+        "Acompañamiento": "Ninguno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        18,
+        19
+      ]
+    },
+    {
+      "id": 21,
+      "sku": "LP-DES-001",
+      "name": "Desayuno Continental",
+      "brand": "LA PIANOLA",
+      "price": 30,
+      "cat": "desayunos",
+      "img": "img/desayuno-continental.jpg",
+      "images": [
+        "img/desayuno-continental.jpg"
+      ],
+      "short_desc": "Te o Café, Tostadas, Mermelada, Mantequilla y Jugo.",
+      "description": "<p>Te o Café, Tostadas, Mermelada, Mantequilla y Jugo.</p><p>La forma perfecta de empezar el día.</p>",
+      "details": {
+        "Incluye": "Te/Café, Tostadas, Mermelada, Mantequilla, Jugo",
+        "Porción": "Individual",
+        "Preparación": "Al momento",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        22,
+        23
+      ]
+    },
+    {
+      "id": 22,
+      "sku": "LP-DES-002",
+      "name": "Desayuno Americano",
+      "brand": "LA PIANOLA",
+      "price": 40,
+      "cat": "desayunos",
+      "img": "img/desayuno-americano.jpg",
+      "images": [
+        "img/desayuno-americano.jpg"
+      ],
+      "short_desc": "Te o Café, Tostadas, Mermelada, Mantequilla, Huevos Revueltos y Jugo.",
+      "description": "<p>Te o Café, Tostadas, Mermelada, Mantequilla, Huevos Revueltos y Jugo.</p><p>Un desayuno completo y energético.</p>",
+      "details": {
+        "Incluye": "Te/Café, Tostadas, Mermelada, Mantequilla, Huevos Revueltos, Jugo",
+        "Porción": "Individual",
+        "Preparación": "Al momento",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        21,
+        24
+      ]
+    },
+    {
+      "id": 23,
+      "sku": "LP-DES-003",
+      "name": "Cuñapé",
+      "brand": "LA PIANOLA",
+      "price": 4,
+      "cat": "desayunos",
+      "img": "img/cunape.jpg",
+      "images": [
+        "img/cunape.jpg"
+      ],
+      "short_desc": "Pan de queso tradicional.",
+      "description": "<p>Pan de queso tradicional.</p><p>Perfecto para acompañar tu café o té.</p>",
+      "details": {
+        "Ingredientes": "Almidón de yuca, queso",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        24,
+        25
+      ]
+    },
+    {
+      "id": 24,
+      "sku": "LP-DES-004",
+      "name": "Revuelto/Huevo",
+      "brand": "LA PIANOLA",
+      "price": 22,
+      "cat": "desayunos",
+      "img": "img/revuelto-huevo.jpg",
+      "images": [
+        "img/revuelto-huevo.jpg"
+      ],
+      "short_desc": "Huevos revueltos al gusto.",
+      "description": "<p>Huevos revueltos al gusto.</p><p>Una opción simple y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Huevos",
+        "Porción": "Individual",
+        "Preparación": "Revuelto",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        21,
+        23
+      ]
+    },
+    {
+      "id": 25,
+      "sku": "LP-DES-005",
+      "name": "Omelette",
+      "brand": "LA PIANOLA",
+      "price": 30,
+      "cat": "desayunos",
+      "img": "img/omelette.jpg",
+      "images": [
+        "img/omelette.jpg"
+      ],
+      "short_desc": "Omelette relleno de queso y verduras.",
+      "description": "<p>Omelette relleno de queso y verduras.</p><p>Una opción más completa.</p>",
+      "details": {
+        "Ingredientes": "Huevos, queso, verduras",
+        "Porción": "Individual",
+        "Preparación": "A la plancha",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        21,
+        22
+      ]
+    },
+    {
+      "id": 26,
+      "sku": "LP-DES-006",
+      "name": "Sandwich /Miga",
+      "brand": "LA PIANOLA",
+      "price": 15,
+      "cat": "desayunos",
+      "img": "img/sandwich-miga.jpg",
+      "images": [
+        "img/sandwich-miga.jpg"
+      ],
+      "short_desc": "Sándwich de miga clásico.",
+      "description": "<p>Sándwich de miga clásico.</p><p>Ideal para una merienda rápida.</p>",
+      "details": {
+        "Ingredientes": "Pan de miga, jamón, queso",
+        "Porción": "Individual",
+        "Preparación": "Frío",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        23,
+        27
+      ]
+    },
+    {
+      "id": 27,
+      "sku": "LP-DES-007",
+      "name": "Supremo Desmechado",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "desayunos",
+      "img": "img/supremo-desmechado.jpg",
+      "images": [
+        "img/supremo-desmechado.jpg"
+      ],
+      "short_desc": "Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.",
+      "description": "<p>Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.</p><p>Un sándwich fresco y sabroso.</p>",
+      "details": {
+        "Ingredientes": "Pollo, tomate, lechuga, salsa rosa, pan de miga",
+        "Porción": "Individual",
+        "Preparación": "Tostado",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        26,
+        28
+      ]
+    },
+    {
+      "id": 28,
+      "sku": "LP-DES-008",
+      "name": "Sunrise Sandwich",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "desayunos",
+      "img": "img/sunrise-sandwich.jpg",
+      "images": [
+        "img/sunrise-sandwich.jpg"
+      ],
+      "short_desc": "Sándwich de Huevo/Pan Miga.",
+      "description": "<p>Sándwich de Huevo/Pan Miga.</p><p>Una opción saludable y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Huevo, pan de miga",
+        "Porción": "Individual",
+        "Preparación": "A la plancha",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        27,
+        29
+      ]
+    },
+    {
+      "id": 29,
+      "sku": "LP-DES-009",
+      "name": "Empanada/Queso",
+      "brand": "LA PIANOLA",
+      "price": 4,
+      "cat": "desayunos",
+      "img": "img/empanada-queso.jpg",
+      "images": [
+        "img/empanada-queso.jpg"
+      ],
+      "short_desc": "Empanada de queso.",
+      "description": "<p>Empanada de queso.</p><p>Perfecta para acompañar tu café.</p>",
+      "details": {
+        "Ingredientes": "Queso, masa",
+        "Porción": "Individual",
+        "Preparación": "Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        23,
+        30
+      ]
+    },
+    {
+      "id": 30,
+      "sku": "LP-DES-010",
+      "name": "Salteña Especial",
+      "brand": "LA PIANOLA",
+      "price": 8,
+      "cat": "desayunos",
+      "img": "img/saltena-especial.jpg",
+      "images": [
+        "img/saltena-especial.jpg"
+      ],
+      "short_desc": "Salteña de Pollo y Carne.",
+      "description": "<p>Salteña de Pollo y Carne.</p><p>La especialidad de la casa.</p>",
+      "details": {
+        "Ingredientes": "Pollo, carne, papa, huevo, aceituna",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        29,
+        31
+      ]
+    },
+    {
+      "id": 31,
+      "sku": "LP-DES-011",
+      "name": "Salteña Común",
+      "brand": "LA PIANOLA",
+      "price": 7,
+      "cat": "desayunos",
+      "img": "img/saltena-comun.jpg",
+      "images": [
+        "img/saltena-comun.jpg"
+      ],
+      "short_desc": "Salteña de Carne.",
+      "description": "<p>Salteña de Carne.</p><p>La clásica que nunca falla.</p>",
+      "details": {
+        "Ingredientes": "Carne, papa, huevo, aceituna",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        30,
+        32
+      ]
+    },
+    {
+      "id": 32,
+      "sku": "LP-DES-012",
+      "name": "Tucumanas",
+      "brand": "LA PIANOLA",
+      "price": 5,
+      "cat": "desayunos",
+      "img": "img/tucumanas.jpg",
+      "images": [
+        "img/tucumanas.jpg"
+      ],
+      "short_desc": "Empanada tucumana.",
+      "description": "<p>Empanada tucumana.</p><p>Un clásico argentino.</p>",
+      "details": {
+        "Ingredientes": "Carne, papa, especias",
+        "Porción": "Individual",
+        "Preparación": "Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        31,
+        33
+      ]
+    },
+    {
+      "id": 33,
+      "sku": "LP-CAF-001",
+      "name": "Cafe",
+      "brand": "LA PIANOLA",
+      "price": 15,
+      "cat": "cafes",
+      "img": "img/cafe.jpg",
+      "images": [
+        "img/cafe.jpg"
+      ],
+      "short_desc": "Café negro.",
+      "description": "<p>Café negro.</p><p>Para los amantes del café puro.</p>",
+      "details": {
+        "Tipo": "Café negro",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        34,
+        35
+      ]
+    },
+    {
+      "id": 34,
+      "sku": "LP-CAF-002",
+      "name": "Infusiones",
+      "brand": "LA PIANOLA",
+      "price": 10,
+      "cat": "cafes",
+      "img": "img/infusiones.jpg",
+      "images": [
+        "img/infusiones.jpg"
+      ],
+      "short_desc": "Té, manzanilla, boldo, etc.",
+      "description": "<p>Té, manzanilla, boldo, etc.</p><p>Relájate con una infusión caliente.</p>",
+      "details": {
+        "Tipo": "Infusión",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        36
+      ]
+    },
+    {
+      "id": 35,
+      "sku": "LP-CAF-003",
+      "name": "Te frío",
+      "brand": "LA PIANOLA",
+      "price": 10,
+      "cat": "cafes",
+      "img": "img/te-frio.jpg",
+      "images": [
+        "img/te-frio.jpg"
+      ],
+      "short_desc": "Té helado.",
+      "description": "<p>Té helado.</p><p>Refrescante para los días calurosos.</p>",
+      "details": {
+        "Tipo": "Té helado",
+        "Presentación": "Vaso",
+        "Temperatura": "Frío",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        37
+      ]
+    },
+    {
+      "id": 36,
+      "sku": "LP-CAF-004",
+      "name": "Expreso illy",
+      "brand": "LA PIANOLA",
+      "price": 17,
+      "cat": "cafes",
+      "img": "img/expreso-illy.jpg",
+      "images": [
+        "img/expreso-illy.jpg"
+      ],
+      "short_desc": "Café expreso illy.",
+      "description": "<p>Café expreso illy.</p><p>Intenso y aromático.</p>",
+      "details": {
+        "Tipo": "Expreso",
+        "Presentación": "Taza pequeña",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        38
+      ]
+    },
+    {
+      "id": 37,
+      "sku": "LP-CAF-005",
+      "name": "Americano illy",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "cafes",
+      "img": "img/americano-illy.jpg",
+      "images": [
+        "img/americano-illy.jpg"
+      ],
+      "short_desc": "Café americano illy.",
+      "description": "<p>Café americano illy.</p><p>Suave y equilibrado.</p>",
+      "details": {
+        "Tipo": "Americano",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        39
+      ]
+    },
+    {
+      "id": 38,
+      "sku": "LP-CAF-006",
+      "name": "Manchiato",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "cafes",
+      "img": "img/manchiato.jpg",
+      "images": [
+        "img/manchiato.jpg"
+      ],
+      "short_desc": "Café con leche manchiato.",
+      "description": "<p>Café con leche manchiato.</p><p>Una delicia cremosa.</p>",
+      "details": {
+        "Tipo": "Café con leche",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        40
+      ]
+    },
+    {
+      "id": 39,
+      "sku": "LP-CAF-007",
+      "name": "Cafe c/leche",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "cafes",
+      "img": "img/cafe-leche.jpg",
+      "images": [
+        "img/cafe-leche.jpg"
+      ],
+      "short_desc": "Café con leche.",
+      "description": "<p>Café con leche.</p><p>El clásico de siempre.</p>",
+      "details": {
+        "Tipo": "Café con leche",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        41
+      ]
+    },
+    {
+      "id": 40,
+      "sku": "LP-CAF-008",
+      "name": "Cafe c/leche illy",
+      "brand": "LA PIANOLA",
+      "price": 25,
+      "cat": "cafes",
+      "img": "img/cafe-leche-illy.jpg",
+      "images": [
+        "img/cafe-leche-illy.jpg"
+      ],
+      "short_desc": "Café con leche illy.",
+      "description": "<p>Café con leche illy.</p><p>La mejor calidad en tu taza.</p>",
+      "details": {
+        "Tipo": "Café con leche",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        42
+      ]
+    },
+    {
+      "id": 41,
+      "sku": "LP-CAF-009",
+      "name": "FlatWhite",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "cafes",
+      "img": "img/flatwhite.jpg",
+      "images": [
+        "img/flatwhite.jpg"
+      ],
+      "short_desc": "Flat White.",
+      "description": "<p>Flat White.</p><p>Suave y cremoso.</p>",
+      "details": {
+        "Tipo": "Flat White",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        43
+      ]
+    },
+    {
+      "id": 42,
+      "sku": "LP-CAF-010",
+      "name": "Cortado",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "cafes",
+      "img": "img/cortado.jpg",
+      "images": [
+        "img/cortado.jpg"
+      ],
+      "short_desc": "Café cortado.",
+      "description": "<p>Café cortado.</p><p>Equilibrio perfecto entre café y leche.</p>",
+      "details": {
+        "Tipo": "Cortado",
+        "Presentación": "Taza pequeña",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        44
+      ]
+    },
+    {
+      "id": 43,
+      "sku": "LP-CAF-011",
+      "name": "Cappuccino",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "cafes",
+      "img": "img/cappuccino.jpg",
+      "images": [
+        "img/cappuccino.jpg"
+      ],
+      "short_desc": "Cappuccino.",
+      "description": "<p>Cappuccino.</p><p>Con espuma de leche.</p>",
+      "details": {
+        "Tipo": "Cappuccino",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        45
+      ]
+    },
+    {
+      "id": 44,
+      "sku": "LP-CAF-012",
+      "name": "Frappuccino",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "cafes",
+      "img": "img/frappuccino.jpg",
+      "images": [
+        "img/frappuccino.jpg"
+      ],
+      "short_desc": "Frappuccino.",
+      "description": "<p>Frappuccino.</p><p>Frío y cremoso.</p>",
+      "details": {
+        "Tipo": "Frappuccino",
+        "Presentación": "Vaso",
+        "Temperatura": "Frío",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        46
+      ]
+    },
+    {
+      "id": 45,
+      "sku": "LP-CAF-013",
+      "name": "Mocaccino",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "cafes",
+      "img": "img/mocaccino.jpg",
+      "images": [
+        "img/mocaccino.jpg"
+      ],
+      "short_desc": "Mocaccino.",
+      "description": "<p>Mocaccino.</p><p>Con un toque de chocolate.</p>",
+      "details": {
+        "Tipo": "Mocaccino",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        47
+      ]
+    },
+    {
+      "id": 46,
+      "sku": "LP-CAF-014",
+      "name": "Chocolate c/l",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "cafes",
+      "img": "img/chocolate-leche.jpg",
+      "images": [
+        "img/chocolate-leche.jpg"
+      ],
+      "short_desc": "Chocolate con leche.",
+      "description": "<p>Chocolate con leche.</p><p>Dulce y reconfortante.</p>",
+      "details": {
+        "Tipo": "Chocolate",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        48
+      ]
+    },
+    {
+      "id": 47,
+      "sku": "LP-CAF-015",
+      "name": "Submarino",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "cafes",
+      "img": "img/submarino.jpg",
+      "images": [
+        "img/submarino.jpg"
+      ],
+      "short_desc": "Submarino.",
+      "description": "<p>Submarino.</p><p>Leche caliente con chocolate.</p>",
+      "details": {
+        "Tipo": "Submarino",
+        "Presentación": "Taza",
+        "Temperatura": "Caliente",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        33,
+        49
+      ]
+    },
+    {
+      "id": 48,
+      "sku": "LP-SAL-001",
+      "name": "Cuñapé",
+      "brand": "LA PIANOLA",
+      "price": 4,
+      "cat": "salados",
+      "img": "img/cunape.jpg",
+      "images": [
+        "img/cunape.jpg"
+      ],
+      "short_desc": "Pan de queso tradicional.",
+      "description": "<p>Pan de queso tradicional.</p><p>Perfecto para acompañar tu café o té.</p>",
+      "details": {
+        "Ingredientes": "Almidón de yuca, queso",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        49,
+        50
+      ]
+    },
+    {
+      "id": 49,
+      "sku": "LP-SAL-002",
+      "name": "Revuelto/Huevo",
+      "brand": "LA PIANOLA",
+      "price": 22,
+      "cat": "salados",
+      "img": "img/revuelto-huevo.jpg",
+      "images": [
+        "img/revuelto-huevo.jpg"
+      ],
+      "short_desc": "Huevos revueltos al gusto.",
+      "description": "<p>Huevos revueltos al gusto.</p><p>Una opción simple y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Huevos",
+        "Porción": "Individual",
+        "Preparación": "Revuelto",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        48,
+        51
+      ]
+    },
+    {
+      "id": 50,
+      "sku": "LP-SAL-003",
+      "name": "Omelette",
+      "brand": "LA PIANOLA",
+      "price": 30,
+      "cat": "salados",
+      "img": "img/omelette.jpg",
+      "images": [
+        "img/omelette.jpg"
+      ],
+      "short_desc": "Omelette relleno de queso y verduras.",
+      "description": "<p>Omelette relleno de queso y verduras.</p><p>Una opción más completa.</p>",
+      "details": {
+        "Ingredientes": "Huevos, queso, verduras",
+        "Porción": "Individual",
+        "Preparación": "A la plancha",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        48,
+        52
+      ]
+    },
+    {
+      "id": 51,
+      "sku": "LP-SAL-004",
+      "name": "Sandwich /Miga",
+      "brand": "LA PIANOLA",
+      "price": 15,
+      "cat": "salados",
+      "img": "img/sandwich-miga.jpg",
+      "images": [
+        "img/sandwich-miga.jpg"
+      ],
+      "short_desc": "Sándwich de miga clásico.",
+      "description": "<p>Sándwich de miga clásico.</p><p>Ideal para una merienda rápida.</p>",
+      "details": {
+        "Ingredientes": "Pan de miga, jamón, queso",
+        "Porción": "Individual",
+        "Preparación": "Frío",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        49,
+        53
+      ]
+    },
+    {
+      "id": 52,
+      "sku": "LP-SAL-005",
+      "name": "Supremo Desmechado",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "salados",
+      "img": "img/supremo-desmechado.jpg",
+      "images": [
+        "img/supremo-desmechado.jpg"
+      ],
+      "short_desc": "Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.",
+      "description": "<p>Pollo desmechado c/Tomate, Lechuga y Salsa Rosa en Pan Miga Tostado.</p><p>Un sándwich fresco y sabroso.</p>",
+      "details": {
+        "Ingredientes": "Pollo, tomate, lechuga, salsa rosa, pan de miga",
+        "Porción": "Individual",
+        "Preparación": "Tostado",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        50,
+        53
+      ]
+    },
+    {
+      "id": 53,
+      "sku": "LP-SAL-006",
+      "name": "Sunrise Sandwich",
+      "brand": "LA PIANOLA",
+      "price": 18,
+      "cat": "salados",
+      "img": "img/sunrise-sandwich.jpg",
+      "images": [
+        "img/sunrise-sandwich.jpg"
+      ],
+      "short_desc": "Sándwich de Huevo/Pan Miga.",
+      "description": "<p>Sándwich de Huevo/Pan Miga.</p><p>Una opción saludable y deliciosa.</p>",
+      "details": {
+        "Ingredientes": "Huevo, pan de miga",
+        "Porción": "Individual",
+        "Preparación": "A la plancha",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        51,
+        54
+      ]
+    },
+    {
+      "id": 54,
+      "sku": "LP-SAL-007",
+      "name": "Empanada/Queso",
+      "brand": "LA PIANOLA",
+      "price": 4,
+      "cat": "salados",
+      "img": "img/empanada-queso.jpg",
+      "images": [
+        "img/empanada-queso.jpg"
+      ],
+      "short_desc": "Empanada de queso.",
+      "description": "<p>Empanada de queso.</p><p>Perfecta para acompañar tu café.</p>",
+      "details": {
+        "Ingredientes": "Queso, masa",
+        "Porción": "Individual",
+        "Preparación": "Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        53,
+        55
+      ]
+    },
+    {
+      "id": 55,
+      "sku": "LP-SAL-008",
+      "name": "Salteña Especial",
+      "brand": "LA PIANOLA",
+      "price": 8,
+      "cat": "salados",
+      "img": "img/saltena-especial.jpg",
+      "images": [
+        "img/saltena-especial.jpg"
+      ],
+      "short_desc": "Salteña de Pollo y Carne.",
+      "description": "<p>Salteña de Pollo y Carne.</p><p>La especialidad de la casa.</p>",
+      "details": {
+        "Ingredientes": "Pollo, carne, papa, huevo, aceituna",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        54,
+        56
+      ]
+    },
+    {
+      "id": 56,
+      "sku": "LP-SAL-009",
+      "name": "Salteña Común",
+      "brand": "LA PIANOLA",
+      "price": 7,
+      "cat": "salados",
+      "img": "img/saltena-comun.jpg",
+      "images": [
+        "img/saltena-comun.jpg"
+      ],
+      "short_desc": "Salteña de Carne.",
+      "description": "<p>Salteña de Carne.</p><p>La clásica que nunca falla.</p>",
+      "details": {
+        "Ingredientes": "Carne, papa, huevo, aceituna",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        55,
+        57
+      ]
+    },
+    {
+      "id": 57,
+      "sku": "LP-SAL-010",
+      "name": "Tucumanas",
+      "brand": "LA PIANOLA",
+      "price": 5,
+      "cat": "salados",
+      "img": "img/tucumanas.jpg",
+      "images": [
+        "img/tucumanas.jpg"
+      ],
+      "short_desc": "Empanada tucumana.",
+      "description": "<p>Empanada tucumana.</p><p>Un clásico argentino.</p>",
+      "details": {
+        "Ingredientes": "Carne, papa, especias",
+        "Porción": "Individual",
+        "Preparación": "Frita",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        56,
+        58
+      ]
+    },
+    {
+      "id": 58,
+      "sku": "LP-DUL-001",
+      "name": "Brownie",
+      "brand": "LA PIANOLA",
+      "price": 15,
+      "cat": "dulces",
+      "img": "img/brownie.jpg",
+      "images": [
+        "img/brownie.jpg"
+      ],
+      "short_desc": "Brownie de chocolate.",
+      "description": "<p>Brownie de chocolate.</p><p>Húmedo y delicioso.</p>",
+      "details": {
+        "Ingredientes": "Chocolate, harina, huevo",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        59,
+        60
+      ]
+    },
+    {
+      "id": 59,
+      "sku": "LP-DUL-002",
+      "name": "Alfajor",
+      "brand": "LA PIANOLA",
+      "price": 4,
+      "cat": "dulces",
+      "img": "img/alfajor.jpg",
+      "images": [
+        "img/alfajor.jpg"
+      ],
+      "short_desc": "Alfajor de dulce de leche.",
+      "description": "<p>Alfajor de dulce de leche.</p><p>El dulce tradicional.</p>",
+      "details": {
+        "Ingredientes": "Dulce de leche, galleta, chocolate",
+        "Porción": "Individual",
+        "Preparación": "Frío",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        58,
+        60
+      ]
+    },
+    {
+      "id": 60,
+      "sku": "LP-DUL-003",
+      "name": "Bizcochuelo",
+      "brand": "LA PIANOLA",
+      "price": 5,
+      "cat": "dulces",
+      "img": "img/bizcochuelo.jpg",
+      "images": [
+        "img/bizcochuelo.jpg"
+      ],
+      "short_desc": "Bizcochuelo casero.",
+      "description": "<p>Bizcochuelo casero.</p><p>Esponjoso y suave.</p>",
+      "details": {
+        "Ingredientes": "Harina, huevo, azúcar",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        59,
+        61
+      ]
+    },
+    {
+      "id": 61,
+      "sku": "LP-DUL-004",
+      "name": "Media Luna Simple",
+      "brand": "LA PIANOLA",
+      "price": 7,
+      "cat": "dulces",
+      "img": "img/media-luna-simple.jpg",
+      "images": [
+        "img/media-luna-simple.jpg"
+      ],
+      "short_desc": "Media luna simple.",
+      "description": "<p>Media luna simple.</p><p>Perfecta para el café.</p>",
+      "details": {
+        "Ingredientes": "Harina, manteca",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        59,
+        62
+      ]
+    },
+    {
+      "id": 62,
+      "sku": "LP-DUL-005",
+      "name": "Media Luna",
+      "brand": "LA PIANOLA",
+      "price": 10,
+      "cat": "dulces",
+      "img": "img/media-luna.jpg",
+      "images": [
+        "img/media-luna.jpg"
+      ],
+      "short_desc": "Media luna rellena de Jamón & Queso o Dulce de leche.",
+      "description": "<p>Media luna rellena de Jamón & Queso o Dulce de leche.</p><p>Elegí tu relleno favorito.</p>",
+      "details": {
+        "Ingredientes": "Harina, manteca, relleno",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        60,
+        63
+      ]
+    },
+    {
+      "id": 63,
+      "sku": "LP-DUL-006",
+      "name": "Torta de Chocolate",
+      "brand": "LA PIANOLA",
+      "price": 20,
+      "cat": "dulces",
+      "img": "img/torta-chocolate.jpg",
+      "images": [
+        "img/torta-chocolate.jpg"
+      ],
+      "short_desc": "Torta de chocolate.",
+      "description": "<p>Torta de chocolate.</p><p>Intensa y cremosa.</p>",
+      "details": {
+        "Ingredientes": "Chocolate, harina, huevo",
+        "Porción": "Individual",
+        "Preparación": "Al horno",
+        "Garantía": "Calidad garantizada"
+      },
+      "pairsWith": [
+        58,
+        62
+      ]
+    }
+  ],
+  "promotions": [
+    {
+      "id": 1,
+      "badge": "NUEVO",
+      "title": "Desayuno Continental",
+      "sub": "Te o Café + Tostadas + Mermelada",
+      "image": "img/promo-desayuno-continental.jpeg",
+      "cat": "desayunos",
+      "fullDescription": "Desayuno Continental: Te o Café, Tostadas, Mermelada, Mantequilla y Jugo.",
+      "validUntil": "Consultar vigencia vigente en tienda",
+      "conditions": [
+        "Precio final según modelo",
+        "Delivery coordinado por separado",
+        "Sujeto a stock disponible"
+      ]
+    },
+    {
+      "id": 2,
+      "badge": "AHORRO",
+      "title": "Desayuno Americano",
+      "sub": "Te o Café + Tostadas + Huevos Revueltos",
+      "image": "img/promo-desayuno-americano.jpeg",
+      "cat": "desayunos",
+      "fullDescription": "Desayuno Americano: Te o Café, Tostadas, Mermelada, Mantequilla, Huevos Revueltos y Jugo.",
+      "validUntil": "Consultar vigencia vigente en tienda",
+      "conditions": [
+        "Aplica a salteñas seleccionadas",
+        "Sujeto a stock disponible",
+        "No acumulable con otras promos"
+      ]
+    },
+    {
+      "id": 3,
+      "badge": "COMBO",
+      "title": "Combo Familiar",
+      "sub": "Platos + Refrescos",
+      "image": "img/promo-combo-familiar.jpeg",
+      "cat": "platos",
+      "fullDescription": "Combina platos a la carta y refrescos para compartir en familia. Consulta por combos disponibles.",
+      "validUntil": "Consultar vigencia vigente en tienda",
+      "conditions": [
+        "Delivery sin costo en compras seleccionadas",
+        "Sujeto a stock disponible",
+        "Tiempo de entrega según stock"
+      ]
+    }
+  ],
+  "hero_images": [
+    {
+      "id": 1,
+      "url": "img/hero-1.jpeg",
+      "order": 0
+    },
+    {
+      "id": 2,
+      "url": "img/hero-2.jpeg",
+      "order": 1
+    },
+    {
+      "id": 3,
+      "url": "img/hero-3.jpeg",
+      "order": 2
+    }
+  ],
+  "store_info": [
+    {
+      "id": 1,
+      "story": "Somos un negocio boliviano con más de 30 años de tradición, ubicado en Yacuiba. Nos especializamos en salteñas y empanadas, elaboradas con recetas de antaño y el sabor que nos caracteriza.",
+      "mission": "Preparar las mejores salteñas de Yacuiba con ingredientes frescos y atención personalizada. Queremos ser tu opción de confianza para disfrutar en casa o en el local.",
+      "hours": "Lun – Dom: 07:00 – 21:00",
+      "address": "Yacuiba, Bolivia",
+      "email": "ventas@lapianola.bo",
+      "instagram": "@lapianola.yacuiba"
+    }
+  ]
+}
