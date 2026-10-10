@@ -30,6 +30,24 @@ export default {
       '/api/store-info': 'store_info?id=eq.1',
     };
 
+    // Proxy para imágenes de Storage (bucket privado)
+    if (url.pathname.startsWith('/api/image/')) {
+      const path = decodeURIComponent(url.pathname.replace('/api/image/', ''));
+      const bucket = env.SUPABASE_BUCKET || 'images';
+      const imageUrl = `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}`;
+      const imgRes = await fetch(imageUrl, {
+        headers: {
+          apikey: anonKey,
+          Authorization: `Bearer ${anonKey}`,
+        },
+      });
+      if (!imgRes.ok) return new Response('Not Found', { status: 404 });
+      const blob = await imgRes.blob();
+      return new Response(blob, {
+        headers: { 'Content-Type': imgRes.headers.get('Content-Type') || 'image/jpeg', 'Cache-Control': 'public, max-age=3600' },
+      });
+    }
+
     const relative = routes[url.pathname];
     if (!relative) {
       return new Response('Not Found', { status: 404 });
@@ -56,13 +74,34 @@ export default {
       } else if (url.pathname === '/api/products') {
         payload = (data || []).map(p => ({
           id: p.id,
-          sku: p.sku || '',
           name: p.name,
           brand: p.brand || 'LA PIANOLA',
           price: Number(p.price),
           cat: p.cat,
           img: p.img,
-          images: Array.isArray(p.images) ? p.images : [p.img],
+          images: (() => {
+            const primary = typeof p.img === 'string' && p.img.trim() ? p.img.trim() : '';
+            let list = [];
+            if (Array.isArray(p.images)) {
+              list = p.images.filter(u => typeof u === 'string' && u.trim()).map(u => u.trim());
+            } else if (typeof p.images === 'string' && p.images.trim()) {
+              const raw = p.images.trim();
+              if (raw.startsWith('[')) {
+                try {
+                  const parsed = JSON.parse(raw);
+                  if (Array.isArray(parsed)) list = parsed.filter(u => typeof u === 'string' && u.trim()).map(u => u.trim());
+                } catch (_) {
+                  list = [raw];
+                }
+              } else {
+                list = [raw];
+              }
+            }
+            if (primary) list = [primary, ...list.filter(u => u !== primary)];
+            list = [...new Set(list.filter(Boolean))];
+            const remote = list.filter(u => /^https?:\/\//i.test(u));
+            return remote.length ? remote : (list.length ? list : (primary ? [primary] : []));
+          })(),
           short_desc: p.short_desc || '',
           description: p.description || '',
           details: p.details || {},

@@ -363,7 +363,7 @@ body {
             <button type="button" class="btn btn-primary" id="btn-new-product"><i class="fas fa-plus"></i> Nuevo producto</button>
           </div>
           <div class="toolbar">
-            <input type="search" id="product-search" placeholder="Buscar por nombre o SKU...">
+            <input type="search" id="product-search" placeholder="Buscar por nombre...">
             <select id="product-filter-cat">
               <option value="">Todas las categorías</option>
             </select>
@@ -1252,7 +1252,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let error;
     if (id) {
-      const result = await sbClient.from('products').update(payload).eq('id', id);
+      const result = await sbClient.from('products').update({ ...payload, images: [payload.img] }).eq('id', id);
       error = result.error;
     } else {
       const result = await sbClient.from('products').insert([{ ...payload, brand: 'LA PIANOLA', images: [payload.img] }]);

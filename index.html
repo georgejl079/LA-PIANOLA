@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#1a1a1a">
-<meta name="description" content="LA PIANOLA · Salteñas tradicionales desde 1994. Catálogo online, promociones y atención por WhatsApp en Yacuiba, Bolivia.">
+<meta name="description" content="LA PIANOLA · Salteñas tradicionales desde 1944. Catálogo online, promociones y atención por WhatsApp en Yacuiba, Bolivia.">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>LA PIANOLA | Salteñas – Tradición y sabor desde 1994 en Yacuiba</title>
+<title>LA PIANOLA | Salteñas – Tradición y sabor desde 1944 en Yacuiba</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -574,7 +574,6 @@ border-radius: 100px;
 z-index: 2;
 }
 .card h4 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; margin-bottom: 4px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
-.card .sku { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 4px; }
 .card .row { display: flex; justify-content: space-between; align-items: center; }
 .card .price { font-weight: 700; font-size: 0.9rem; color: var(--accent); font-family: 'Oswald', sans-serif; }
 .card-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
@@ -680,8 +679,6 @@ background: none;
 .pd-breadcrumb { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Oswald', sans-serif; }
 .pd-breadcrumb button { background: none; border: none; color: var(--accent); cursor: pointer; font-size: inherit; }
 .pd-name { font-size: 1.6rem; line-height: 1.15; margin-bottom: 8px; color: #fff; }
-.pd-sku { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
-.pd-sku code { background: var(--surface); padding: 2px 8px; border-radius: 4px; font-family: monospace; color: var(--accent); }
 .pd-price { font-size: 1.6rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; font-family: 'Oswald', sans-serif; }
 .pd-stock { font-size: 0.75rem; color: #25D366; margin-bottom: 20px; }
 .opt-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; }
@@ -1638,7 +1635,7 @@ body{
 </head>
 <body>
 <header class="app-header" id="app-header">
-<div class="announcement"> LA PIANOLA · SALTEÑAS TRADICIONALES · DESDE 1994 · YACUIBA</div>
+<div class="announcement"> LA PIANOLA · SALTEÑAS TRADICIONALES · DESDE 1944 · YACUIBA</div>
 <div class="header-inner">
 <div class="header-row header-mobile">
 <!-- LOGO IMAGEN EN MÓVIL -->
@@ -1742,7 +1739,6 @@ Desarrollado por <strong>KEY STUDIO</strong>
 / <span id="pd-cat-label"></span>
 </p>
 <h1 class="pd-name" id="pd-name"></h1>
-<p class="pd-sku">SKU: <code id="pd-sku"></code></p>
 <p class="pd-price" id="pd-price"></p>
 <p class="pd-stock"><i class="fas fa-check-circle"></i> Disponible · Calidad garantizada</p>
 <button type="button" class="link-btn" style="margin-bottom:16px;display:flex;align-items:center;gap:6px;" onclick="App.shareProduct(App.product && App.product.id)"><i class="fas fa-share-alt"></i> Compartir producto</button>
@@ -1764,7 +1760,7 @@ Desarrollado por <strong>KEY STUDIO</strong>
 <main id="view-about" class="view">
 <div class="about-hero">
 <h1>LA PIANOLA</h1>
-<p>Salteñas tradicionales · Yacuiba, Bolivia · Desde 1994</p>
+<p>Salteñas tradicionales · Yacuiba, Bolivia · Desde 1944</p>
 </div>
 <div class="about-content" id="about-content"></div>
 </main>
@@ -1820,7 +1816,7 @@ Desarrollado por <strong>KEY STUDIO</strong>
 <div class="site-footer-inner">
 <div>
 <h3>LA PIANOLA</h3>
-<p>Salteñas tradicionales desde 1994. Calidad, sabor y tradición en Yacuiba, Bolivia.</p>
+<p>Salteñas tradicionales desde 1944. Calidad, sabor y tradición en Yacuiba, Bolivia.</p>
 </div>
 <div>
 <h4>Navegación</h4>
@@ -1857,6 +1853,68 @@ Desarrollado por <strong>KEY STUDIO</strong>
 const USE_API = true;
 const SUPABASE_URL = 'https://ctrfgdlleaxcxlwrxqub.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0cmZnZGxsZWF4Y3hsd3J4cXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDI0NTgsImV4cCI6MjEwNjI3ODQ1OH0.dsIkortIxEY3Pm5zvcwE_EV4nfksT-ELVK0LGdOUg74';
+const SUPABASE_BUCKET = 'images';
+
+// Reescribe URLs de Supabase Storage para usar el proxy del worker
+function rewriteImageUrl(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (url.startsWith('/api/image/')) return url;
+  const prefix = `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/`;
+  if (url.startsWith(prefix)) {
+    return `/api/image/${url.slice(prefix.length)}`;
+  }
+  return url;
+}
+
+function parseImageList(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) {
+    return value.filter(u => typeof u === 'string' && u.trim()).map(u => u.trim());
+  }
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) {
+          return parsed.filter(u => typeof u === 'string' && u.trim()).map(u => u.trim());
+        }
+      } catch (_) { /* texto plano */ }
+    }
+    return [trimmed];
+  }
+  return [];
+}
+
+// Prioriza img (la que sí carga en el listado) y descarta rutas locales viejas si hay URL remota
+function normalizeProductImages(p) {
+  if (!p) return [];
+  const primary = typeof p.img === 'string' && p.img.trim() ? p.img.trim() : '';
+  let list = parseImageList(p.images);
+  if (primary) list = [primary, ...list.filter(u => u !== primary)];
+  list = [...new Set(list.filter(Boolean))];
+  const remote = list.filter(u => /^https?:\/\//i.test(u) || u.startsWith('/api/image/'));
+  return remote.length ? remote : list;
+}
+
+function getProductImages(p) {
+  return normalizeProductImages(p).map(rewriteImageUrl).filter(Boolean);
+}
+
+function rewriteImages(obj) {
+  if (!obj) return obj;
+  if (typeof obj === 'string') return rewriteImageUrl(obj);
+  if (Array.isArray(obj)) return obj.map(rewriteImages);
+  if (typeof obj === 'object') {
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = rewriteImages(v);
+    }
+    return out;
+  }
+  return obj;
+}
 
 async function sbFetch(path) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
@@ -1879,22 +1937,24 @@ async function loadFromApi() {
     sbFetch('store_info?id=eq.1'),
   ]);
   const store = storeRows && storeRows[0] ? storeRows[0] : {};
-  return {
+  const data = {
     categories: (cats || []).map(c => ({ id: c.id, name: c.name, image: c.image })),
-    products: (prods || []).map(p => ({
-      id: p.id,
-      sku: p.sku || '',
-      name: p.name,
-      brand: p.brand || 'LA PIANOLA',
-      price: Number(p.price),
-      cat: p.cat,
-      img: p.img,
-      images: Array.isArray(p.images) ? p.images : [p.img],
-      short_desc: p.short_desc || '',
-      description: p.description || '',
-      details: p.details || {},
-      pairsWith: Array.isArray(p.pairsWith) ? p.pairsWith : [],
-    })),
+    products: (prods || []).map(p => {
+      const images = normalizeProductImages(p);
+      return {
+        id: p.id,
+        name: p.name,
+        brand: p.brand || 'LA PIANOLA',
+        price: Number(p.price),
+        cat: p.cat,
+        img: images[0] || p.img || '',
+        images: images.length ? images : (p.img ? [p.img] : []),
+        short_desc: p.short_desc || '',
+        description: p.description || '',
+        details: p.details || {},
+        pairsWith: Array.isArray(p.pairsWith) ? p.pairsWith : [],
+      };
+    }),
     promotions: (promos || []).map(p => ({
       badge: p.badge || '',
       title: p.title,
@@ -1915,6 +1975,7 @@ async function loadFromApi() {
       instagram: store.instagram || '',
     },
   };
+  return rewriteImages(data);
 }
 
 const CONFIG = {
@@ -1925,7 +1986,7 @@ const CONFIG = {
   },
   store: {
     name: 'LA PIANOLA',
-    tagline: 'Salteñas tradicionales desde 1994',
+    tagline: 'Salteñas tradicionales desde 1944',
     story: 'Somos un negocio boliviano con más de 30 años de tradición, ubicado en Yacuiba. Nos especializamos en salteñas y empanadas, elaboradas con recetas de antaño y el sabor que nos caracteriza.',
     mission: 'Preparar las mejores salteñas de Yacuiba con ingredientes frescos y atención personalizada. Queremos ser tu opción de confianza para disfrutar en casa o en el local.',
     hours: 'Lun – Dom: 07:00 – 21:00',
@@ -3163,15 +3224,19 @@ this.selColor = null;
 this.selSize = null;
 document.body.classList.add('product-open');
 document.getElementById('app-header').style.display = this.isMobile() ? 'none' : '';
-document.getElementById('pd-main-img').src = p.images[0];
-document.getElementById('pd-main-img').loading = 'lazy';
-document.getElementById('pd-main-img').decoding = 'async';
-document.getElementById('pd-thumbs').innerHTML = p.images.map((src, i) =>
-`<button type="button" class="pd-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.setImage(this)"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`
+const mainImg = document.getElementById('pd-main-img');
+const imageSources = getProductImages(p);
+const fallbackImg = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500"%3E%3Crect fill="%232a2a2a" width="400" height="500"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23888" font-family="system-ui" font-size="14"%3EImagen no disponible%3C/text%3E%3C/svg%3E';
+mainImg.src = imageSources[0] || fallbackImg;
+mainImg.alt = p.name;
+mainImg.loading = 'lazy';
+mainImg.decoding = 'async';
+mainImg.onerror = () => { mainImg.onerror = null; mainImg.src = fallbackImg; };
+document.getElementById('pd-thumbs').innerHTML = imageSources.map((src, i) =>
+`<button type="button" class="pd-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.setImage(this)"><img src="${src}" alt="" loading="lazy" decoding="async" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2280%22 viewBox=%220 0 64 80%22%3E%3Crect fill=%22%232a2a2a%22 width=%2264%22 height=%2280%22/%3E%3C/svg%3E'"></button>`
 ).join('');
 document.getElementById('pd-cat-label').textContent = catLabels[p.cat];
 document.getElementById('pd-name').textContent = p.name;
-document.getElementById('pd-sku').textContent = p.sku + (p.brand ? ' · Marca: ' + p.brand : '');
 document.getElementById('pd-price').textContent = 'Bs. ' + p.price;
 document.getElementById('pd-price-sticky').textContent = 'Bs. ' + p.price;
 const priceBtn = document.getElementById('pd-price-btn');
@@ -3211,12 +3276,12 @@ document.getElementById('panel-' + tab).classList.add('active');
 },
 addToCart() {
 const p = this.product;
+const imgs = getProductImages(p);
 this.cart.push({
 id: p.id,
-sku: p.sku,
 name: p.name,
 price: p.price,
-img: p.img
+img: imgs[0] || rewriteImageUrl(p.img) || ''
 });
 this.updateCart();
 localStorage.setItem('lapianola_cart', JSON.stringify(this.cart));
@@ -3270,11 +3335,11 @@ box.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px 0;"
 } else {
 box.innerHTML = this.cart.map((item, i) => {
 total += item.price;
+const imgSrc = rewriteImageUrl(item.img) || item.img || '';
 return `<div class="cart-item">
-<img src="${item.img}" alt="" loading="lazy" decoding="async">
+<img src="${imgSrc}" alt="" loading="lazy" decoding="async">
 <div style="flex:1;">
 <p style="font-weight:600;font-size:0.85rem;">${item.name}</p>
-<p style="font-size:0.7rem;color:var(--dim);">SKU ${item.sku}</p>
 <p style="font-weight:700;margin-top:4px;color:var(--accent);">Bs. ${item.price}</p>
 </div>
 <button type="button" class="icon-btn" style="width:36px;height:36px;" onclick="App.removeCart(${i})"><i class="fas fa-trash-alt"></i></button>
@@ -3292,7 +3357,7 @@ whatsapp() {
 const phone = CONFIG.phone;
 let msg;
 if (this.cart.length) {
-const lines = this.cart.map(p => `• ${p.name} (SKU: ${p.sku})`).join('\n');
+const lines = this.cart.map(p => `• ${p.name} - Bs. ${p.price}`).join('\n');
 msg = ` *PEDIDO LA PIANOLA*\n${lines}\n*Total estimado: ${document.getElementById('cart-total').textContent}*`;
 } else {
 msg = 'Hola LA PIANOLA, me gustaría más información sobre sus productos.';
@@ -3319,7 +3384,6 @@ return;
 this.go('shop');
 const found = products.filter(p =>
 p.name.toLowerCase().includes(q) ||
-p.sku.toLowerCase().includes(q) ||
 p.cat.includes(q)
 );
 document.getElementById('shop-categories').style.display = 'none';
@@ -3371,12 +3435,12 @@ g.innerHTML = data.length ? data.map(p => this.productCard(p)).join('') :
 },
 productCard(p) {
 const brandTag = p.brand ? `<span class="brand-tag">${p.brand}</span>` : '';
+const imgSrc = getProductImages(p)[0] || '';
 return `<div class="card">
 <button type="button" class="card-img-btn" onclick="App.openProduct(${p.id})" aria-label="Ver ${p.name}">
-<div class="card-img"><img src="${p.img}" alt="${p.name}" loading="lazy">${brandTag}</div>
+<div class="card-img"><img src="${imgSrc}" alt="${p.name}" loading="lazy">${brandTag}</div>
 </button>
 <button type="button" class="card-info" onclick="App.openProduct(${p.id})">
-<p class="sku">${p.sku}${p.brand ? ' · ' + p.brand : ''}</p>
 <h4>${p.name}</h4>
 <div class="row"><span class="price">Bs. ${p.price}</span><span style="font-size:0.65rem;color:var(--muted);">${catLabels[p.cat]}</span></div>
 </button>
@@ -3392,7 +3456,7 @@ return `<div class="card">
 quickWhatsapp(id) {
 const p = products.find(x => x.id === Number(id));
 if (!p) return;
-const msg = `Hola LA PIANOLA, me interesa este producto:\n*${p.name}* (SKU: ${p.sku})\nBs. ${p.price}\n¿Podrían darme más información?`;
+const msg = `Hola LA PIANOLA, me interesa este producto:\n*${p.name}*\nBs. ${p.price}\n¿Podrían darme más información?`;
 window.open('https://wa.me/' + CONFIG.phone + '?text=' + encodeURIComponent(msg), '_blank');
 },
 productUrl(id) {
@@ -3448,7 +3512,7 @@ return url.toString();
 },
 async sharePage() {
 const url = this.pageUrl();
-const shareData = { title: 'LA PIANOLA · Salteñas tradicionales desde 1994', text: 'Mira el menú de LA PIANOLA: salteñas, empanadas y más en Yacuiba.', url };
+const shareData = { title: 'LA PIANOLA · Salteñas tradicionales desde 1944', text: 'Mira el menú de LA PIANOLA: salteñas, empanadas y más en Yacuiba.', url };
 if (navigator.share) {
 try { await navigator.share(shareData); } catch (e) { /* cancelado por el usuario */ }
 return;
@@ -3485,14 +3549,15 @@ renderHero() {
 const track = document.getElementById('hero-carousel');
 if (!track) return;
 const heroCopy = [
-  {eyebrow:'LA PIANOLA · DESDE 1994', title:'Salteñas <span>tradicionales</span>', text:'El auténtico sabor de Yacuiba, preparado con recetas de antaño.', cta:'Ver menú'},
+  {eyebrow:'LA PIANOLA · DESDE 1944', title:'Salteñas <span>tradicionales</span>', text:'El auténtico sabor de Yacuiba, preparado con recetas de antaño.', cta:'Ver menú'},
   {eyebrow:'PLATOS · SANDWICH · DESAYUNOS', title:'Sabor que <span>se disfruta</span>', text:'Descubrí los combos que marcan tendencia esta temporada.', cta:'Explorar menú'},
   {eyebrow:'CAFÉS · DULCES · SALADOS', title:'Tu antojo. <span>Tu momento.</span>', text:'Renová tu hambre con platos pensados para vos.', cta:'Ver categorías'}
 ];
 track.innerHTML = heroImages.map((src, i) => {
   const c = heroCopy[i] || heroCopy[0];
   const action = i === 1 ? "App.filter('saltenas'); App.go('shop')" : i === 2 ? "App.go('shop')" : "App.go('shop')";
-  return `<div class="hero-slide${i === 0 ? ' active' : ''}" style="background-image:url('${src}')"><img src="${src}" alt="LA PIANOLA — Salteñas tradicionales" loading="${i === 0 ? 'eager' : 'lazy'}"><div class="hero-content"><span class="eyebrow">${c.eyebrow}</span><h1>${c.title}</h1><p>${c.text}</p><button type="button" class="hero-cta" onclick="event.stopPropagation();${action}">${c.cta} <i class="fas fa-arrow-right"></i></button></div></div>`;
+  const rsrc = rewriteImageUrl(src);
+  return `<div class="hero-slide${i === 0 ? ' active' : ''}" style="background-image:url('${rsrc}')"><img src="${rsrc}" alt="LA PIANOLA — Salteñas tradicionales" loading="${i === 0 ? 'eager' : 'lazy'}"><div class="hero-content"><span class="eyebrow">${c.eyebrow}</span><h1>${c.title}</h1><p>${c.text}</p><button type="button" class="hero-cta" onclick="event.stopPropagation();${action}">${c.cta} <i class="fas fa-arrow-right"></i></button></div></div>`;
 }).join('') +
 `<div class="hero-dots">${heroImages.map((_, i) =>
 `<button type="button" class="hero-dot${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="App.goToHeroSlide(${i})" aria-label="Ver imagen ${i + 1}"></button>`
@@ -3516,12 +3581,12 @@ renderHome() {
 document.getElementById('home-promos').innerHTML = promotions.map((pr, idx) =>
 `<article class="promo-card" onclick="App.openPromoModal(${idx});">
 <button type="button" class="card-float-share" onclick="event.stopPropagation(); App.sharePromo(${idx})" aria-label="Compartir promoción"><i class="fas fa-share-alt"></i></button>
-<img src="${pr.image}" alt="" loading="lazy" decoding="async"><div class="promo-body"><span class="badge">${pr.badge}</span><strong>${pr.title}</strong><p>${pr.sub}</p></div>
+<img src="${rewriteImageUrl(pr.image)}" alt="" loading="lazy" decoding="async"><div class="promo-body"><span class="badge">${pr.badge}</span><strong>${pr.title}</strong><p>${pr.sub}</p></div>
 </article>`
 ).join('');
 document.getElementById('home-cats').innerHTML = categories.map(c =>
 `<article class="cat-card" onclick="App.filter('${c.id}'); App.go('shop');">
-<img src="${c.image}" alt="${c.name}" loading="lazy" decoding="async"><span>${c.name}</span>
+<img src="${rewriteImageUrl(c.image)}" alt="${c.name}" loading="lazy" decoding="async"><span>${c.name}</span>
 </article>`
 ).join('');
 this.renderGrid('home-featured', products.slice(0, 4));
@@ -3618,7 +3683,7 @@ const data = cat === 'all' ? projects : projects.filter(p => p.cat === cat);
 document.getElementById('portfolio-grid').innerHTML = data.map(p => `
 <div class="portfolio-card-wrap">
 <button type="button" class="portfolio-card" onclick="App.openProjectModal(${p.id})">
-<img src="${p.image}" alt="${p.title}" loading="lazy">
+<img src="${rewriteImageUrl(p.image)}" alt="${p.title}" loading="lazy">
 <div class="portfolio-overlay">
 <span class="badge">${catLabels[p.cat]}</span>
 <strong>${p.title}</strong>
@@ -3648,7 +3713,7 @@ shareProjectCard(id) { this.shareProject(id); },
 openProjectModal(id) {
 const p = projects.find(x => x.id === Number(id));
 if (!p) return;
-const gallery = (p.images && p.images.length) ? p.images : [p.image];
+const gallery = ((p.images && p.images.length) ? p.images : [p.image]).map(rewriteImageUrl);
 this.currentProjectGallery = gallery;
 document.getElementById('pf-modal-img').src = gallery[0];
 document.getElementById('pf-modal-img').loading = 'lazy';
@@ -3706,7 +3771,7 @@ window.open('https://wa.me/?text=' + encodeURIComponent(shareData.text + ' ' + u
 openPromoModal(idx) {
 const pr = promotions[Number(idx)];
 if (!pr) return;
-document.getElementById('promo-modal-img').src = pr.image;
+document.getElementById('promo-modal-img').src = rewriteImageUrl(pr.image);
 document.getElementById('promo-modal-img').loading = 'lazy';
 document.getElementById('promo-modal-img').decoding = 'async';
 document.getElementById('promo-modal-img').alt = pr.title;
